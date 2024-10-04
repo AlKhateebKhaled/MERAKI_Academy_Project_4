@@ -101,4 +101,38 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getUserProfile, getAllUsers };
+const UpdateUserProfile = async (req, res) => {
+  try {
+    const { userName, email, password, address, role } = req.body;
+
+    const user = await userModel.findByIdAndUpdate(
+      req.token.userId,
+      {
+        $set: {
+          userName: userName,
+          email: email,
+          password: password,
+          address: address,
+          role: role,
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Account Updated Successfully",
+      user: user,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  getUserProfile,
+  getAllUsers,
+  UpdateUserProfile,
+};
