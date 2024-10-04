@@ -87,4 +87,18 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getUserProfile };
+const getAllUsers = async (req, res) => {
+  try {
+    const user = await userModel.find({}).populate("role");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Users not found" });
+    }
+    return res.status(200).json({ success: true, user });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = { register, login, getUserProfile, getAllUsers };

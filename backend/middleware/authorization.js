@@ -1,19 +1,12 @@
-const jwt = require("jsonwebtoken");
-
-const auth = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-
-    try {
-      const validToken = jwt.verify(token, process.env.SECRET);
-      req.token = validToken;
-      next();
-    } catch (err) {
-      return res.status(403).json({ success: false, message: "Invalid or expired token" });
-    }
-  } else {
-    return res.status(401).json({ success: false, message: "Authorization header is missing" });
-  }
-};
+const authorization = (action) => {
+    return (req, res, next) => {
+      if (req.token.role.permission.includes(action)) {
+        return next();
+      } else {
+        return res.status(403).json({ success: false, message: "Unauthorized" });
+      }
+    };
+  };
+  
+  module.exports = authorization;
+  
