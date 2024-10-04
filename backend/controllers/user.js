@@ -5,12 +5,11 @@ const userModel = require("../models/userSchema");
 const register = async (req, res) => {
   try {
     const { userName, email, password, address, role } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new userModel({
       userName,
       email,
-      password: hashedPassword,
+      password,
       address,
       role,
     });
@@ -36,11 +35,13 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const user = await userModel.findOne({ email }).populate("role");
 
     if (user) {
-      const isPasswordEqual = await bcrypt.compare(password, user.password);
+      const isPasswordEqual = await bcrypt.compare(
+        password.trim(),
+        user.password
+      );
 
       if (isPasswordEqual) {
         const payload = {
@@ -54,17 +55,21 @@ const login = async (req, res) => {
         const options = { expiresIn: "60m" };
         const token = jwt.sign(payload, process.env.SECRET, options);
 
-        res
+        return res
           .status(200)
           .json({ success: true, message: "Login Successful", token });
       } else {
-        res.status(401).json({ success: false, message: "Incorrect Password" });
+        return res
+          .status(401)
+          .json({ success: false, message: "Invalid credentials" });
       }
     } else {
-      res.status(404).json({ success: false, message: "Email not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Email not found" });
     }
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    return res.status(500).json({ success: false, message: err.message });
   }
 };
 
