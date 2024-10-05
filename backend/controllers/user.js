@@ -105,23 +105,163 @@ const UpdateUserProfile = async (req, res) => {
   try {
     const { userName, email, password, address, role } = req.body;
 
+    const updateFields = { userName, email, address, role };
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateFields.password = hashedPassword;
+    }
+
     const user = await userModel.findByIdAndUpdate(
       req.token.userId,
-      {
-        $set: {
-          userName: userName,
-          email: email,
-          password: password,
-          address: address,
-          role: role,
-        },
-      },
+      updateFields,
       { new: true }
     );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
     res.status(200).json({
       success: true,
       message: "Account Updated Successfully",
+      user: user,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+const deleteUserProfile = async (req, res) => {
+  try {
+    const user = await userModel.findByIdAndDelete(req.token.userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Account Deleted Successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const updateUserByAdmin = async (req, res) => {
+  try {
+    const { userName, email, password, address, role, accountStatus } =
+      req.body;
+
+    const updateFields = { userName, email, address, role, accountStatus };
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateFields.password = hashedPassword;
+    }
+
+    const user = await userModel.findByIdAndUpdate(
+      req.params.userId,
+      updateFields,
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User Updated Successfully",
+      user: user,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const deleteUserByAdmin = async (req, res) => {
+  try {
+    const user = await userModel.findByIdAndDelete(req.params.userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Account Deleted Successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const getUserByAdmin = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.params.userId).populate("role");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    return res.status(200).json({ success: true, user });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const lockUserAccount = async (req, res) => {
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      req.params.userId,
+      { accountStatus: "locked" },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User account has been locked",
+      user: user,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const unlockUserAccount = async (req, res) => {
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      req.params.userId,
+      { accountStatus: "active" },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User account has been unlocked",
       user: user,
     });
   } catch (err) {
@@ -135,4 +275,10 @@ module.exports = {
   getUserProfile,
   getAllUsers,
   UpdateUserProfile,
+  deleteUserProfile,
+  updateUserByAdmin,
+  deleteUserByAdmin,
+  getUserByAdmin,
+  lockUserAccount,
+  unlockUserAccount,
 };

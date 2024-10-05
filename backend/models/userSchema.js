@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   address: { type: String },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
+  accountStatus: {
+    type: String,
+    enum: ["active", "locked"],
+    default: "active",
+  },
 });
 
 userSchema.pre("save", async function () {
