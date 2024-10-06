@@ -5,6 +5,7 @@ const db = require("./models/db");
 const userRouter = require("./routes/user");
 const roleRouter = require("./routes/role");
 const productRouter = require("./routes/product");
+const categoryRouter = require("./routes/category");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/roles", roleRouter);
 app.use("/products", productRouter);
+app.use("/categories", categoryRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({ success: false, message: "No content at this path" });
