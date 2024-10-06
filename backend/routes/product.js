@@ -3,10 +3,26 @@ const auth = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 const accountLockCheck = require("../middleware/accountLockCheck");
 
-const { createProduct } = require("../controllers/product");
+const {
+  createProduct,
+  getAllProducts,
+  getProductById,
+  deleteProduct,
+  updateProduct,
+} = require("../controllers/product");
 
 const productRouter = express.Router();
 
 productRouter.post("/", auth, authorization("create_product"), createProduct);
+
+productRouter.get("/", accountLockCheck, getAllProducts);
+productRouter.get("/:id", accountLockCheck, getProductById);
+productRouter.put("/:id", auth, authorization("update_product"), updateProduct);
+productRouter.delete(
+  "/:id",
+  auth,
+  authorization("delete_product"),
+  deleteProduct
+);
 
 module.exports = productRouter;

@@ -5,7 +5,6 @@ const CategoryModel = require("../models/categorySchema");
 const validateProductInput = (productData) => {
   const {
     team,
-    description,
     Season,
     Type,
     Brand,
@@ -16,8 +15,18 @@ const validateProductInput = (productData) => {
     imageURL,
   } = productData;
 
-  if (!team || !price || !stock || !categoryID || !imageURL) {
-    return "Fields (team, price, stock, categoryID, imageURL) are required.";
+  if (
+    !team ||
+    !price ||
+    !stock ||
+    !categoryID ||
+    !imageURL ||
+    !Brand ||
+    !League ||
+    !Season ||
+    !Type
+  ) {
+    return "Fields (team, price, stock, categoryID,imageURL,Brand,League,Season,Type ) are required.";
   }
   return null;
 };
@@ -87,6 +96,107 @@ const createProduct = async (req, res) => {
   }
 };
 
+const getAllProducts = async (req, res) => {
+  try {
+    const product = await productModel.find({}).populate();
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Products not found" });
+    }
+    return res.status(200).json({ success: true, product });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const getProductById = async (req, res) => {
+  try {
+    const product = await productModel.findById(req.params.id).populate();
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+    return res.status(200).json({ success: true, product });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const {
+      team,
+      description,
+      Season,
+      Type,
+      price,
+      Brand,
+      League,
+      stock,
+      categoryID,
+      imageURL,
+    } = req.body;
+
+    const updateFields = {
+      team,
+      description,
+      Season,
+      Type,
+      price,
+      Brand,
+      League,
+      stock,
+      categoryID,
+      imageURL,
+    };
+
+    const product = await productModel.findByIdAndUpdate(
+      req.params.id,
+      updateFields,
+      { new: true }
+    );
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Product Updated Successfully",
+      product: product,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await productModel.findByIdAndDelete(req.params.id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Product Deleted Successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 module.exports = {
   createProduct,
+  getAllProducts,
+  getProductById,
+  deleteProduct,
+  updateProduct,
 };

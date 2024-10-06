@@ -7,6 +7,7 @@ const {
   getAllCategories,
   getCategoryById,
   deleteCategory,
+  updateCategory,
 } = require("../controllers/category");
 
 const categoryRouter = express.Router();
@@ -21,6 +22,13 @@ categoryRouter.post(
 categoryRouter.get("/", accountLockCheck, getAllCategories);
 
 categoryRouter.get("/:id", accountLockCheck, getCategoryById);
+
+categoryRouter.put(
+  "/:id",
+  auth,
+  authorization("update_category"),
+  updateCategory
+);
 
 categoryRouter.delete(
   "/:id",

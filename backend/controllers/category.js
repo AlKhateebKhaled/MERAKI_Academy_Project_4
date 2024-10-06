@@ -53,6 +53,35 @@ const getCategoryById = async (req, res) => {
   }
 };
 
+const updateCategory = async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    const updateFields = { name };
+
+    const category = await categoryModel.findByIdAndUpdate(
+      req.params.id,
+      updateFields,
+      { new: true }
+    );
+
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Category Updated Successfully",
+      category: category,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 const deleteCategory = async (req, res) => {
   try {
     const category = await categoryModel.findByIdAndDelete(req.params.id);
@@ -75,4 +104,5 @@ module.exports = {
   getAllCategories,
   getCategoryById,
   deleteCategory,
+  updateCategory,
 };
