@@ -8,6 +8,7 @@ const productRouter = require("./routes/product");
 const categoryRouter = require("./routes/category");
 const orderRouter = require("./routes/order");
 const cartRouter = require("./routes/cart");
+const wishRouter = require("./routes/wishList");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use("/products", productRouter);
 app.use("/categories", categoryRouter);
 app.use("/orders", orderRouter);
 app.use("/cart", cartRouter);
+app.use("/wishlist", wishRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({ success: false, message: "No content at this path" });
