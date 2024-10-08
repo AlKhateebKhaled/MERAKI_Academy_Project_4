@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number },
   categoryID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
   imageURL: { type: String },
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }]
 });
 
 const Product = mongoose.model("Product", productSchema);
