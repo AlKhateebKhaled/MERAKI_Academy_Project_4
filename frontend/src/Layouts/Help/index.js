@@ -1,18 +1,21 @@
 import { NavLink, Outlet } from "react-router-dom";
 
-export default function HelpLayout() {
+export default function Help() {
   return (
     <div className="help-layout">
       <h2>Website Help</h2>
       <p>
-        {" "}
-        nnnn nnnn nnn nn nnnnnnnn nn nnnn nnn n nnnnnn nnnn n nn n nnnnn nn n
-        nnnnnnnn n nn n n nnnn n nnnn nn n
+        If you have questions or need assistance, you've come to the right
+        place! Browse through our resources below to find what you need.
       </p>
 
-      <nav>
-        <NavLink to="faq">view the FAQ </NavLink>
-        <NavLink to="contact"> contact us </NavLink>
+      <nav className="help-nav">
+        <NavLink className="help-nav-link" to="faq">
+          View the FAQ
+        </NavLink>
+        <NavLink className="help-nav-link" to="contact">
+          Contact Us
+        </NavLink>
       </nav>
       <Outlet />
     </div>

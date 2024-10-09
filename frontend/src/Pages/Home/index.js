@@ -3,76 +3,36 @@ import "./style.css";
 
 const Home = () => {
   return (
-    <div className="homepage">
-      <header className="homepage-header">
-        <div className="logo">Football Shirts</div>
-        <input
-          type="text"
-          placeholder="Search for shirts..."
-          className="search-bar"
-        />
-      </header>
+    <div className="home-container">
+      <h1>Welcome to the Football Shirts Store</h1>
+      <p>Shop the latest men's shirts from your favorite leagues!</p>
 
-      <main>
-        <section className="featured-products">
-          <h2>Featured Products</h2>
-          <div className="product-list">
-            <div className="product">
-              <img src="path/to/image1.jpg" alt="Club Shirt 1" />
-              <h3>Manchester United Home Shirt</h3>
-              <p>$89.99</p>
-            </div>
-            <div className="product">
-              <img src="path/to/image2.jpg" alt="Club Shirt 2" />
-              <h3>FC Barcelona Away Shirt</h3>
-              <p>$89.99</p>
-            </div>
-            <div className="product">
-              <img src="path/to/image3.jpg" alt="Club Shirt 3" />
-              <h3>Liverpool FC Home Shirt</h3>
-              <p>$89.99</p>
-            </div>
-            {/* Add more products as needed */}
-          </div>
-        </section>
-
-        <section className="categories">
-          <h2>Shop by Category</h2>
-          <div className="category-list">
-            <div className="category">Men’s Shirts</div>
-            <div className="category">Women’s Shirts</div>
-            <div className="category">Kids’ Shirts</div>
-            <div className="category">Accessories</div>
-          </div>
-        </section>
-
-        <section className="clubs">
-          <h2>Clubs</h2>
-          <div className="club-list">
-            <div className="club">Manchester United</div>
-            <div className="club">FC Barcelona</div>
-            <div className="club">Liverpool FC</div>
-            <div className="club">Inter Milan</div>
-          </div>
-        </section>
-
-        <section className="promotions">
-          <h2>Special Promotions</h2>
-          <div className="promotion-banner">
-            <p>20% off on all kids' shirts!</p>
-          </div>
-        </section>
-      </main>
-
-      <footer className="homepage-footer">
-        <p>© 2024 Football Shirts. All rights reserved.</p>
-        <div className="footer-links">
-          <a href="/about">About Us</a>
-          <a href="/contact">Contact Us</a>
-          <a href="/privacy">Privacy Policy</a>
-          <a href="/terms">Terms and Conditions</a>
+      <h2>Featured Leagues</h2>
+      <div className="league-container">
+        <div className="league-card">
+          <h3>Serie A</h3>
+          <img src="path/to/serie-a-shirt.jpg" alt="Serie A Shirt" />
+          <button>Shop Serie A</button>
         </div>
-      </footer>
+        <div className="league-card">
+          <h3>Premier League</h3>
+          <img
+            src="path/to/premier-league-shirt.jpg"
+            alt="Premier League Shirt"
+          />
+          <button>Shop Premier League</button>
+        </div>
+        <div className="league-card">
+          <h3>La Liga</h3>
+          <img src="path/to/la-liga-shirt.jpg" alt="La Liga Shirt" />
+          <button>Shop La Liga</button>
+        </div>
+        <div className="league-card">
+          <h3>Bundesliga</h3>
+          <img src="path/to/bundesliga-shirt.jpg" alt="Bundesliga Shirt" />
+          <button>Shop Bundesliga</button>
+        </div>
+      </div>
     </div>
   );
 };
