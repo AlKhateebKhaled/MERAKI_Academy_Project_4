@@ -1,68 +1,100 @@
-.homepage {
-    font-family: Arial, sans-serif;
+.home-container {
+  text-align: center;
+  padding: 10px;
+  max-width: 100%;
 }
 
-.homepage-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #f8f8f8;
+.carousel-item img {
+  height: 300px; 
+  object-fit: cover; 
+  width: 100%; 
+  opacity: 0.6; 
+  background-color: #000; 
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
+.carousel-caption {
+  text-align: center;
+  color: white;
 }
 
-.search-bar {
-    padding: 8px;
-    width: 300px;
+.carousel-caption h3 {
+  font-size: 2 rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
-main {
-    padding: 20px;
+.carousel-caption button {
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.featured-products,
-.categories,
-.clubs,
-.promotions {
-    margin-bottom: 20px;
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.product-list, .category-list, .club-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
 }
 
-.product, .category, .club {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 200px;
-    text-align: center;
+p {
+  font-size: 18px;
+  margin-bottom: 30px;
 }
 
-.promotion-banner {
-    padding: 10px;
-    background-color: #ffcc00;
-    text-align: center;
-    font-weight: bold;
+.league-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.homepage-footer {
-    padding: 10px;
-    background-color: #f8f8f8;
-    text-align: center;
+.league-card {
+  background-color: #1d1d1d;
+  border-radius: 10px;
+  padding: 20px;
+  width: 200px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.footer-links {
-    margin-top: 10px;
+.league-card:hover {
+  transform: scale(1.05);
+  background-color: #ffb74d;
 }
 
-.footer-links a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #007bff;
+.league-card h3 {
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.league-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.league-card button {
+  background-color: #f9a825;
+  border: none;
+  border-radius: 5px;
+  color: #1d1d1d;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.league-card button:hover {
+  background-color: #1d1d1d;
+  color: #ffffff;
 }

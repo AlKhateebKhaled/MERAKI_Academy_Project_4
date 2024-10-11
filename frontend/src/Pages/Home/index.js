@@ -1,38 +1,68 @@
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Carousel from "react-bootstrap/Carousel";
 import React from "react";
 import "./style.css";
+import image1 from "../../assets/seasonKit.jpeg";
+import image2 from "../../assets/awaykit.jpg";
+import image3 from "../../assets/thirdKit.jpg";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const handleShopNowButton = () => {
+    navigate("/categories");
+  };
+
   return (
     <div className="home-container">
-      <h1>Welcome to the Football Shirts Store</h1>
-      <p>Shop the latest men's shirts from your favorite leagues!</p>
-
-      <h2>Featured Leagues</h2>
-      <div className="league-container">
-        <div className="league-card">
-          <h3>Serie A</h3>
-          <img src="path/to/serie-a-shirt.jpg" alt="Serie A Shirt" />
-          <button>Shop Serie A</button>
-        </div>
-        <div className="league-card">
-          <h3>Premier League</h3>
+      <Carousel>
+        <Carousel.Item>
           <img
-            src="path/to/premier-league-shirt.jpg"
-            alt="Premier League Shirt"
+            className="d-block w-100"
+            src={image1}
+            alt="2024/25 Season Kit"
           />
-          <button>Shop Premier League</button>
-        </div>
-        <div className="league-card">
-          <h3>La Liga</h3>
-          <img src="path/to/la-liga-shirt.jpg" alt="La Liga Shirt" />
-          <button>Shop La Liga</button>
-        </div>
-        <div className="league-card">
-          <h3>Bundesliga</h3>
-          <img src="path/to/bundesliga-shirt.jpg" alt="Bundesliga Shirt" />
-          <button>Shop Bundesliga</button>
-        </div>
-      </div>
+          <Carousel.Caption>
+            <h3>
+              Explore the latest arrivals and show your support for your
+              favorite teams!
+            </h3>
+            <Button
+              variant="primary"
+              className="btn-lg mx-2"
+              onClick={handleShopNowButton}
+            >
+              Shop Now
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={image2}
+            alt="Away Jersey 2024/25"
+          />
+          <Carousel.Caption>
+            <h3>Get the latest away kit to cheer on your team.</h3>
+            <Button variant="primary" onClick={handleShopNowButton}>
+              Shop Now
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={image3}
+            alt="Third Jersey 2024/25"
+          />
+          <Carousel.Caption>
+            <h3>Unique third kit for the true fans.</h3>
+            <Button variant="primary" onClick={handleShopNowButton}>
+              Shop Now
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 };

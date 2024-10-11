@@ -7,9 +7,9 @@ export default function Main() {
       <header>
         <Navbar />
       </header>
-      <main>
-        <Outlet />
-      </main>
+        <main>
+          <Outlet />
+        </main>
     </div>
   );
 }
