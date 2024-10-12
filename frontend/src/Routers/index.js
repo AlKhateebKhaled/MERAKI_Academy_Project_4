@@ -8,6 +8,8 @@ import NotFound from "../Pages/NotFound";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 import CategoriesList from "../components/CategoryList";
+import Products from "../components/Products";
+import Test from "../Test";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +25,8 @@ export const router = createBrowserRouter([
       { path: "register", element: <Register /> },
       { path: "login", element: <Login /> },
       { path: "categories", element: <CategoriesList /> },
+      { path: "products", element: <Products /> },
+      { path: "test", element: <Test /> },
     ],
   },
   { path: "*", element: <NotFound /> },

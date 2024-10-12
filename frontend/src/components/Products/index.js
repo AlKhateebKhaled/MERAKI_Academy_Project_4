@@ -1,45 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../App";
 
-const CategoriesList = () => {
-  const navigate = useNavigate();
-  const { msg, setMsg, token } = useContext(AppContext);
+const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/categories", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (res.data) {
-          setCategories(res.data);
-        }
-      } catch (err) {
-        setMsg(err.response?.data?.message || "Error fetching categories");
-      }
-    };
-
-    fetchCategories();
-  }, [token]);
+    axios
+      .get("http://localhost:5000/products")
+      .then((res) => {
+        setProducts(res.data.product);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
-    <div>
-      {msg && <p style={{ color: "red" }}>{msg}</p>}
-
-      {categories.length > 0 ? (
-        <ul>
-          {categories.map((category) => (
-            <li key={category._id}>{category.name}</li>
-          ))}
-        </ul>
+    <div className="products-container">
+      {products.length > 0 ? (
+        products.map((product) => (
+          <div key={product._id} className="product-card">
+            <h2>{product.team}</h2>
+            <img src={product.imageURL} alt={product.team} />
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+          </div>
+        ))
       ) : (
-        <p>No categories found</p>
+        <p>No products found</p>
       )}
     </div>
   );
 };
-
-export default CategoriesList;
+export default Products;
