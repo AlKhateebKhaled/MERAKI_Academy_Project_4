@@ -7,6 +7,7 @@ import {
   FaSun,
   FaMoon,
   FaBars,
+  FaHome,
 } from "react-icons/fa";
 import "./style.css";
 
@@ -149,10 +150,13 @@ const Navbar = () => {
       </div>
 
       <div className="logo">
-        <h1>ForzaKits</h1>
+        <h>ForzaKits</h>
       </div>
 
       <div className="right-side">
+        <NavLink to="/" className="icon-button">
+          <FaHome />
+        </NavLink>
         <button className="search-button">
           <FaSearch />
         </button>
@@ -160,14 +164,12 @@ const Navbar = () => {
         <NavLink to="/login" className="icon-button">
           <FaUser />
         </NavLink>
-
-        <button className="icon-button" onClick={toggleDarkMode}>
-          {isDarkMode ? <FaSun /> : <FaMoon />}
-        </button>
-
         <NavLink to="/wishlist" className="icon-button">
           <FaHeart />
         </NavLink>
+        <button className="icon-button" onClick={toggleDarkMode}>
+          {isDarkMode ? <FaSun /> : <FaMoon />}
+        </button>
       </div>
     </nav>
   );

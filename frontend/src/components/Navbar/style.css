@@ -16,6 +16,7 @@
   font-size: 24px;
   cursor: pointer;
   display: block;
+  padding-left: 10px;
 }
 
 .nav-links {
@@ -30,7 +31,6 @@
   overflow: hidden;
   transition: height 0.3s ease, padding-top 0.3s ease;
   z-index: 1000;
-
 }
 
 .nav-links.open {
@@ -56,6 +56,15 @@
 .nav-links a:hover {
   background-color: #f9a825;
   color: #1d1d1d;
+}
+
+.logo {
+  position: absolute;
+  left: 43%;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ffb74d;
+  z-index: 1000;
 }
 
 .logo h1 {
@@ -109,7 +118,7 @@
   position: relative;
   top: 0;
   left: 0px;
-  background-color: #5c5959;
+  background-color: #1d1d1d;
   width: 200px;
   border: 1px solid #ccc;
   border-radius: 4px;
