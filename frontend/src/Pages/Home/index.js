@@ -11,7 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleShopNowButton = () => {
-    navigate("/categories");
+    navigate("/products");
   };
 
   const goToAboutPage = () => {
