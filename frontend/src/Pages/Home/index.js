@@ -11,7 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleShopNowButton = () => {
-    navigate("/products");
+    navigate("/categories");
   };
 
   const goToAboutPage = () => {
@@ -30,18 +30,30 @@ const Home = () => {
     <div className="home-container">
       <Carousel>
         <Carousel.Item>
-          <img className="d-block w-100" src={image1} alt="2024/25 Season Kit" />
+          <img
+            className="d-block w-100"
+            src={image1}
+            alt="2024/25 Season Kit"
+          />
           <Carousel.Caption>
             <h3>
-              Explore the latest arrivals and show your support for your favorite teams!
+              Explore the latest arrivals and show your support for your
+              favorite teams!
             </h3>
-            <Button className="btn-orange btn-lg mx-2" onClick={handleShopNowButton}>
+            <Button
+              className="btn-orange btn-lg mx-2"
+              onClick={handleShopNowButton}
+            >
               Shop Now
             </Button>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img className="d-block w-100" src={image2} alt="Away Jersey 2024/25" />
+          <img
+            className="d-block w-100"
+            src={image2}
+            alt="Away Jersey 2024/25"
+          />
           <Carousel.Caption>
             <h3>Get the latest away kit to cheer on your team.</h3>
             <Button className="btn-orange" onClick={handleShopNowButton}>
@@ -50,7 +62,11 @@ const Home = () => {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img className="d-block w-100" src={image3} alt="Third Jersey 2024/25" />
+          <img
+            className="d-block w-100"
+            src={image3}
+            alt="Third Jersey 2024/25"
+          />
           <Carousel.Caption>
             <h3>Unique third kit for the true fans.</h3>
             <Button className="btn-orange" onClick={handleShopNowButton}>
@@ -69,8 +85,8 @@ const Home = () => {
                 About Us
               </Button>
               <p>
-                Learn more about our commitment to bringing you the best football
-                merchandise.
+                Learn more about our commitment to bringing you the best
+                football merchandise.
               </p>
             </div>
           </div>
@@ -80,7 +96,8 @@ const Home = () => {
                 Contact Us
               </Button>
               <p>
-                Have questions? Reach out to our customer service for assistance.
+                Have questions? Reach out to our customer service for
+                assistance.
               </p>
             </div>
           </div>
@@ -90,7 +107,8 @@ const Home = () => {
                 FAQ
               </Button>
               <p>
-                Find answers to common questions and learn more about our services.
+                Find answers to common questions and learn more about our
+                services.
               </p>
             </div>
           </div>

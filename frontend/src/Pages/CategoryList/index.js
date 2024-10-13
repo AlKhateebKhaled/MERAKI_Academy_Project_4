@@ -14,13 +14,16 @@ const CategoriesList = () => {
   const [brandCategories, setBrandCategories] = useState([]);
   const [typeCategories, setTypeCategories] = useState([]);
   const [seasonCategories, setSeasonCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
+      setIsLoading(true);
       try {
         const res = await axios.get("http://localhost:5000/categories", {
           headers: { Authorization: `Bearer ${token}` },
         });
+        console.log(res.data);
 
         const mainCategories = [
           "Premier League",
@@ -47,14 +50,14 @@ const CategoriesList = () => {
 
         setBrandCategories(filteredBrands);
 
-        const typeCategoriesList = ["Home", "Away", "Third", "GK"];
+        const typeCategoriesList = ["Home", "Away", "Third", "GK Home"];
         const filteredTypes = res.data.category.filter((category) =>
           typeCategoriesList.includes(category.name)
         );
 
         setTypeCategories(filteredTypes);
 
-        const seasonCategoriesList = ["2024-2025", "2023-2024", "2022-2023"];
+        const seasonCategoriesList = ["24-25", "23-24", "22-23"];
         const filteredSeasons = res.data.category.filter((category) =>
           seasonCategoriesList.includes(category.name)
         );
@@ -62,6 +65,9 @@ const CategoriesList = () => {
         setSeasonCategories(filteredSeasons);
       } catch (err) {
         setMsg(err.response?.data?.message || "Error fetching categories");
+        console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -73,10 +79,16 @@ const CategoriesList = () => {
     navigate("/products");
   };
 
+  if (isLoading) {
+    return <p>Loading categories...</p>;
+  }
+
   return (
     <div className="container mt-4">
       {msg && <p style={{ color: "red" }}>{msg}</p>}
-
+      <button className="btn btn-secondary mt-3" onClick={() => navigate(-1)}>
+        Back
+      </button>
       <h2>Leagues</h2>
       <div className="row">
         {categories.length > 0 ? (
