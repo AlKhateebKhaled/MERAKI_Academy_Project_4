@@ -1,6 +1,7 @@
 .home-container {
   text-align: center;
-  padding: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   max-width: 100%;
 }
 
@@ -33,13 +34,13 @@
   font-size: 1.5rem;
   padding: 5px 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-  background-color: #ff5722 !important; 
-  border: none; 
+  background-color: #ff5722 !important;
+  border: none;
   color: white;
 }
 
 .carousel-caption button:hover {
-  background-color: #e64a19 !important; 
+  background-color: #e64a19 !important;
   color: white;
 }
 

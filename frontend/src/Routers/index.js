@@ -7,8 +7,9 @@ import Contact from "../Pages/Contact";
 import NotFound from "../Pages/NotFound";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
-import CategoriesList from "../components/CategoryList";
+import CategoriesList from "../Pages/CategoryList";
 import Products from "../Pages/Products";
+import ProductDetails from "../Pages/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -17,14 +18,15 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "about", element: <About /> },
-
       { path: "faq", element: <FAQ /> },
       { path: "contact", element: <Contact /> },
-
       { path: "register", element: <Register /> },
       { path: "login", element: <Login /> },
       { path: "categories", element: <CategoriesList /> },
       { path: "products", element: <Products /> },
+      { path: "products/:id", element: <ProductDetails /> },
+
+
     ],
   },
   { path: "*", element: <NotFound /> },

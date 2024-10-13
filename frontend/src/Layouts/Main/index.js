@@ -1,15 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import "./style.css";
 
 export default function Main() {
   return (
-    <div className="root-Layout">
+    <div className="root-layout">
       <header>
         <Navbar />
       </header>
-        <main>
-          <Outlet />
-        </main>
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
   );
 }

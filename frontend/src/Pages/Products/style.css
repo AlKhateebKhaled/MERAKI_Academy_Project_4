@@ -1,9 +1,14 @@
+body {
+  padding-top: 50px; 
+}
+
 .products-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
   justify-items: center;
+  margin-top: 50px;
 }
 
 .product-card {
@@ -39,7 +44,7 @@
 }
 
 .product-card:hover .product-img {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .card-body {
@@ -88,11 +93,11 @@
 
 .btn-icon:hover {
   color: #fff;
-  background-color: #28a745; 
+  background-color: #28a745;
 }
 
 .btn-wishlist:hover {
-  background-color: #ff3e3e; 
+  background-color: #ff3e3e;
 }
 
 .btn-icon:focus {

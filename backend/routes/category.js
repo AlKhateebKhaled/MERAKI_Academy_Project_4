@@ -19,9 +19,9 @@ categoryRouter.post(
   createCategory
 );
 
-categoryRouter.get("/", accountLockCheck, getAllCategories);
+categoryRouter.get("/",  getAllCategories);
 
-categoryRouter.get("/:id", accountLockCheck, getCategoryById);
+categoryRouter.get("/:id",  getCategoryById);
 
 categoryRouter.put(
   "/:id",

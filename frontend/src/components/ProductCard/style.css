@@ -1,0 +1,40 @@
+.product-card {
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-img-wrapper {
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .product-img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  
+  .product-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+  
+  .btn-icon {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #ff6b6b;
+    cursor: pointer;
+  }
+  
+  .btn-icon:hover {
+    color: #ff4757;
+  }
+  

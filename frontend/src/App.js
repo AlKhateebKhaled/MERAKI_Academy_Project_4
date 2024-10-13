@@ -13,10 +13,19 @@ function App() {
   });
   const [msg, setMsg] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
-
+  const [selectedFilter, setSelectedFilter] = useState(null);
   return (
     <AppContext.Provider
-      value={{ formData, setFormData, msg, setMsg, token, setToken }}
+      value={{
+        formData,
+        setFormData,
+        msg,
+        setMsg,
+        token,
+        setToken,
+        selectedFilter,
+        setSelectedFilter,
+      }}
     >
       <RouterProvider router={router} />
     </AppContext.Provider>

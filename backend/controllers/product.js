@@ -98,7 +98,7 @@ const createProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const product = await productModel.find({}).populate();
+    const product = await productModel.find({}).populate("categoryID");
     if (!product) {
       return res
         .status(404)
@@ -112,7 +112,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
-    const product = await productModel.findById(req.params.id).populate();
+    const product = await productModel.findById(req.params.id).populate("categoryID");
     if (!product) {
       return res
         .status(404)
