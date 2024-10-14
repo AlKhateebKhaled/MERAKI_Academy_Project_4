@@ -149,6 +149,12 @@ const CategoriesList = () => {
               >
                 <Card.Body>
                   <Card.Title>{brandCategory.name}</Card.Title>
+                  <Card.Img
+                    variant="top"
+                    src={brandCategory.imageURL}
+                    alt={brandCategory.name}
+                    className="category-image"
+                  />
                 </Card.Body>
               </Card>
             </div>

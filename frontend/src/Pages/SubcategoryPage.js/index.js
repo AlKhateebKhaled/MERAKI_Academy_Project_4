@@ -39,18 +39,10 @@ const SubcategoryPage = () => {
       try {
         const res = await axios.get(`http://localhost:5000/categories/${id}`);
         const fetchedCategoryName = res.data.category.name;
+        console.log("fetchedCategoryName: ", fetchedCategoryName);
+        console.log(res.data.category.subCategories);
 
-       
-        if (predefinedSubcategories[fetchedCategoryName]) {
-          setSubcategories(
-            predefinedSubcategories[fetchedCategoryName].map((name, index) => ({
-              id: index,
-              name,
-            }))
-          );
-        } else {
-          setSubcategories(res.data.category.subCategories);
-        }
+        setSubcategories(res.data.category.subCategories);
 
         setCategoryName(fetchedCategoryName);
       } catch (err) {
@@ -88,6 +80,12 @@ const SubcategoryPage = () => {
               >
                 <Card.Body>
                   <Card.Title>{subcategory.name}</Card.Title>
+                  <Card.Img
+                    variant="top"
+                    src={subcategory.imageURL}
+                    alt={subcategory.name}
+                    className="category-image"
+                  />
                 </Card.Body>
               </Card>
             </div>

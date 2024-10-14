@@ -40,7 +40,7 @@ const getCategoryById = async (req, res) => {
   try {
     const category = await categoryModel
       .findById(req.params.id)
-      .populate("subCategories", "parentCategory");
+      .populate("subCategories");
     console.log(req.params.id);
     if (!category) {
       return res
