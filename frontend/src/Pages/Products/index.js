@@ -3,58 +3,75 @@ import axios from "axios";
 import { AppContext } from "../../App";
 import ProductCard from "../../components/ProductCard";
 import { useNavigate } from "react-router-dom";
-
 import "./style.css";
 
 const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [shownproducts, setShownProducts] = useState(151);
-  const {
-    formData,
-    setFormData,
-    msg,
-    setMsg,
-    token,
-    setToken,
-    selectedFilter,
-    setSelectedFilter,
-  } = useContext(AppContext);
+  const [shownProducts, setShownProducts] = useState(0);
+  const { selectedFilter } = useContext(AppContext);
+
+  const [filters, setFilters] = useState({
+    league: "",
+    brand: "",
+    season: "",
+    type: "",
+    maxPrice: "",
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get("http://localhost:5000/products");
         let productsToSet = res.data.product;
-        console.log("productsToSet: ", productsToSet);
-        console.log("selectedFilter: ", selectedFilter);
-        if (selectedFilter) {
-          const filteredProducts = productsToSet.filter(
-            (product) =>
-              product.League === selectedFilter ||
+
+        const filteredProducts = productsToSet.filter((product) => {
+          const leagueMatch = filters.league
+            ? product.League === filters.league
+            : true;
+          const brandMatch = filters.brand
+            ? product.Brand === filters.brand
+            : true;
+          const seasonMatch = filters.season
+            ? product.Season === filters.season
+            : true;
+          const typeMatch = filters.type ? product.Type === filters.type : true;
+          const priceMatch = filters.maxPrice
+            ? product.price <= filters.maxPrice
+            : true;
+
+          return (
+            leagueMatch && brandMatch && seasonMatch && typeMatch && priceMatch
+          );
+        });
+
+        const finalFilteredProducts = filteredProducts.filter((product) =>
+          selectedFilter
+            ? product.League === selectedFilter ||
               product.Brand === selectedFilter ||
               product.Season === selectedFilter ||
               product.Type === selectedFilter ||
               product.team === selectedFilter
-          );
-          console.log("filteredProducts: ", filteredProducts);
-          setProducts(
-            filteredProducts.length ? filteredProducts : productsToSet
-          );
-          setShownProducts(filteredProducts.length);
-          console.log("Shown Products: ", products);
-        } else {
-          setProducts(productsToSet);
-        }
-        console.log("Shown Products: ", products);
+            : true
+        );
+
+        setProducts(finalFilteredProducts);
+        setShownProducts(finalFilteredProducts.length);
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchProducts();
-  }, [selectedFilter]);
-  const handleFilterChangeTest = () => {};
+  }, [filters, selectedFilter]);
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="container">
@@ -66,45 +83,61 @@ const Products = () => {
             <select
               name="league"
               className="form-select"
-              onChange={handleFilterChangeTest}
+              onChange={handleFilterChange}
             >
               <option value="">Select League</option>
+              <option value="Premier League">Premier League</option>
+              <option value="Serie A">Serie A</option>
+              <option value="La Liga">La Liga</option>
+              <option value="Bundesliga">Bundesliga</option>
             </select>
           </div>
           <div className="col-md-2">
             <select
               name="brand"
               className="form-select"
-              onChange={handleFilterChangeTest}
+              onChange={handleFilterChange}
             >
               <option value="">Select Brand</option>
+              <option value="Nike">Nike</option>
+              <option value="Adidas">Adidas</option>
+              <option value="Puma">Puma</option>
+              <option value="New Balance">New Balance</option>
+              <option value="Kappa">Kappa</option>
             </select>
           </div>
           <div className="col-md-2">
             <select
               name="season"
               className="form-select"
-              onChange={handleFilterChangeTest}
+              onChange={handleFilterChange}
             >
               <option value="">Select Season</option>
+              <option value="22-23">22-23</option>
+              <option value="23-24">23-24</option>
+              <option value="24-25">24-25</option>
             </select>
           </div>
           <div className="col-md-2">
             <select
               name="type"
               className="form-select"
-              onChange={handleFilterChangeTest}
+              onChange={handleFilterChange}
             >
               <option value="">Select Type</option>
+              <option value="Home">Home</option>
+              <option value="Away">Away</option>
+              <option value="Third">Third</option>
+              <option value="GK Home">GK</option>
             </select>
           </div>
           <div className="col-md-2">
             <input
               type="number"
-              name="price"
+              name="maxPrice"
               className="form-control"
               placeholder="Max Price"
-              onChange={handleFilterChangeTest}
+              onChange={handleFilterChange}
             />
           </div>
         </div>
@@ -113,7 +146,7 @@ const Products = () => {
         Back
       </button>
       <div>
-        <h6>Shown {shownproducts} products</h6>
+        <h6>Shown {shownProducts} products</h6>
       </div>
       <div className="row">
         {products.length > 0 ? (
