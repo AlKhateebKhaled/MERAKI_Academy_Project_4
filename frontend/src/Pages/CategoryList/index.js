@@ -79,6 +79,11 @@ const CategoriesList = () => {
     navigate("/products");
   };
 
+  const handleLeagueCardClick = (categoryName, categoryId) => {
+    setSelectedFilter(categoryName);
+    navigate(`/categories/${categoryId}`);
+  };
+
   if (isLoading) {
     return <p>Loading categories...</p>;
   }
@@ -86,9 +91,25 @@ const CategoriesList = () => {
   return (
     <div className="container mt-4">
       {msg && <p style={{ color: "red" }}>{msg}</p>}
-      <button className="btn btn-secondary mt-3" onClick={() => navigate(-1)}>
+
+      <button className="back-button" onClick={() => navigate(-1)}>
         Back
       </button>
+
+      <h2>All Products</h2>
+      <div className="row">
+        <div className="col-md-6 mb-4">
+          <Card
+            className="category-card h-100 text-center"
+            onClick={() => handleCardClick("")}
+          >
+            <Card.Body>
+              <Card.Title>All Products</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+
       <h2>Leagues</h2>
       <div className="row">
         {categories.length > 0 ? (
@@ -96,10 +117,18 @@ const CategoriesList = () => {
             <div key={mainCategory.id} className="col-md-6 mb-4">
               <Card
                 className="category-card h-100 text-center"
-                onClick={() => handleCardClick(mainCategory.name)}
+                onClick={() =>
+                  handleLeagueCardClick(mainCategory.name, mainCategory._id)
+                }
               >
                 <Card.Body>
                   <Card.Title>{mainCategory.name}</Card.Title>
+                  <Card.Img
+                    variant="top"
+                    src={mainCategory.imageURL}
+                    alt={mainCategory.name}
+                    className="category-image"
+                  />
                 </Card.Body>
               </Card>
             </div>

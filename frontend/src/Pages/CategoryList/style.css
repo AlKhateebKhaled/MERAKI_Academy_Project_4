@@ -1,0 +1,29 @@
+.category-image {
+  width: 100px;
+  height: auto;
+  margin: 10px auto;
+}
+
+.category-card {
+  cursor: pointer;
+}
+
+.back-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 120px;
+  right: 20px;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #5a6268;
+}

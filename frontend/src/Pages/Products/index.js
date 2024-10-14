@@ -9,7 +9,7 @@ import "./style.css";
 const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [shownproducts, setShownProducts] = useState([]);
+  const [shownproducts, setShownProducts] = useState(151);
   const {
     formData,
     setFormData,
@@ -34,7 +34,8 @@ const Products = () => {
               product.League === selectedFilter ||
               product.Brand === selectedFilter ||
               product.Season === selectedFilter ||
-              product.Type === selectedFilter
+              product.Type === selectedFilter ||
+              product.team === selectedFilter
           );
           console.log("filteredProducts: ", filteredProducts);
           setProducts(
