@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import {
   FaSearch,
   FaUser,
@@ -31,7 +31,7 @@ const Dropdown = ({ title, options, isOpen, toggle }) => (
             to={option.path}
             activeClassName="active"
             onClick={() => {
-              toggle(); 
+              toggle();
             }}
           >
             {option.label}
@@ -43,6 +43,7 @@ const Dropdown = ({ title, options, isOpen, toggle }) => (
 );
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { token, userName, setToken } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -56,7 +57,10 @@ const Navbar = () => {
   };
 
   const logout = () => {
+    localStorage.clear("token");
+    localStorage.clear("userName");
     setToken(null);
+    navigate("/login");
   };
 
   const categoriesData = {
@@ -178,16 +182,15 @@ const Navbar = () => {
             <button onClick={logout} className="icon-button">
               <FaSignOutAlt />
             </button>
+            <NavLink to="/wishlist" className="icon-button">
+              <FaHeart />
+            </NavLink>
           </div>
         ) : (
           <NavLink to="/login" className="icon-button">
             <FaUser />
           </NavLink>
         )}
-
-        <NavLink to="/wishlist" className="icon-button">
-          <FaHeart />
-        </NavLink>
 
         <NavLink to="/" className="icon-button">
           <FaHome />
@@ -197,7 +200,10 @@ const Navbar = () => {
           <FaSearch />
         </button>
 
-        <button className="icon-button" onClick={() => setIsDarkMode(!isDarkMode)}>
+        <button
+          className="icon-button"
+          onClick={() => setIsDarkMode(!isDarkMode)}
+        >
           {isDarkMode ? <FaSun /> : <FaMoon />}
         </button>
       </div>

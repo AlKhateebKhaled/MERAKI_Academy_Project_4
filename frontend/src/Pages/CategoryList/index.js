@@ -7,14 +7,16 @@ import Button from "react-bootstrap/Button";
 import "./style.css";
 
 const CategoriesList = () => {
+
   const navigate = useNavigate();
-  const { msg, setMsg, token, selectedFilter, setSelectedFilter } =
+  
+  const { msg, setMsg, token, setSelectedFilter, isLoading, setIsLoading } =
     useContext(AppContext);
+
   const [categories, setCategories] = useState([]);
   const [brandCategories, setBrandCategories] = useState([]);
   const [typeCategories, setTypeCategories] = useState([]);
   const [seasonCategories, setSeasonCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {

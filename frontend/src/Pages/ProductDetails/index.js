@@ -14,11 +14,19 @@ import { AppContext } from "../../App";
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState(null);
-  const [error, setError] = useState("");
-  const [alert, setAlert] = useState({ message: "", variant: "" });
-  const { token, setIsSubmitting, inWishlist, setInWishlist } =
-    useContext(AppContext);
+
+  const {
+    token,
+    setIsLoading,
+    inWishlist,
+    setInWishlist,
+    product,
+    setProduct,
+    error,
+    setError,
+    alert,
+    setAlert,
+  } = useContext(AppContext);
 
   useEffect(() => {
     if (id) {
@@ -28,7 +36,6 @@ const ProductDetails = () => {
         })
         .then((response) => {
           setProduct(response.data.product);
-          
         })
         .catch((err) => {
           console.error(err);
@@ -44,15 +51,15 @@ const ProductDetails = () => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          const isInWishlist = localStorage.getItem(`wishlist_${id}`) === "true";
-          setInWishlist(isInWishlist); 
-        
+          const isInWishlist =
+            localStorage.getItem(`wishlist_${id}`) === "true";
+          setInWishlist(isInWishlist);
         })
         .catch((err) => {
           console.error("Error fetching wishlist:", err);
         });
     }
-  }, [id, token,setInWishlist]);
+  }, [id, token, setInWishlist]);
 
   useEffect(() => {
     if (alert.message) {
@@ -71,6 +78,12 @@ const ProductDetails = () => {
   }
 
   const handleAddToWishlist = () => {
+    if (!token) {
+      setAlert({ message: "Please log in to add items to wishlist", variant: "danger" });
+      navigate("/login");
+      return;
+    }
+  
     if (!inWishlist) {
       axios
         .post(
@@ -82,7 +95,7 @@ const ProductDetails = () => {
         )
         .then((res) => {
           setInWishlist(true);
-          localStorage.setItem(`wishlist_${id}`, true); 
+          localStorage.setItem(`wishlist_${id}`, true);
           setAlert({
             message: "Product added to wishlist successfully!",
             variant: "success",
@@ -98,7 +111,7 @@ const ProductDetails = () => {
           console.error("Error:", err);
         })
         .finally(() => {
-          setIsSubmitting(false);
+          setIsLoading(false);
         });
     } else {
       axios
@@ -107,7 +120,7 @@ const ProductDetails = () => {
         })
         .then((res) => {
           setInWishlist(false);
-          localStorage.removeItem(`wishlist_${id}`); // Remove from localStorage
+          localStorage.removeItem(`wishlist_${id}`);
           setAlert({
             message: "Product removed from wishlist successfully!",
             variant: "success",
@@ -123,16 +136,21 @@ const ProductDetails = () => {
           console.error("Error:", err);
         })
         .finally(() => {
-          setIsSubmitting(false);
+          setIsLoading(false);
         });
     }
   };
   
-
   const handleAddToCart = () => {
+    if (!token) {
+      setAlert({ message: "Please log in to add items to cart", variant: "danger" });
+      navigate("/login");
+      return;
+    }
+  
     alert(`${product.team} added to cart!`);
   };
-
+  
   return (
     <div className="container mt-5">
       <div className="row">

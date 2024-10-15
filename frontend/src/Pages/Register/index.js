@@ -14,10 +14,10 @@ import { AppContext } from "../../App";
 
 function Register() {
   const navigate = useNavigate();
-  const { formData, setFormData, msg, setMsg } = useContext(AppContext);
+  const { formData, setFormData, msg, setMsg, isLoading, setIsLoading } =
+    useContext(AppContext);
   const [errors, setErrors] = useState({});
   const [showAlert, setShowAlert] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,7 +47,7 @@ function Register() {
       return;
     }
 
-    setIsSubmitting(true);
+    setIsLoading(true);
 
     axios
       .post("http://localhost:5000/users/register", formData)
@@ -67,7 +67,7 @@ function Register() {
         console.error("Error:", err);
       })
       .finally(() => {
-        setIsSubmitting(false);
+        setIsLoading(false);
       });
   };
 
@@ -196,8 +196,8 @@ function Register() {
           </Col>
         </Row>
 
-        <Button variant="primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? (
+        <Button variant="primary" type="submit" disabled={isLoading}>
+          {isLoading ? (
             <>
               <Spinner animation="border" size="sm" /> Submitting...
             </>

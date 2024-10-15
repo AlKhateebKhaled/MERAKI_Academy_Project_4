@@ -47,6 +47,8 @@ const SubcategoryPage = () => {
         setCategoryName(fetchedCategoryName);
       } catch (err) {
         console.error("Error fetching subcategories:", err);
+        setMsg("Failed to load subcategories"); 
+
       } finally {
         setIsLoading(false);
       }
@@ -54,6 +56,9 @@ const SubcategoryPage = () => {
 
     fetchSubcategories();
   }, [id]);
+  if (isLoading) {
+    return <p>Loading subcategories...</p>; 
+  }
 
   const handleSubcategoryClick = (subcategoryName) => {
     setSelectedFilter(subcategoryName);

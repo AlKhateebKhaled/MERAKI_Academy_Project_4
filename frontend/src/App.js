@@ -14,9 +14,13 @@ function App() {
   const [msg, setMsg] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [selectedFilter, setSelectedFilter] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [inWishlist, setInWishlist] = useState(false);
-  const [userName, setUserName] = useState(null);
+  const [userName, setUserName] = useState(localStorage.getItem("userName"));
+  const [product, setProduct] = useState(null);
+  const [error, setError] = useState("");
+  const [alert, setAlert] = useState({ message: "", variant: "" });
+  const [shownProducts, setShownProducts] = useState(151);
 
   return (
     <AppContext.Provider
@@ -29,12 +33,20 @@ function App() {
         setToken,
         selectedFilter,
         setSelectedFilter,
-        isSubmitting,
-        setIsSubmitting,
         inWishlist,
         setInWishlist,
         userName,
         setUserName,
+        isLoading,
+        setIsLoading,
+        product,
+        setProduct,
+        error,
+        setError,
+        alert,
+        setAlert,
+        shownProducts,
+        setShownProducts,
       }}
     >
       <RouterProvider router={router} />

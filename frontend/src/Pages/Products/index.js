@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 const Products = () => {
+  
   const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
-  const [shownProducts, setShownProducts] = useState(0);
-  const { selectedFilter } = useContext(AppContext);
+
+  const { selectedFilter,shownProducts, setShownProducts } = useContext(AppContext);
 
   const [filters, setFilters] = useState({
     league: "",

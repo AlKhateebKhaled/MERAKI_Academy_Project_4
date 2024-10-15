@@ -4,22 +4,26 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner"; // Import Spinner for loading indicator
 import "./style.css";
 import { AppContext } from "../../App";
 
 function Login() {
   const navigate = useNavigate();
+  const currentLocation = useLocation();
+
   const {
     formData,
     setFormData,
     msg,
     setMsg,
-    token,
     setToken,
     userName,
     setUserName,
+    isLoading,
+    setIsLoading,
   } = useContext(AppContext);
 
   const handleChange = (e) => {
@@ -32,20 +36,27 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading to true at the start of the request
 
     axios
       .post("http://localhost:5000/users/login", formData)
       .then((res) => {
         console.log("Response:", res.data);
-        navigate("/");
         localStorage.setItem("token", res.data.token);
         setToken(res.data.token);
+        localStorage.setItem("userName", res.data.user.userName);
         setUserName(res.data.user.userName);
-        console.log(userName)
+        console.log(userName);
+
+        const redirectPath = currentLocation.state?.from?.pathname || "/";
+        navigate(redirectPath);
       })
       .catch((err) => {
         console.error("Error:", err);
         setMsg(err.response?.data?.message || "An error occurred");
+      })
+      .finally(() => {
+        setIsLoading(false); // Set loading to false after the request completes
       });
 
     console.log("Form Data Submitted:", formData);
@@ -55,7 +66,7 @@ function Login() {
     <div className="login-page">
       <Form onSubmit={handleLogin} className="form-container">
         {msg && <Alert variant="danger">{msg}</Alert>}
-
+        
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
             Email
@@ -68,7 +79,11 @@ function Login() {
               value={formData.email}
               onChange={handleChange}
               required
+              aria-describedby="emailHelp" // Accessibility feature
             />
+            <Form.Text id="emailHelp" muted>
+              We'll never share your email with anyone else.
+            </Form.Text>
           </Col>
         </Form.Group>
 
@@ -100,7 +115,23 @@ function Login() {
 
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit">Sign in</Button>
+            <Button type="submit" disabled={isLoading}> {/* Disable button when loading */}
+              {isLoading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">Loading...</span> {/* Screen reader only message */}
+                  Loading...
+                </>
+              ) : (
+                "Sign in"
+              )}
+            </Button>
           </Col>
         </Form.Group>
       </Form>
