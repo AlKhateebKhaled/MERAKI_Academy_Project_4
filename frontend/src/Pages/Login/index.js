@@ -6,7 +6,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
-import Spinner from "react-bootstrap/Spinner"; // Import Spinner for loading indicator
+import Spinner from "react-bootstrap/Spinner";
 import "./style.css";
 import { AppContext } from "../../App";
 
@@ -36,7 +36,7 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading to true at the start of the request
+    setIsLoading(true);
 
     axios
       .post("http://localhost:5000/users/login", formData)
@@ -56,7 +56,7 @@ function Login() {
         setMsg(err.response?.data?.message || "An error occurred");
       })
       .finally(() => {
-        setIsLoading(false); // Set loading to false after the request completes
+        setIsLoading(false);
       });
 
     console.log("Form Data Submitted:", formData);
@@ -66,7 +66,7 @@ function Login() {
     <div className="login-page">
       <Form onSubmit={handleLogin} className="form-container">
         {msg && <Alert variant="danger">{msg}</Alert>}
-        
+
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
             Email
@@ -79,7 +79,7 @@ function Login() {
               value={formData.email}
               onChange={handleChange}
               required
-              aria-describedby="emailHelp" // Accessibility feature
+              aria-describedby="emailHelp"
             />
             <Form.Text id="emailHelp" muted>
               We'll never share your email with anyone else.
@@ -115,23 +115,19 @@ function Login() {
 
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit" disabled={isLoading}> {/* Disable button when loading */}
-              {isLoading ? (
-                <>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                  <span className="sr-only">Loading...</span> {/* Screen reader only message */}
-                  Loading...
-                </>
-              ) : (
-                "Sign in"
-              )}
-            </Button>
+            <Button type="submit">Sign in</Button>
+            {isLoading && (
+              <>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="sr-only">Loading...</span>
+              </>
+            )}
           </Col>
         </Form.Group>
       </Form>

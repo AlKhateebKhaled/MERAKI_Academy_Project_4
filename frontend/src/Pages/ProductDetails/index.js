@@ -79,11 +79,14 @@ const ProductDetails = () => {
 
   const handleAddToWishlist = () => {
     if (!token) {
-      setAlert({ message: "Please log in to add items to wishlist", variant: "danger" });
+      setAlert({
+        message: "Please log in to add items to wishlist",
+        variant: "danger",
+      });
       navigate("/login");
       return;
     }
-  
+
     if (!inWishlist) {
       axios
         .post(
@@ -140,17 +143,47 @@ const ProductDetails = () => {
         });
     }
   };
-  
+
   const handleAddToCart = () => {
     if (!token) {
-      setAlert({ message: "Please log in to add items to cart", variant: "danger" });
+      setAlert({
+        message: "Please log in to add items to cart",
+        variant: "danger",
+      });
       navigate("/login");
       return;
     }
   
-    alert(`${product.team} added to cart!`);
+    const addedItems = {
+      products: [
+        {
+          productId: id,
+          quantity: 1,  
+        },
+      ],
+    };
+  
+    axios
+      .post("http://localhost:5000/cart", addedItems, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log("Product added to cart:", res.data);
+        setAlert({
+          message: "Product added to cart successfully!",
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        console.error("Server error:", err.response?.data);
+        setAlert({
+          message: err.response?.data?.message || "Error adding product to cart",
+          variant: "danger",
+        });
+      });
   };
   
+
   return (
     <div className="container mt-5">
       <div className="row">

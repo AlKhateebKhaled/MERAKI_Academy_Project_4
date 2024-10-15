@@ -23,7 +23,27 @@ const addProduct = async (req, res) => {
         totalAmount: 0,
       });
     }
-
+    /*{
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  userName: { type: String },
+  products: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+        default: null,
+      },
+      quantity: { type: Number, required: true, default: null },
+      price: { type: Number, required: true },
+      productName: { type: String, default: null },
+      productType: { type: String, default: null },
+      productSeason: { type: String, default: null },
+      productTotal: { type: Number, required: true, default: 0 },
+    },
+  ],
+  totalAmount: { type: Number, required: true, default: 0 },
+}); */
     for (let item of products) {
       const product = await productModel.findById(item.productId);
       if (!product) {
@@ -46,6 +66,9 @@ const addProduct = async (req, res) => {
           quantity: item.quantity,
           price: product.price,
           productName: product.team,
+          productType: product.Type,
+          productSeason: product.Season,
+          productTotal: product.price * item.quantity,
         });
       }
 
@@ -130,11 +153,12 @@ const updateCartItemQuantity = async (req, res) => {
 
 const getCart = async (req, res) => {
   try {
-    const cart = await cartModel.findOne(req.token._id);
+    const cart = await cartModel.findOne({ user: req.token.userId });
 
     if (!cart) {
       return res.status(404).json({ message: `Cart not found` });
     }
+
     return res.status(200).json({ success: true, cart });
   } catch (error) {
     console.error(error);
