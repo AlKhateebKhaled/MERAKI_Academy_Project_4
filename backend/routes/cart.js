@@ -11,14 +11,14 @@ const authorization = require("../middleware/authorization");
 const accountLockCheck = require("../middleware/accountLockCheck");
 const cartRouter = express.Router();
 
-cartRouter.post("/", auth, accountLockCheck, addProduct);
+cartRouter.post("/", auth, addProduct);
 
-cartRouter.get("/", auth, accountLockCheck, getCart);
+cartRouter.get("/", auth, getCart);
 
-cartRouter.put("/:id", auth, accountLockCheck, updateCartItemQuantity);
+cartRouter.put("/:id", auth, updateCartItemQuantity);
 
-cartRouter.delete("/:id", auth, accountLockCheck, deleteProductFromCart);
+cartRouter.delete("/:id", auth, deleteProductFromCart);
 
-cartRouter.delete("/", auth, accountLockCheck, deleteCart);
+cartRouter.delete("/", auth, deleteCart);
 
 module.exports = cartRouter;

@@ -9,6 +9,7 @@ import {
   FaBars,
   FaHome,
   FaSignOutAlt,
+  FaShoppingCart,
 } from "react-icons/fa";
 import "./style.css";
 import { AppContext } from "../../App";
@@ -92,106 +93,111 @@ const Navbar = () => {
 
   return (
     <nav className={`navbar ${isDarkMode ? "dark-mode" : ""}`}>
-      <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        <FaBars />
+      <div className="right-side">
+        <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <FaBars />
+        </div>
+        <div>
+          {" "}
+          {token ? (
+            <div className="user-info">
+              <span>{userName ? userName : "User"}</span>
+              <button onClick={logout} className="icon-button">
+                <FaSignOutAlt />
+              </button>
+              <NavLink to="/wishlist" className="icon-button">
+                <FaHeart />
+              </NavLink>
+              <NavLink to="/cart" className="icon-button">
+                <FaShoppingCart />
+              </NavLink>
+            </div>
+          ) : (
+            <NavLink to="/login" className="icon-button">
+              <FaUser />
+            </NavLink>
+          )}
+        </div>
+        <div className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+          <NavLink
+            exact
+            to="/"
+            activeClassName="active"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Home
+          </NavLink>
+
+          <Dropdown
+            title="Login / Register"
+            options={[
+              { label: "Login", path: "/login" },
+              { label: "Register", path: "/register" },
+            ]}
+            isOpen={isDropdownOpen.loginRegister}
+            toggle={() => toggleDropdown("loginRegister")}
+          />
+
+          <NavLink
+            to="/wishlist"
+            activeClassName="active"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            WishList
+          </NavLink>
+
+          <Dropdown
+            title="Currency"
+            options={[
+              { label: "Jordanian Dinar", path: "/currency/jd" },
+              { label: "Dollar", path: "/currency/usd" },
+            ]}
+            isOpen={isDropdownOpen.currency}
+            toggle={() => toggleDropdown("currency")}
+          />
+
+          <Dropdown
+            title="Categories"
+            options={[
+              <Dropdown
+                key="leagues"
+                title="Leagues"
+                options={categoriesData.Leagues}
+                isOpen={isDropdownOpen.leagues}
+                toggle={() => toggleDropdown("leagues")}
+              />,
+              <Dropdown
+                key="brands"
+                title="Brands"
+                options={categoriesData.Brands}
+                isOpen={isDropdownOpen.brands}
+                toggle={() => toggleDropdown("brands")}
+              />,
+              <Dropdown
+                key="seasons"
+                title="Seasons"
+                options={categoriesData.Seasons}
+                isOpen={isDropdownOpen.seasons}
+                toggle={() => toggleDropdown("seasons")}
+              />,
+              <Dropdown
+                key="types"
+                title="Types"
+                options={categoriesData.Types}
+                isOpen={isDropdownOpen.types}
+                toggle={() => toggleDropdown("types")}
+              />,
+            ]}
+            isOpen={isDropdownOpen.categories}
+            toggle={() => toggleDropdown("categories")}
+          />
+        </div>
       </div>
-
-      <div className={`nav-links ${isMenuOpen ? "open" : ""}`}>
-        <NavLink
-          exact
-          to="/"
-          activeClassName="active"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          Home
-        </NavLink>
-
-        <Dropdown
-          title="Login / Register"
-          options={[
-            { label: "Login", path: "/login" },
-            { label: "Register", path: "/register" },
-          ]}
-          isOpen={isDropdownOpen.loginRegister}
-          toggle={() => toggleDropdown("loginRegister")}
-        />
-
-        <NavLink
-          to="/wishlist"
-          activeClassName="active"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          WishList
-        </NavLink>
-
-        <Dropdown
-          title="Currency"
-          options={[
-            { label: "Jordanian Dinar", path: "/currency/jd" },
-            { label: "Dollar", path: "/currency/usd" },
-          ]}
-          isOpen={isDropdownOpen.currency}
-          toggle={() => toggleDropdown("currency")}
-        />
-
-        <Dropdown
-          title="Categories"
-          options={[
-            <Dropdown
-              key="leagues"
-              title="Leagues"
-              options={categoriesData.Leagues}
-              isOpen={isDropdownOpen.leagues}
-              toggle={() => toggleDropdown("leagues")}
-            />,
-            <Dropdown
-              key="brands"
-              title="Brands"
-              options={categoriesData.Brands}
-              isOpen={isDropdownOpen.brands}
-              toggle={() => toggleDropdown("brands")}
-            />,
-            <Dropdown
-              key="seasons"
-              title="Seasons"
-              options={categoriesData.Seasons}
-              isOpen={isDropdownOpen.seasons}
-              toggle={() => toggleDropdown("seasons")}
-            />,
-            <Dropdown
-              key="types"
-              title="Types"
-              options={categoriesData.Types}
-              isOpen={isDropdownOpen.types}
-              toggle={() => toggleDropdown("types")}
-            />,
-          ]}
-          isOpen={isDropdownOpen.categories}
-          toggle={() => toggleDropdown("categories")}
-        />
-      </div>
-
       <div className="logo">
         <h1>ForzaKits</h1>
       </div>
 
       <div className="right-side">
-        {token ? (
-          <div className="user-info">
-            <span>{userName ? userName : "User"}</span>
-            <button onClick={logout} className="icon-button">
-              <FaSignOutAlt />
-            </button>
-            <NavLink to="/wishlist" className="icon-button">
-              <FaHeart />
-            </NavLink>
-          </div>
-        ) : (
-          <NavLink to="/login" className="icon-button">
-            <FaUser />
-          </NavLink>
-        )}
-
         <NavLink to="/" className="icon-button">
           <FaHome />
         </NavLink>
