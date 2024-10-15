@@ -1,40 +1,111 @@
 .product-card {
-    cursor: pointer;
-    transition: transform 0.3s;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-img-wrapper {
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.product-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #636262 !important; 
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  outline: none; 
+}
+
+.btn-icon:hover {
+  color: #ff4757 !important; 
+  transform: scale(1.2);
+}
+
+
+.in-wishlist {
+  color: red !important; 
+}
+
+.product-buttons .btn-icon svg {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
+
+
+@media (max-width: 768px) {
+  .product-card {
+      margin: 15px;
   }
-  
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-  
+
   .product-img-wrapper {
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      height: 180px;
   }
-  
-  .product-img {
-    max-height: 100%;
-    max-width: 100%;
+
+  .card-title {
+      font-size: 1.1rem;
   }
-  
+
+  .card-text {
+      font-size: 0.85rem;
+  }
+
+  .price {
+      font-size: 1rem;
+  }
+
   .product-buttons {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
+      padding: 10px;
   }
-  
+
   .btn-icon {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #ff6b6b;
-    cursor: pointer;
-  }
-  
-  .btn-icon:hover {
-    color: #ff4757;
-  }
-  
+    font-size: 1.6rem; /* تقليل حجم الأيقونات للشاشات الصغيرة */
+}
+}

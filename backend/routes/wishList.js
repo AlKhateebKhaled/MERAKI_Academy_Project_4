@@ -9,10 +9,10 @@ const authorization = require("../middleware/authorization");
 const accountLockCheck = require("../middleware/accountLockCheck");
 const wishRouter = express.Router();
 
-wishRouter.post("/", auth, accountLockCheck, addProductToWishList);
+wishRouter.post("/", auth,  addProductToWishList);
 
-wishRouter.get("/", auth, accountLockCheck, getWishList);
+wishRouter.get("/", auth,  getWishList);
 
-wishRouter.delete("/:id", auth, accountLockCheck, deleteProductFromWishList);
+wishRouter.delete("/:id", auth,  deleteProductFromWishList);
 
 module.exports = wishRouter;

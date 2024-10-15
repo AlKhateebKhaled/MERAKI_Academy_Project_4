@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import { AppContext } from "../../App";
 import "./style.css";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
+  const { token } = useContext(AppContext);
 
   const handleCardClick = () => {
     navigate(`/products/${product._id}`);
@@ -26,14 +28,6 @@ const ProductCard = ({ product }) => {
           {product.Season} {product.Type}
         </p>
         <p className="price">Price: ${product.price}</p>
-      </div>
-      <div className="product-buttons">
-        <button className="btn-icon" onClick={(e) => e.stopPropagation()}>
-          <FaShoppingCart />
-        </button>
-        <button className="btn-icon" onClick={(e) => e.stopPropagation()}>
-          <FaHeart />
-        </button>
       </div>
     </div>
   );

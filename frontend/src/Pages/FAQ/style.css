@@ -14,23 +14,23 @@
 }
 
 .faq-item {
-  background: #333; /* Dark background for each item */
+  background: #333; 
   margin-bottom: 10px;
   padding: 15px;
-  border: 1px solid #444; /* Darker border for consistency */
+  border: 1px solid #444; 
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .faq-item.active {
-  background: #ffb74d; /* Highlight active item with orange/yellow from navbar */
-  color: #1d1d1d; /* Dark text on light background */
+  background: #ffb74d; 
+  color: #1d1d1d; 
 }
 
 .faq-item.active .faq-question {
   font-weight: bold;
-  color: #1d1d1d; /* Dark text for better contrast */
+  color: #1d1d1d; 
 }
 
 .faq-question {
@@ -38,27 +38,26 @@
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
-  color: #ffffff; /* White text for default state */
+  color: #ffffff; 
 }
 
 .faq-icon {
   font-size: 24px;
   font-weight: bold;
   margin-left: 10px;
-  color: #ffb74d; /* Icon matches the accent color */
+  color: #ffb74d; 
 }
 
 .faq-answer {
   margin-top: 15px;
   font-size: 16px;
   line-height: 1.5;
-  color: #e0e0e0; /* Light gray text for readability on dark background */
 }
 
 .faq-item:hover {
-  background: #444; /* Slight hover effect with a darker shade */
+  background: #444; 
 }
 
 .faq-item.active:hover {
-  background: #f9a825; /* Slightly darker orange/yellow on hover for active items */
+  background: #f9a825; 
 }

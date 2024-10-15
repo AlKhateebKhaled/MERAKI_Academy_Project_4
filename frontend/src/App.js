@@ -14,6 +14,10 @@ function App() {
   const [msg, setMsg] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [selectedFilter, setSelectedFilter] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [inWishlist, setInWishlist] = useState(false);
+  const [userName, setUserName] = useState(null);
+
   return (
     <AppContext.Provider
       value={{
@@ -25,6 +29,12 @@ function App() {
         setToken,
         selectedFilter,
         setSelectedFilter,
+        isSubmitting,
+        setIsSubmitting,
+        inWishlist,
+        setInWishlist,
+        userName,
+        setUserName,
       }}
     >
       <RouterProvider router={router} />

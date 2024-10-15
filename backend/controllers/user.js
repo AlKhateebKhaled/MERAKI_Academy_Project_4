@@ -55,9 +55,18 @@ const login = async (req, res) => {
         const options = { expiresIn: "60m" };
         const token = jwt.sign(payload, process.env.SECRET, options);
 
-        return res
-          .status(200)
-          .json({ success: true, message: "Login Successful", token });
+        return res.status(200).json({
+          success: true,
+          message: "Login Successful",
+          token,
+          user: {
+            userId: user._id,
+            userName: user.userName,
+            email: user.email,
+            address: user.address,
+            role: user.role,
+          },
+        });
       } else {
         return res
           .status(401)

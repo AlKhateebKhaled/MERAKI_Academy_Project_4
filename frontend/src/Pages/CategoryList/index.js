@@ -96,7 +96,6 @@ const CategoriesList = () => {
         Back
       </button>
 
-      <h2>All Products</h2>
       <div className="row">
         <div className="col-md-6 mb-4">
           <Card
@@ -104,7 +103,7 @@ const CategoriesList = () => {
             onClick={() => handleCardClick("")}
           >
             <Card.Body>
-              <Card.Title>All Products</Card.Title>
+              <Card.Title>All Kits</Card.Title>
             </Card.Body>
           </Card>
         </div>
@@ -175,6 +174,12 @@ const CategoriesList = () => {
               >
                 <Card.Body>
                   <Card.Title>{typeCategory.name}</Card.Title>
+                  <Card.Img
+                    variant="top"
+                    src={typeCategory.imageURL}
+                    alt={typeCategory.name}
+                    className="category-image"
+                  />
                 </Card.Body>
               </Card>
             </div>
@@ -195,6 +200,12 @@ const CategoriesList = () => {
               >
                 <Card.Body>
                   <Card.Title>{seasonCategory.name}</Card.Title>
+                  <Card.Img
+                    variant="top"
+                    src={seasonCategory.imageURL}
+                    alt={seasonCategory.name}
+                    className="category-image"
+                  />
                 </Card.Body>
               </Card>
             </div>

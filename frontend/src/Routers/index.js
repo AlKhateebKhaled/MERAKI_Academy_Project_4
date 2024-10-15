@@ -11,6 +11,7 @@ import CategoriesList from "../Pages/CategoryList";
 import Products from "../Pages/Products";
 import ProductDetails from "../Pages/ProductDetails";
 import SubcategoryPage from "../Pages/SubcategoryPage.js";
+import WishList from "../Pages/WishList/index.js";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       { path: "products", element: <Products /> },
       { path: "products/:id", element: <ProductDetails /> },
       { path: "categories/:id", element: <SubcategoryPage/> },
+      { path: "wishlist", element: <WishList/> },
     ],
   },
   { path: "*", element: <NotFound /> },

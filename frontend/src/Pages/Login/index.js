@@ -11,8 +11,16 @@ import { AppContext } from "../../App";
 
 function Login() {
   const navigate = useNavigate();
-  const { formData, setFormData, msg, setMsg, token, setToken } =
-    useContext(AppContext);
+  const {
+    formData,
+    setFormData,
+    msg,
+    setMsg,
+    token,
+    setToken,
+    userName,
+    setUserName,
+  } = useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +40,8 @@ function Login() {
         navigate("/");
         localStorage.setItem("token", res.data.token);
         setToken(res.data.token);
+        setUserName(res.data.user.userName);
+        console.log(userName)
       })
       .catch((err) => {
         console.error("Error:", err);
@@ -62,7 +72,11 @@ function Login() {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+        <Form.Group
+          as={Row}
+          className="mb-3"
+          controlId="formHorizontalPassword"
+        >
           <Form.Label column sm={2}>
             Password
           </Form.Label>
