@@ -21,6 +21,33 @@ function App() {
   const [error, setError] = useState("");
   const [alert, setAlert] = useState({ message: "", variant: "" });
   const [shownProducts, setShownProducts] = useState(151);
+  const [cartItems, setCartItems] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
+  const [filters, setFilters] = useState({
+    team: "",
+    league: "",
+    brand: "",
+    season: "",
+    type: "",
+    maxPrice: "",
+  });
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const updateCart = (item) => {
+    const existingItemIndex = cartItems.findIndex(
+      (i) => i.productId === item.productId
+    );
+    if (existingItemIndex !== -1) {
+      const newCartItems = [...cartItems];
+      newCartItems[existingItemIndex].quantity += item.quantity;
+      setCartItems(newCartItems);
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: item.quantity }]);
+    }
+
+    setCartCount(cartItems.length + 1);
+  };
 
   return (
     <AppContext.Provider
@@ -47,6 +74,15 @@ function App() {
         setAlert,
         shownProducts,
         setShownProducts,
+        cartItems,
+        setCartItems,
+        updateCart,
+        cartCount,
+        setCartCount,
+        filters,
+        setFilters,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       <RouterProvider router={router} />

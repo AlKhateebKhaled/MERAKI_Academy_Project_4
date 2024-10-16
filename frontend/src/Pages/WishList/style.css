@@ -22,24 +22,15 @@
   
   .product-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding: 10px , 0;
+    align-self: center;
+    padding: 10px
   }
   
-  .btn-icon {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #ff6b6b;
-    cursor: pointer;
-  }
-  
-  .btn-icon:hover {
-    color: #ff4757;
-  }
+
+ 
   .removeBtn{
     display:block;
     width: 100%;
-    justify-content: space-around;
-
   }

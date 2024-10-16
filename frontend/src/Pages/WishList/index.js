@@ -112,12 +112,6 @@ const WishList = () => {
                   <p className="price">Price: ${product.productId.price}</p>
                 </div>
                 <div className="product-buttons">
-                  <button
-                    className="btn-icon"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <FaShoppingCart />
-                  </button>
                   <div className="removeBtn">
                     <button
                       className="btn btn-danger"

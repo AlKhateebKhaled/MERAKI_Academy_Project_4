@@ -26,6 +26,9 @@ const ProductDetails = () => {
     setError,
     alert,
     setAlert,
+    updateCart,
+    cartCount,
+    setCartCount,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -153,36 +156,39 @@ const ProductDetails = () => {
       navigate("/login");
       return;
     }
-  
-    const addedItems = {
-      products: [
-        {
-          productId: id,
-          quantity: 1,  
-        },
-      ],
+
+    const addedItem = {
+      productId: id,
+      quantity: 1,
     };
-  
+
     axios
-      .post("http://localhost:5000/cart", addedItems, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .post(
+        "http://localhost:5000/cart",
+        { products: [addedItem] },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((res) => {
         console.log("Product added to cart:", res.data);
         setAlert({
           message: "Product added to cart successfully!",
           variant: "success",
         });
+
+        // Update the cart in context
+        updateCart(addedItem); // Call this function to update cart state
       })
       .catch((err) => {
         console.error("Server error:", err.response?.data);
         setAlert({
-          message: err.response?.data?.message || "Error adding product to cart",
+          message:
+            err.response?.data?.message || "Error adding product to cart",
           variant: "danger",
         });
       });
   };
-  
 
   return (
     <div className="container mt-5">

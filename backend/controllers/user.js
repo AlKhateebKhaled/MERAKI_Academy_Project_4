@@ -52,7 +52,7 @@ const login = async (req, res) => {
           role: user.role,
         };
 
-        const options = { expiresIn: "60m" };
+        const options = { expiresIn: "240m" };
         const token = jwt.sign(payload, process.env.SECRET, options);
 
         return res.status(200).json({

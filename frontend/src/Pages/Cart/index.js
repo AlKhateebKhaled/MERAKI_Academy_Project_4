@@ -7,10 +7,16 @@ import "./style.css";
 const Cart = () => {
   const navigate = useNavigate();
 
-  const { setAlert, setIsLoading, setMsg, token, setShownProducts } =
-    useContext(AppContext);
+  const {
+    setAlert,
+    setIsLoading,
+    setMsg,
+    token,
+    setShownProducts,
+    cartItems,
+    setCartItems,
+  } = useContext(AppContext);
 
-  const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
@@ -32,13 +38,14 @@ const Cart = () => {
     };
 
     fetchProducts();
-  }, [token, setMsg, setShownProducts]);
+  }, [token, setMsg, setShownProducts, setCartItems]);
 
   const calculateTotalAmount = (items) => {
-    const total = items.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
+    const total = items.reduce((acc, item) => {
+      const price = item.price || 0; // Default to 0 if undefined
+      const quantity = item.quantity || 1; // Default to 1 if undefined
+      return acc + price * quantity;
+    }, 0);
     setTotalAmount(total);
   };
 
@@ -160,7 +167,7 @@ const Cart = () => {
                   </div>
                 </td>
 
-                <td>{item.price.toFixed(2)} $</td>
+                <td>{item.price ? item.price.toFixed(2) : "0.00"} $</td>
                 <td>{(item.price * item.quantity).toFixed(2)} $</td>
                 <td>
                   <button

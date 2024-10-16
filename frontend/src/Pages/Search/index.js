@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../../App";
-import { useNavigate } from "react-router-dom";
 import "./style.css";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import ProductCard from "../../components/ProductCard";
 
-const Products = () => {
+const Search = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const {
     selectedFilter,
@@ -16,7 +17,17 @@ const Products = () => {
     setShownProducts,
     filters,
     setFilters,
+    setSearchTerm,
   } = useContext(AppContext);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const searchTeam = queryParams.get("team") || "";
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      team: searchTeam,
+    }));
+  }, [location.search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -84,29 +95,13 @@ const Products = () => {
     setSearchTerm(e.target.value);
     setFilters((prevFilters) => ({
       ...prevFilters,
-      team: e.target.value,
+      team: e.target.value, // Filter by team name
     }));
   };
 
   return (
     <div className="container">
-      <h2>Products</h2>
-
-      <div className="search-section mb-4">
-        <h5>Search</h5>
-        <div className="row">
-          <div className="col-md-3">
-            <input
-              type="text"
-              name="team"
-              className="form-control"
-              placeholder="Search by Team"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
-        </div>
-      </div>
+      <h2>Search Results</h2>
 
       <div className="filter-section mb-4">
         <h5>Filters</h5>
@@ -202,4 +197,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Search;
