@@ -196,15 +196,14 @@ function Register() {
           </Col>
         </Row>
 
-        <Button variant="primary" type="submit" disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <Spinner animation="border" size="sm" /> Submitting...
-            </>
-          ) : (
-            "Submit"
-          )}
+        <Button variant="primary" type="submit">
+          "Submit"
         </Button>
+        {isLoading && (
+          <>
+            <Spinner animation="border" size="sm" /> Submitting...
+          </>
+        )}
       </Form>
     </div>
   );

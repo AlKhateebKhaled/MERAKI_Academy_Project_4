@@ -31,7 +31,6 @@ function App() {
     type: "",
     maxPrice: "",
   });
-
   const [searchTerm, setSearchTerm] = useState("");
 
   const updateCart = (item) => {
@@ -83,6 +82,7 @@ function App() {
         setFilters,
         searchTerm,
         setSearchTerm,
+       
       }}
     >
       <RouterProvider router={router} />

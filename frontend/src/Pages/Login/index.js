@@ -24,6 +24,8 @@ function Login() {
     setUserName,
     isLoading,
     setIsLoading,
+    shownUserName,
+    setShownUserName,
   } = useContext(AppContext);
 
   const handleChange = (e) => {

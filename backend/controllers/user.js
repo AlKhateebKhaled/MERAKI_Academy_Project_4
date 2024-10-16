@@ -112,14 +112,18 @@ const getAllUsers = async (req, res) => {
 
 const UpdateUserProfile = async (req, res) => {
   try {
-    const { userName, email, password, address, role } = req.body;
+    const { userName, email, address, role, socialMedia, bio, profilePicture } =
+      req.body;
 
-    const updateFields = { userName, email, address, role };
+    const updateFields = {};
 
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      updateFields.password = hashedPassword;
-    }
+    if (userName) updateFields.userName = userName;
+    if (email) updateFields.email = email;
+    if (address) updateFields.address = address;
+    if (role) updateFields.role = role;
+    if (socialMedia) updateFields.socialMedia = socialMedia;
+    if (bio) updateFields.bio = bio;
+    if (profilePicture) updateFields.profilePicture = profilePicture;
 
     const user = await userModel.findByIdAndUpdate(
       req.token.userId,
@@ -143,6 +147,7 @@ const UpdateUserProfile = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
 const deleteUserProfile = async (req, res) => {
   try {
     const user = await userModel.findByIdAndDelete(req.token.userId);

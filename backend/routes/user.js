@@ -22,7 +22,7 @@ const userRouter = express.Router();
 userRouter.post("/register", register);
 userRouter.post("/login", login);
 
-userRouter.get("/profile", auth, accountLockCheck, getUserProfile);
+userRouter.get("/profile", auth, getUserProfile);
 userRouter.get("/admin", auth, authorization("get_all_users"), getAllUsers);
 userRouter.get(
   "/admin/:userId",
@@ -31,7 +31,7 @@ userRouter.get(
   getUserByAdmin
 );
 
-userRouter.put("/profile", auth, accountLockCheck, UpdateUserProfile);
+userRouter.put("/profile", auth, UpdateUserProfile);
 userRouter.put(
   "/admin/:userId",
   auth,
@@ -52,7 +52,7 @@ userRouter.put(
   unlockUserAccount
 );
 
-userRouter.delete("/profile", auth, accountLockCheck, deleteUserProfile);
+userRouter.delete("/profile", auth, deleteUserProfile);
 
 userRouter.delete(
   "/admin/:userId",

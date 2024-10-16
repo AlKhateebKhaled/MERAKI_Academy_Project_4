@@ -55,7 +55,14 @@ const Navbar = () => {
         <div>
           {token ? (
             <div className="user-info">
-              <span>{userName ? userName : "User"}</span>
+              <span
+                className="icon-button"
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              >
+                {userName ? userName : "User"}
+              </span>
               <button onClick={logout} className="icon-button">
                 <FaSignOutAlt />
               </button>
