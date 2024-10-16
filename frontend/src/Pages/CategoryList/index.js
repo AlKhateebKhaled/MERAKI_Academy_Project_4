@@ -3,15 +3,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../App";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import "./style.css";
 
 const CategoriesList = () => {
-
   const navigate = useNavigate();
-  
-  const { msg, setMsg, token, setSelectedFilter, isLoading, setIsLoading } =
-    useContext(AppContext);
+  const { msg, setMsg, token, setSelectedFilter, isLoading, setIsLoading } = useContext(AppContext);
 
   const [categories, setCategories] = useState([]);
   const [brandCategories, setBrandCategories] = useState([]);
@@ -25,7 +21,6 @@ const CategoriesList = () => {
         const res = await axios.get("http://localhost:5000/categories", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(res.data);
 
         const mainCategories = [
           "Premier League",
@@ -77,7 +72,12 @@ const CategoriesList = () => {
   }, [token]);
 
   const handleCardClick = (categoryName) => {
-    setSelectedFilter(categoryName);
+    setSelectedFilter(categoryName);  
+    navigate("/products");
+  };
+
+  const handleAllKitsClick = () => {
+    setSelectedFilter(""); 
     navigate("/products");
   };
 
@@ -98,37 +98,26 @@ const CategoriesList = () => {
         Back
       </button>
 
-      <div className="row">
-        <div className="col-md-6 mb-4">
-          <Card
-            className="category-card h-100 text-center"
-            onClick={() => handleCardClick("")}
-          >
-            <Card.Body>
-              <Card.Title>All Kits</Card.Title>
-            </Card.Body>
-          </Card>
-        </div>
-      </div>
+      <h2 className="mt-4">All Products</h2>
+      <Card className="category-card h-100 text-center mb-4" onClick={handleAllKitsClick}>
+        <Card.Body>
+          <Card.Title className="mb-2">View All Kits</Card.Title>
+        </Card.Body>
+      </Card>
 
-      <h2>Leagues</h2>
+      <h2 className="mt-4">Leagues</h2>
       <div className="row">
         {categories.length > 0 ? (
           categories.map((mainCategory) => (
             <div key={mainCategory.id} className="col-md-6 mb-4">
-              <Card
-                className="category-card h-100 text-center"
-                onClick={() =>
-                  handleLeagueCardClick(mainCategory.name, mainCategory._id)
-                }
-              >
-                <Card.Body>
-                  <Card.Title>{mainCategory.name}</Card.Title>
+              <Card className="category-card h-100 text-center">
+                <Card.Body onClick={() => handleLeagueCardClick(mainCategory.name, mainCategory._id)}>
+                  <Card.Title className="mb-2">{mainCategory.name}</Card.Title>
                   <Card.Img
                     variant="top"
                     src={mainCategory.imageURL}
                     alt={mainCategory.name}
-                    className="category-image"
+                    className="category-image small-logo"
                   />
                 </Card.Body>
               </Card>
@@ -144,17 +133,14 @@ const CategoriesList = () => {
         {brandCategories.length > 0 ? (
           brandCategories.map((brandCategory) => (
             <div key={brandCategory.id} className="col-md-6 mb-4">
-              <Card
-                className="category-card h-100 text-center"
-                onClick={() => handleCardClick(brandCategory.name)}
-              >
-                <Card.Body>
-                  <Card.Title>{brandCategory.name}</Card.Title>
+              <Card className="category-card h-100 text-center">
+                <Card.Body onClick={() => handleCardClick(brandCategory.name)}>
+                  <Card.Title className="mb-2">{brandCategory.name}</Card.Title>
                   <Card.Img
                     variant="top"
                     src={brandCategory.imageURL}
                     alt={brandCategory.name}
-                    className="category-image"
+                    className="category-image small-logo"
                   />
                 </Card.Body>
               </Card>
@@ -170,18 +156,10 @@ const CategoriesList = () => {
         {typeCategories.length > 0 ? (
           typeCategories.map((typeCategory) => (
             <div key={typeCategory.id} className="col-md-6 mb-4">
-              <Card
-                className="category-card h-100 text-center"
-                onClick={() => handleCardClick(typeCategory.name)}
-              >
-                <Card.Body>
-                  <Card.Title>{typeCategory.name}</Card.Title>
-                  <Card.Img
-                    variant="top"
-                    src={typeCategory.imageURL}
-                    alt={typeCategory.name}
-                    className="category-image"
-                  />
+              <Card className="category-card h-100 text-center">
+                <Card.Body onClick={() => handleCardClick(typeCategory.name)}>
+                  <Card.Title className="mb-2">{typeCategory.name}</Card.Title>
+
                 </Card.Body>
               </Card>
             </div>
@@ -196,18 +174,10 @@ const CategoriesList = () => {
         {seasonCategories.length > 0 ? (
           seasonCategories.map((seasonCategory) => (
             <div key={seasonCategory.id} className="col-md-6 mb-4">
-              <Card
-                className="category-card h-100 text-center"
-                onClick={() => handleCardClick(seasonCategory.name)}
-              >
-                <Card.Body>
-                  <Card.Title>{seasonCategory.name}</Card.Title>
-                  <Card.Img
-                    variant="top"
-                    src={seasonCategory.imageURL}
-                    alt={seasonCategory.name}
-                    className="category-image"
-                  />
+              <Card className="category-card h-100 text-center">
+                <Card.Body onClick={() => handleCardClick(seasonCategory.name)}>
+                  <Card.Title className="mb-2">{seasonCategory.name}</Card.Title>
+
                 </Card.Body>
               </Card>
             </div>

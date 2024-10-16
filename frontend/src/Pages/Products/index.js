@@ -3,6 +3,7 @@ import axios from "axios";
 import { AppContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
+import { FaFutbol, FaCalendarAlt, FaTshirt } from "react-icons/fa";
 import ProductCard from "../../components/ProductCard";
 
 const Products = () => {
@@ -86,6 +87,10 @@ const Products = () => {
       ...prevFilters,
       team: e.target.value,
     }));
+  };
+
+  const handleCardClick = (productId) => {
+    navigate(`/products/${productId}`);
   };
 
   return (
@@ -179,19 +184,57 @@ const Products = () => {
         </div>
       </div>
 
-      <button className="btn btn-secondary mt-3" onClick={() => navigate(-1)}>
+      <button className="back-button mt-3" onClick={() => navigate(-1)}>
         Back
       </button>
 
       <div>
-        <h6>Shown {shownProducts} products</h6>
-      </div>
+  <p>
+    {selectedFilter && selectedFilter !== ""
+      ? `Showing ${shownProducts} products filtered by: ${selectedFilter}`
+      : `Showing ${shownProducts} products.`}
+  </p>
+</div>
 
-      <div className="row">
+
+      <div className="products-container">
         {products.length > 0 ? (
           products.map((product) => (
-            <div key={product._id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
-              <ProductCard product={product} />
+            <div
+              key={product._id}
+              className="product-card"
+              onClick={() => handleCardClick(product._id)}
+
+            >
+              <div className="product-img-wrapper">
+                <img
+                  src={product.imageURL}
+                  alt={product.name}
+                  className="product-img"
+                />
+              </div>
+              <div className="card-body">
+                <h5 className="card-title">{product.name}</h5>
+                <p className="price">${product.price.toFixed(2)}</p>
+                <div className="product-info">
+                  <span className="product-info-icon">
+                    <FaFutbol />{" "}
+                  </span>
+                  <span> {product.team}</span>
+                </div>
+                <div className="product-info">
+                  <span className="product-info-icon">
+                    <FaCalendarAlt />{" "}
+                  </span>
+                  <span> {product.Season}</span>
+                </div>
+                <div className="product-info">
+                  <span className="product-info-icon">
+                    <FaTshirt />{" "}
+                  </span>
+                  <span> {product.Type}</span>
+                </div>
+              </div>
             </div>
           ))
         ) : (

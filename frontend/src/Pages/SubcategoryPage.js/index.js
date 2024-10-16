@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { AppContext } from "../../App";
+import "./style.css";
 
 const SubcategoryPage = () => {
   const { msg, setMsg, token, selectedFilter, setSelectedFilter } =
@@ -13,42 +14,17 @@ const SubcategoryPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [categoryName, setCategoryName] = useState("");
 
-  const predefinedSubcategories = {
-    "Premier League": [
-      "Arsenal",
-      "Liverpool",
-      "Manchester United",
-      "Manchester City",
-      "Chelsea",
-    ],
-    "Serie A": [
-      "Inter Milan",
-      "AC Milan",
-      "Juventus",
-      "AS Roma",
-      "Lazio",
-      "Napoli",
-    ],
-    "La Liga": ["Real Madrid", "Atletico Madrid", "Barcelona"],
-    Bundesliga: ["Bayern Munich", "Dortmund"],
-  };
-
   useEffect(() => {
     const fetchSubcategories = async () => {
       setIsLoading(true);
       try {
         const res = await axios.get(`http://localhost:5000/categories/${id}`);
         const fetchedCategoryName = res.data.category.name;
-        console.log("fetchedCategoryName: ", fetchedCategoryName);
-        console.log(res.data.category.subCategories);
-
         setSubcategories(res.data.category.subCategories);
-
         setCategoryName(fetchedCategoryName);
       } catch (err) {
         console.error("Error fetching subcategories:", err);
-        setMsg("Failed to load subcategories"); 
-
+        setMsg("Failed to load subcategories");
       } finally {
         setIsLoading(false);
       }
@@ -56,18 +32,15 @@ const SubcategoryPage = () => {
 
     fetchSubcategories();
   }, [id]);
+
   if (isLoading) {
-    return <p>Loading subcategories...</p>; 
+    return <p>Loading subcategories...</p>;
   }
 
   const handleSubcategoryClick = (subcategoryName) => {
     setSelectedFilter(subcategoryName);
     navigate(`/products`);
   };
-
-  if (isLoading) {
-    return <p>Loading subcategories...</p>;
-  }
 
   return (
     <div className="container mt-4">

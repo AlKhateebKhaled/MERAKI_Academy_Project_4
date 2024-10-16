@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../../App";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaArrowLeft } from 'react-icons/fa'; 
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
@@ -81,11 +81,14 @@ const WishList = () => {
 
   return (
     <div className="WishList container">
-      <h2>WishLest</h2>
-
-      <button className="btn btn-secondary mt-3" onClick={() => navigate(-1)}>
-        Back
+      <button
+        className="btn btn-secondary back-button"
+        onClick={() => navigate(-1)}
+      >
+        <FaArrowLeft /> Back
       </button>
+
+      <h2>WishList</h2>
       <div>
         <h6>Shown {shownProducts} Kits</h6>
       </div>
