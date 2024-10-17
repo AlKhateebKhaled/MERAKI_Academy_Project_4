@@ -23,14 +23,6 @@ function App() {
   const [shownProducts, setShownProducts] = useState(151);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
-  const [filters, setFilters] = useState({
-    team: "",
-    league: "",
-    brand: "",
-    season: "",
-    type: "",
-    maxPrice: "",
-  });
   const [searchTerm, setSearchTerm] = useState("");
 
   const updateCart = (item) => {
@@ -78,11 +70,8 @@ function App() {
         updateCart,
         cartCount,
         setCartCount,
-        filters,
-        setFilters,
         searchTerm,
         setSearchTerm,
-       
       }}
     >
       <RouterProvider router={router} />

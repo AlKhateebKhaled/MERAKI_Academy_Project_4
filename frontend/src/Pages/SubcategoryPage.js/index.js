@@ -44,9 +44,11 @@ const SubcategoryPage = () => {
 
   return (
     <div className="container mt-4">
-      <button className="btn btn-secondary mt-3" onClick={() => navigate(-1)}>
+     <div className="d-flex justify-content-center mb-4">
+      <button className="categories-list__back-button" onClick={() => navigate(-1)}>
         Back
       </button>
+    </div>
       <h2>{categoryName}</h2>
       <div className="row">
         {subcategories.length > 0 ? (

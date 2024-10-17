@@ -10,7 +10,7 @@ import Login from "../Pages/Login";
 import CategoriesList from "../Pages/CategoryList";
 import Products from "../Pages/Products";
 import ProductDetails from "../Pages/ProductDetails";
-import SubcategoryPage from "../Pages/SubcategoryPage.js";
+import SubcategoryPage from "../Pages/SubcategoryPage.js/index.js";
 import WishList from "../Pages/WishList/index.js";
 import Cart from "../Pages/Cart/index.js";
 import Search from "../Pages/Search/index.js";
@@ -33,7 +33,8 @@ export const router = createBrowserRouter([
       { path: "categories/:id", element: <SubcategoryPage /> },
       { path: "wishlist", element: <WishList /> },
       { path: "cart", element: <Cart /> },
-      { path: "search", element: <Search /> }, { path: "profile", element: <ProfilePage /> },
+      { path: "search", element: <Search /> },
+      { path: "profile", element: <ProfilePage /> },
     ],
   },
   { path: "*", element: <NotFound /> },

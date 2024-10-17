@@ -27,8 +27,6 @@ const ProductDetails = () => {
     alert,
     setAlert,
     updateCart,
-    cartCount,
-    setCartCount,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -76,7 +74,7 @@ const ProductDetails = () => {
 
   if (!product) {
     return (
-      <div className="text-center">{error || "Loading product details..."}</div>
+      <div className="product-details__error">{error || "Loading product details..."}</div>
     );
   }
 
@@ -177,8 +175,7 @@ const ProductDetails = () => {
           variant: "success",
         });
 
-        // Update the cart in context
-        updateCart(addedItem); // Call this function to update cart state
+        updateCart(addedItem); 
       })
       .catch((err) => {
         console.error("Server error:", err.response?.data);
@@ -191,33 +188,33 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6">
+    <div className="product-details container mt-5">
+      <div className="product-details__row row">
+        <div className="product-details__image col-md-6">
           <img
             src={product.imageURL}
             alt={product.team}
             className="img-fluid rounded shadow"
           />
         </div>
-        <div className="col-md-6">
-          <h2>{product.team}</h2>
-          <p>
+        <div className="product-details__info col-md-6">
+          <h2 className="product-details__title">{product.team}</h2>
+          <p className="product-details__season">
             <strong>Season:</strong> {product.Season}
           </p>
-          <p>
+          <p className="product-details__type">
             <strong>Type:</strong> {product.Type}
           </p>
-          <p>
+          <p className="product-details__brand">
             <strong>Brand:</strong> {product.Brand}
           </p>
-          <p>
+          <p className="product-details__league">
             <strong>League:</strong> {product.League}
           </p>
-          <p>
+          <p className="product-details__price">
             <strong>Price:</strong> ${product.price}
           </p>
-          <p>
+          <p className="product-details__stock">
             <strong>In Stock:</strong>{" "}
             {product.stock > 0 ? (
               <span className="text-success">
@@ -229,22 +226,22 @@ const ProductDetails = () => {
               </span>
             )}
           </p>
-          <p>
+          <p className="product-details__description">
             <strong>Description:</strong> {product.description}
           </p>
-          <p>
+          <p className="product-details__categories">
             <strong>Categories:</strong>{" "}
             {product.categoryID && Array.isArray(product.categoryID)
               ? product.categoryID.map((category) => category.name).join(", ")
               : "No categories available"}
           </p>
 
-          <div className="d-flex justify-content-between mt-4">
-            <button className="btn btn-primary" onClick={handleAddToCart}>
+          <div className="product-details__actions d-flex justify-content-between mt-4">
+            <button className="product-details__btn btn btn-primary" onClick={handleAddToCart}>
               <FaShoppingCart /> Add to Cart
             </button>
             <button
-              className={`btn ${inWishlist ? "btn-secondary" : "btn-danger"}`}
+              className={`product-details__btn ${inWishlist ? "btn-secondary" : "ProductDetailswishList__button--remove"}`}
               onClick={handleAddToWishlist}
             >
               <FaHeart />{" "}
@@ -253,7 +250,7 @@ const ProductDetails = () => {
           </div>
 
           <button
-            className="btn btn-secondary mt-3"
+            className="product-details__btn btn btn-secondary mt-3"
             onClick={() => navigate(-1)}
           >
             Back

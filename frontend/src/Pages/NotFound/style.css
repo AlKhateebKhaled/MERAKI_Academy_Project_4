@@ -1,4 +1,4 @@
-.not-found-container {
+.not-found {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,10 +7,10 @@
     color: #ffffff;
     text-align: center;
     padding: 20px;
-    animation: fadeIn 1s ease-out; 
+    animation: fadeIn 1s ease-out;
   }
   
-  .not-found-content {
+  .not-found__content {
     max-width: 600px;
     background-color: #333; 
     padding: 50px 40px;
@@ -19,29 +19,29 @@
     transition: transform 0.3s ease;
   }
   
-  .not-found-title {
+  .not-found__title {
     font-size: 120px;
-    color: #ffb74d; 
+    color: #ffb74d;
     margin-bottom: 20px;
     letter-spacing: 8px;
     animation: zoomIn 0.5s ease-out;
   }
   
-  .not-found-subtitle {
+  .not-found__subtitle {
     font-size: 28px;
-    color: #ffb74d; 
+    color: #ffb74d;
     margin-bottom: 20px;
     animation: fadeIn 0.7s ease-out;
   }
   
-  .not-found-text {
+  .not-found__text {
     font-size: 18px;
     margin-bottom: 30px;
     color: #cccccc;
     line-height: 1.6;
   }
   
-  .not-found-home-button {
+  .not-found__home-button {
     background-color: #ffb74d;
     color: #1d1d1d;
     padding: 14px 30px;
@@ -54,37 +54,41 @@
     animation: bounceIn 1s ease-out;
   }
   
-  .not-found-home-button:hover {
+  .not-found__home-button:hover {
     background-color: #f9a825;
     transform: translateY(-5px);
     color: #ffffff;
   }
   
+  .not-found__icon {
+    margin-right: 8px;
+  }
+  
   @media (max-width: 768px) {
-    .not-found-title {
-      font-size: 80px; 
+    .not-found__title {
+      font-size: 80px;
     }
   
-    .not-found-content {
+    .not-found__content {
       padding: 30px 20px;
     }
   
-    .not-found-home-button {
+    .not-found__home-button {
       padding: 12px 24px;
       font-size: 16px;
     }
   }
   
   @media (max-width: 480px) {
-    .not-found-title {
-      font-size: 60px; 
+    .not-found__title {
+      font-size: 60px;
     }
   
-    .not-found-subtitle {
+    .not-found__subtitle {
       font-size: 24px;
     }
   
-    .not-found-text {
+    .not-found__text {
       font-size: 16px;
     }
   }

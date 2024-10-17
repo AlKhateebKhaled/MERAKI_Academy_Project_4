@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { AppContext } from "../../App";
 import "./style.css";
 
@@ -14,20 +12,24 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="card product-card" onClick={handleCardClick}>
-      <div className="product-img-wrapper">
+    <div className="product-card" onClick={handleCardClick}>
+      <div className="product-card__img-wrapper">
         <img
           src={product.imageURL}
-          className="product-img"
+          className="product-card__img"
           alt={product.team}
         />
       </div>
-      <div className="card-body">
-        <h5 className="card-title">{product.team}</h5>
-        <p className="card-text">
+      <div className="product-card__body">
+        <h5 className="product-card__title">{product.team}</h5>
+        <p className="product-card__text">
           {product.Season} {product.Type}
         </p>
-        <p className="price">Price: ${product.price}</p>
+        <p className="product-card__price">Price: ${product.price}</p>
+        <div className="product-card__buttons">
+          <button className="product-card__button product-card__button--icon btn-icon">
+          </button>
+        </div>
       </div>
     </div>
   );

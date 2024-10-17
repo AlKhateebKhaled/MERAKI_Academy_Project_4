@@ -12,7 +12,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.product-img-wrapper {
+.product-card__img-wrapper {
   height: 220px;
   overflow: hidden;
   display: flex;
@@ -22,37 +22,37 @@
   border-bottom: 1px solid #eaeaea;
 }
 
-.product-img {
+.product-card__img {
   max-height: 100%;
   max-width: 100%;
   object-fit: cover;
 }
 
-.card-body {
+.product-card__body {
   padding: 15px;
   text-align: center;
 }
 
-.card-title {
+.product-card__title {
   font-size: 1.25rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
 
-.card-text {
+.product-card__text {
   font-size: 0.9rem;
   color: #777;
   margin-bottom: 10px;
 }
 
-.price {
+.product-card__price {
   font-size: 1.1rem;
   font-weight: bold;
   color: #2ecc71;
 }
 
-.btn-icon {
+.product-card__button {
   background: none;
   border: none;
   font-size: 1.8rem;
@@ -62,50 +62,47 @@
   outline: none; 
 }
 
-.btn-icon:hover {
+.product-card__button:hover {
   color: #ff4757 !important; 
   transform: scale(1.2);
 }
 
-
-.in-wishlist {
+.product-card__button--in-wishlist {
   color: red !important; 
 }
 
-.product-buttons .btn-icon svg {
+.product-card__buttons .product-card__button svg {
   width: 1.5em;
   height: 1.5em;
   vertical-align: middle;
 }
 
-
-
 @media (max-width: 768px) {
   .product-card {
-      margin: 15px;
+    margin: 15px;
   }
 
-  .product-img-wrapper {
-      height: 180px;
+  .product-card__img-wrapper {
+    height: 180px;
   }
 
-  .card-title {
-      font-size: 1.1rem;
+  .product-card__title {
+    font-size: 1.1rem;
   }
 
-  .card-text {
-      font-size: 0.85rem;
+  .product-card__text {
+    font-size: 0.85rem;
   }
 
-  .price {
-      font-size: 1rem;
+  .product-card__price {
+    font-size: 1rem;
   }
 
-  .product-buttons {
-      padding: 10px;
+  .product-card__buttons {
+    padding: 10px;
   }
 
-  .btn-icon {
-    font-size: 1.6rem; /* تقليل حجم الأيقونات للشاشات الصغيرة */
-}
+  .product-card__button {
+    font-size: 1.6rem; 
+  }
 }

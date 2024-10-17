@@ -91,33 +91,29 @@ const CategoriesList = () => {
   }
 
   return (
-    <div className="container mt-4">
+    <div className="categories-list__container mt-4">
       {msg && <p style={{ color: "red" }}>{msg}</p>}
 
-      <button className="back-button" onClick={() => navigate(-1)}>
-        Back
-      </button>
-
-      <h2 className="mt-4">All Products</h2>
-      <Card className="category-card h-100 text-center mb-4" onClick={handleAllKitsClick}>
+      <h2 className="categories-list__title mt-4">All Products</h2>
+      <Card className="categories-list__category-card h-100 text-center mb-4" onClick={handleAllKitsClick}>
         <Card.Body>
-          <Card.Title className="mb-2">View All Kits</Card.Title>
+          <Card.Title className="categories-list__category-title mb-2">View All Kits</Card.Title>
         </Card.Body>
       </Card>
 
-      <h2 className="mt-4">Leagues</h2>
+      <h2 className="categories-list__title mt-4">Leagues</h2>
       <div className="row">
         {categories.length > 0 ? (
           categories.map((mainCategory) => (
             <div key={mainCategory.id} className="col-md-6 mb-4">
-              <Card className="category-card h-100 text-center">
+              <Card className="categories-list__category-card h-100 text-center">
                 <Card.Body onClick={() => handleLeagueCardClick(mainCategory.name, mainCategory._id)}>
-                  <Card.Title className="mb-2">{mainCategory.name}</Card.Title>
+                  <Card.Title className="categories-list__category-title mb-2">{mainCategory.name}</Card.Title>
                   <Card.Img
                     variant="top"
                     src={mainCategory.imageURL}
                     alt={mainCategory.name}
-                    className="category-image small-logo"
+                    className="categories-list__category-image small-logo"
                   />
                 </Card.Body>
               </Card>
@@ -128,19 +124,19 @@ const CategoriesList = () => {
         )}
       </div>
 
-      <h2>Brands</h2>
+      <h2 className="categories-list__title">Brands</h2>
       <div className="row">
         {brandCategories.length > 0 ? (
           brandCategories.map((brandCategory) => (
             <div key={brandCategory.id} className="col-md-6 mb-4">
-              <Card className="category-card h-100 text-center">
+              <Card className="categories-list__category-card h-100 text-center">
                 <Card.Body onClick={() => handleCardClick(brandCategory.name)}>
-                  <Card.Title className="mb-2">{brandCategory.name}</Card.Title>
+                  <Card.Title className="categories-list__category-title mb-2">{brandCategory.name}</Card.Title>
                   <Card.Img
                     variant="top"
                     src={brandCategory.imageURL}
                     alt={brandCategory.name}
-                    className="category-image small-logo"
+                    className="categories-list__category-image small-logo"
                   />
                 </Card.Body>
               </Card>
@@ -151,15 +147,14 @@ const CategoriesList = () => {
         )}
       </div>
 
-      <h2>Types</h2>
+      <h2 className="categories-list__title">Types</h2>
       <div className="row">
         {typeCategories.length > 0 ? (
           typeCategories.map((typeCategory) => (
             <div key={typeCategory.id} className="col-md-6 mb-4">
-              <Card className="category-card h-100 text-center">
+              <Card className="categories-list__category-card h-100 text-center">
                 <Card.Body onClick={() => handleCardClick(typeCategory.name)}>
-                  <Card.Title className="mb-2">{typeCategory.name}</Card.Title>
-
+                  <Card.Title className="categories-list__category-title mb-2">{typeCategory.name}</Card.Title>
                 </Card.Body>
               </Card>
             </div>
@@ -169,15 +164,14 @@ const CategoriesList = () => {
         )}
       </div>
 
-      <h2>Seasons</h2>
+      <h2 className="categories-list__title">Seasons</h2>
       <div className="row">
         {seasonCategories.length > 0 ? (
           seasonCategories.map((seasonCategory) => (
             <div key={seasonCategory.id} className="col-md-6 mb-4">
-              <Card className="category-card h-100 text-center">
+              <Card className="categories-list__category-card h-100 text-center">
                 <Card.Body onClick={() => handleCardClick(seasonCategory.name)}>
-                  <Card.Title className="mb-2">{seasonCategory.name}</Card.Title>
-
+                  <Card.Title className="categories-list__category-title mb-2">{seasonCategory.name}</Card.Title>
                 </Card.Body>
               </Card>
             </div>

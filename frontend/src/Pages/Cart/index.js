@@ -150,6 +150,7 @@ const Cart = () => {
                 <td>
                   <div className="quantity-control">
                     <button
+                      className="quantity-control__button quantity-control__button--decrease"
                       onClick={() =>
                         handleQuantityChange(item.productId, item.quantity - 1)
                       }
@@ -158,6 +159,7 @@ const Cart = () => {
                     </button>
                     <span>{item.quantity}</span>
                     <button
+                      className="quantity-control__button quantity-control__button--increase"
                       onClick={() =>
                         handleQuantityChange(item.productId, item.quantity + 1)
                       }
@@ -171,7 +173,7 @@ const Cart = () => {
                 <td>{(item.price * item.quantity).toFixed(2)} $</td>
                 <td>
                   <button
-                    className="btn-danger"
+                    className="cart__button cart__button--remove"
                     onClick={() => handleRemoveFromCart(item.productId)}
                   >
                     Remove
@@ -189,7 +191,10 @@ const Cart = () => {
       {cartItems.length > 0 && (
         <div className="cart-summary">
           <h3>Total Amount: {totalAmount.toFixed(2)} $</h3>
-          <button className="btn-checkout" onClick={handleCheckout}>
+          <button
+            className="cart__button cart__button--checkout"
+            onClick={handleCheckout}
+          >
             Proceed to Checkout
           </button>
         </div>

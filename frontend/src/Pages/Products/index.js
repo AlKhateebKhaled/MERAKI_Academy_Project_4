@@ -1,23 +1,24 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { AppContext } from "../../App";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
-import { FaFutbol, FaCalendarAlt, FaTshirt } from "react-icons/fa";
-import ProductCard from "../../components/ProductCard";
+import { useContext } from "react";
+import { AppContext } from "../../App";
+import axios from "axios";
 
 const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const {
-    selectedFilter,
-    shownProducts,
-    setShownProducts,
-    filters,
-    setFilters,
-  } = useContext(AppContext);
+  const [filters, setFilters] = useState({
+    team: "",
+    league: "",
+    brand: "",
+    season: "",
+    type: "",
+    maxPrice: "",
+  });
+
+  const { setShownProducts, selectedFilter } = useContext(AppContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,7 +41,19 @@ const Products = () => {
             : true;
           const typeMatch = filters.type ? product.Type === filters.type : true;
           const priceMatch = filters.maxPrice
-            ? product.price <= filters.maxPrice
+            ? product.price <= parseFloat(filters.maxPrice)
+            : true;
+
+          const selectedFilterMatch = selectedFilter
+            ? [
+                product.team,
+                product.League,
+                product.Brand,
+                product.Season,
+                product.Type,
+              ]
+                .map((field) => field?.toLowerCase())
+                .includes(selectedFilter.toLowerCase())
             : true;
 
           return (
@@ -49,22 +62,13 @@ const Products = () => {
             brandMatch &&
             seasonMatch &&
             typeMatch &&
-            priceMatch
+            priceMatch &&
+            selectedFilterMatch
           );
         });
 
-        const finalFilteredProducts = filteredProducts.filter((product) =>
-          selectedFilter
-            ? product.team === selectedFilter ||
-              product.League === selectedFilter ||
-              product.Brand === selectedFilter ||
-              product.Season === selectedFilter ||
-              product.Type === selectedFilter
-            : true
-        );
-
-        setProducts(finalFilteredProducts);
-        setShownProducts(finalFilteredProducts.length);
+        setProducts(filteredProducts);
+        setShownProducts(filteredProducts.length);
       } catch (err) {
         console.error(err);
       }
@@ -189,13 +193,8 @@ const Products = () => {
       </button>
 
       <div>
-  <p>
-    {selectedFilter && selectedFilter !== ""
-      ? `Showing ${shownProducts} products filtered by: ${selectedFilter}`
-      : `Showing ${shownProducts} products.`}
-  </p>
-</div>
-
+        <p>Showing {products.length} products.</p>
+      </div>
 
       <div className="products-container">
         {products.length > 0 ? (
@@ -204,37 +203,12 @@ const Products = () => {
               key={product._id}
               className="product-card"
               onClick={() => handleCardClick(product._id)}
-
             >
               <div className="product-img-wrapper">
-                <img
-                  src={product.imageURL}
-                  alt={product.name}
-                  className="product-img"
-                />
+                <img src={product.imageUrl} alt={product.name} />
               </div>
-              <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
-                <p className="price">${product.price.toFixed(2)}</p>
-                <div className="product-info">
-                  <span className="product-info-icon">
-                    <FaFutbol />{" "}
-                  </span>
-                  <span> {product.team}</span>
-                </div>
-                <div className="product-info">
-                  <span className="product-info-icon">
-                    <FaCalendarAlt />{" "}
-                  </span>
-                  <span> {product.Season}</span>
-                </div>
-                <div className="product-info">
-                  <span className="product-info-icon">
-                    <FaTshirt />{" "}
-                  </span>
-                  <span> {product.Type}</span>
-                </div>
-              </div>
+              <h5>{product.name}</h5>
+              <p>{product.price}</p>
             </div>
           ))
         ) : (

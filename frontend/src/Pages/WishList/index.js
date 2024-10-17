@@ -7,7 +7,6 @@ import "./style.css";
 
 const WishList = () => {
   const navigate = useNavigate();
-
   const [products, setProducts] = useState([]);
 
   const {
@@ -80,42 +79,36 @@ const WishList = () => {
   };
 
   return (
-    <div className="WishList container">
-      <button
-        className="btn btn-secondary back-button"
-        onClick={() => navigate(-1)}
-      >
-        <FaArrowLeft /> Back
-      </button>
+    <div className="wishlist container">
 
-      <h2>WishList</h2>
+      <h2 className="wishlist__title">WishList</h2>
       <div>
-        <h6>Shown {shownProducts} Kits</h6>
+        <h6 className="wishlist__count">Shown {shownProducts} Kits</h6>
       </div>
-      <div className="row">
+      <div className="wishlist__products row">
         {products.length > 0 ? (
           products.map((product) => (
-            <div key={product._id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
-              <div className="card product-card">
+            <div key={product._id} className="wishlist__product col-lg-3 col-md-4 col-sm-6 mb-4">
+              <div className="wishlist__product-card card">
                 <div
-                  className="product-img-wrapper"
+                  className="wishlist__product-img-wrapper"
                   onClick={() => handleOnClick(product.productId._id)}
                 >
                   <img
                     src={product.productId.imageURL}
-                    className="product-img"
+                    className="wishlist__product-img"
                     alt={product.productId.team}
                   />
                 </div>
-                <div className="card-body">
-                  <h5 className="card-title">{product.productId.team}</h5>
-                  <p className="card-text">
+                <div className="wishlist__card-body card-body">
+                  <h5 className="wishlist__card-title card-title">{product.productId.team}</h5>
+                  <p className="wishlist__card-text card-text">
                     {product.productId.Season} {product.productId.Type}
                   </p>
-                  <p className="price">Price: ${product.productId.price}</p>
+                  <p className="wishlist__price">Price: ${product.productId.price}</p>
                 </div>
-                <div className="product-buttons">
-                  <div className="removeBtn">
+                <div className="wishlist__product-buttons">
+                  <div className="wishlist__remove-btn removeBtn">
                     <button
                       className="btn btn-danger"
                       onClick={() =>

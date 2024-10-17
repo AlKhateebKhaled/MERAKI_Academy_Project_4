@@ -42,7 +42,7 @@
   background-color: #f9a825;
 }
 
-.btn-danger {
+.cart__button--remove {
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -53,7 +53,7 @@
   font-size: 0.8rem; 
 }
 
-.btn-danger:hover {
+.cart__button--remove:hover {
   background-color: #c0392b;
   transform: translateY(-2px);
 }
@@ -65,7 +65,7 @@
   font-weight: 500;
 }
 
-.btn-checkout {
+.cart__button--checkout {
   background-color: #ffb74d;
   color: #1d1d1d;
   border: none;
@@ -76,7 +76,7 @@
   font-size: 1rem;
 }
 
-.btn-checkout:hover {
+.cart__button--checkout:hover {
   background-color: #f9a825;
   transform: translateY(-2px);
 }

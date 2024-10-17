@@ -3,7 +3,6 @@ import axios from "axios";
 import { AppContext } from "../../App";
 import "./style.css";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import ProductCard from "../../components/ProductCard";
 
 const Search = () => {
@@ -15,10 +14,17 @@ const Search = () => {
     selectedFilter,
     shownProducts,
     setShownProducts,
-    filters,
-    setFilters,
     setSearchTerm,
   } = useContext(AppContext);
+
+  const [filters, setFilters] = useState({
+    team: "",
+    league: "",
+    brand: "",
+    season: "",
+    type: "",
+    maxPrice: "",
+  });
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -63,25 +69,15 @@ const Search = () => {
           );
         });
 
-        const finalFilteredProducts = filteredProducts.filter((product) =>
-          selectedFilter
-            ? product.team === selectedFilter ||
-              product.League === selectedFilter ||
-              product.Brand === selectedFilter ||
-              product.Season === selectedFilter ||
-              product.Type === selectedFilter
-            : true
-        );
-
-        setProducts(finalFilteredProducts);
-        setShownProducts(finalFilteredProducts.length);
+        setProducts(filteredProducts);
+        setShownProducts(filteredProducts.length);
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchProducts();
-  }, [filters, selectedFilter]);
+  }, [filters]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -95,7 +91,7 @@ const Search = () => {
     setSearchTerm(e.target.value);
     setFilters((prevFilters) => ({
       ...prevFilters,
-      team: e.target.value, // Filter by team name
+      team: e.target.value,
     }));
   };
 

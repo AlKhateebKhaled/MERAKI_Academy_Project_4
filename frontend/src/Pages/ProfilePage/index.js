@@ -99,10 +99,10 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="container profile-container mt-4">
-      <h2 className="profile-title">User Profile</h2>
+    <div className="profile profile__container profile__container--margin-top">
+      <h2 className="profile__title">User Profile</h2>
       {!isEditing ? (
-        <div className="profile-details">
+        <div className="profile__details">
           <p>
             <strong>Username:</strong> {userData.userName}
           </p>
@@ -130,19 +130,19 @@ const ProfilePage = () => {
           <img
             src={userData.profilePicture}
             alt="Profile"
-            className="profile-picture"
+            className="profile__picture"
           />
           <button
-            className="btn btn-secondary edit-profile-btn"
+            className="profile__edit-btn"
             onClick={() => setIsEditing(true)}
           >
             Edit Profile
           </button>
         </div>
       ) : (
-        <div className="container profile-edit-container mt-4">
-          <form onSubmit={handleSubmitProfile} className="profile-edit-form">
-            <div className="form-group mb-3">
+        <div className="profile__edit-container">
+          <form onSubmit={handleSubmitProfile} className="profile__edit-form">
+            <div className="profile__form-group">
               <label htmlFor="profilePicture">Profile Picture URL:</label>
               <input
                 type="text"
@@ -150,12 +150,12 @@ const ProfilePage = () => {
                 name="profilePicture"
                 value={userData.profilePicture}
                 onChange={handleChange}
-                className="form-control"
+                className="profile__form-control"
                 placeholder="Enter image URL"
               />
             </div>
 
-            <div className="form-group mb-3">
+            <div className="profile__form-group">
               <label htmlFor="userName">Username:</label>
               <input
                 type="text"
@@ -163,12 +163,12 @@ const ProfilePage = () => {
                 name="userName"
                 value={userData.userName}
                 onChange={handleChange}
-                className="form-control"
+                className="profile__form-control"
                 required
               />
             </div>
 
-            <div className="form-group mb-3">
+            <div className="profile__form-group">
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
@@ -176,12 +176,12 @@ const ProfilePage = () => {
                 name="email"
                 value={userData.email}
                 onChange={handleChange}
-                className="form-control"
+                className="profile__form-control"
                 required
               />
             </div>
 
-            <div className="form-group mb-3">
+            <div className="profile__form-group">
               <label htmlFor="address">Address:</label>
               <input
                 type="text"
@@ -189,11 +189,11 @@ const ProfilePage = () => {
                 name="address"
                 value={userData.address}
                 onChange={handleChange}
-                className="form-control"
+                className="profile__form-control"
               />
             </div>
 
-            <div className="form-group mb-3">
+            <div className="profile__form-group">
               <label htmlFor="socialMedia">Social Media Link:</label>
               <input
                 type="url"
@@ -201,28 +201,25 @@ const ProfilePage = () => {
                 name="socialMedia"
                 value={userData.socialMedia}
                 onChange={handleChange}
-                className="form-control"
+                className="profile__form-control"
                 placeholder="https://socialMedia.com/in/username"
               />
             </div>
 
-            <div className="form-group mb-3">
+            <div className="profile__form-group">
               <label htmlFor="bio">Bio:</label>
               <textarea
                 id="bio"
                 name="bio"
                 value={userData.bio}
                 onChange={handleChange}
-                className="form-control"
+                className="profile__form-control"
                 rows="3"
                 placeholder="Tell us something about yourself..."
               ></textarea>
             </div>
 
-            <button
-              type="submit"
-              className="btn btn-primary profile-submit-btn"
-            >
+            <button type="submit" className="profile__submit-btn">
               Save Profile Changes
             </button>
           </form>

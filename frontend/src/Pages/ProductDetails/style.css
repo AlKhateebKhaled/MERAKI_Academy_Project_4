@@ -1,18 +1,62 @@
 .product-details {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .product-details h2 {
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  
-  .product-details p {
-    margin: 5px 0;
-  }
-  
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  
+.product-details__error {
+  text-align: center;
+}
+
+.product-details__row {
+  display: flex;
+}
+
+.product-details__image {
+  flex: 1;
+}
+
+.product-details__info {
+  flex: 1;
+}
+
+.product-details__title {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.product-details__season,
+.product-details__type,
+.product-details__brand,
+.product-details__league,
+.product-details__price,
+.product-details__stock,
+.product-details__description,
+.product-details__categories {
+  margin: 5px 0;
+}
+
+.product-details__actions {
+  margin-top: 20px;
+}
+
+.product-details__btn {
+  margin-right: 10px;
+}
+
+.ProductDetailswishList__button--remove {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px; 
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 0.8rem; 
+}
+
+.ProductDetailswishList__button--remove:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
