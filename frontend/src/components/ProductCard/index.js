@@ -2,33 +2,45 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../App";
 import "./style.css";
+import { FaFutbol, FaCalendarAlt, FaTshirt } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
-  const { token } = useContext(AppContext);
 
-  const handleCardClick = () => {
-    navigate(`/products/${product._id}`);
+  const handleCardClick = (productId) => {
+    console.log("click");
+    navigate(`/products/${productId}`);
   };
 
   return (
-    <div className="product-card" onClick={handleCardClick}>
-      <div className="product-card__img-wrapper">
+    <div className="product-card" onClick={() => handleCardClick(product._id)}>
+      <div className="product-img-wrapper">
         <img
           src={product.imageURL}
-          className="product-card__img"
-          alt={product.team}
+          alt={product.name}
+          className="product-img"
         />
       </div>
-      <div className="product-card__body">
-        <h5 className="product-card__title">{product.team}</h5>
-        <p className="product-card__text">
-          {product.Season} {product.Type}
-        </p>
-        <p className="product-card__price">Price: ${product.price}</p>
-        <div className="product-card__buttons">
-          <button className="product-card__button product-card__button--icon btn-icon">
-          </button>
+      <div className="card-body">
+        <h5 className="card-title">{product.name}</h5>
+        <p className="price">${product.price.toFixed(2)}</p>
+        <div className="product-info">
+          <span className="product-info-icon">
+            <FaFutbol />
+          </span>
+          <span>{product.team}</span>
+        </div>
+        <div className="product-info">
+          <span className="product-info-icon">
+            <FaCalendarAlt />
+          </span>
+          <span> {product.Season}</span>
+        </div>
+        <div className="product-info">
+          <span className="product-info-icon">
+            <FaTshirt />
+          </span>
+          <span>{product.Type}</span>
         </div>
       </div>
     </div>

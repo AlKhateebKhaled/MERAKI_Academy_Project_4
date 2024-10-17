@@ -236,30 +236,32 @@ const ProductDetails = () => {
               : "No categories available"}
           </p>
 
-          <div className="product-details__actions d-flex justify-content-between mt-4">
-            <button className="product-details__btn btn btn-primary" onClick={handleAddToCart}>
-              <FaShoppingCart /> Add to Cart
-            </button>
-            <button
-              className={`product-details__btn ${inWishlist ? "btn-secondary" : "ProductDetailswishList__button--remove"}`}
-              onClick={handleAddToWishlist}
-            >
-              <FaHeart />{" "}
-              {inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
-            </button>
-          </div>
+          <div className="product-details__actions d-flex justify-content-between align-items-center mt-4">
+  <button className="product-details__btn AddToCart" onClick={handleAddToCart}>
+    <FaShoppingCart /> Add to Cart
+  </button>
+  <button
+    className={`product-details__btn ${inWishlist ? "ProductDetailswishList__button--remove" : "ProductDetailswishList__button--add"}`}
+    onClick={handleAddToWishlist}
+  >
+    <FaHeart /> {inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+  </button>
 
-          <button
-            className="product-details__btn btn btn-secondary mt-3"
-            onClick={() => navigate(-1)}
-          >
-            Back
-          </button>
-          {alert.message && (
-            <Alert variant={alert.variant} className="mt-3">
-              {alert.message}
-            </Alert>
-          )}
+
+<button
+  className="product-details__btn back"
+  onClick={() => navigate(-1)}
+>
+  Back
+</button>
+</div>
+{alert.message && (
+  <Alert variant={alert.variant} className="mt-3">
+    {alert.message}
+  </Alert>
+)}
+
+         
         </div>
       </div>
     </div>

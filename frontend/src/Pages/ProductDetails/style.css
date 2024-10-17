@@ -11,14 +11,18 @@
 
 .product-details__row {
   display: flex;
+  flex-wrap: wrap; 
 }
 
 .product-details__image {
   flex: 1;
+  min-width: 300px; 
+  margin-right: 20px; 
 }
 
 .product-details__info {
   flex: 1;
+  min-width: 300px; 
 }
 
 .product-details__title {
@@ -38,25 +42,118 @@
 }
 
 .product-details__actions {
+  display: flex;
+  flex-direction: column; 
+  align-items: stretch; 
   margin-top: 20px;
 }
 
 .product-details__btn {
-  margin-right: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+  height: 60px;
+  width: 40%;
 }
 
 .ProductDetailswishList__button--remove {
   background-color: #e74c3c;
   color: white;
-  border: none;
-  padding: 6px 12px; 
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-size: 0.8rem; 
 }
 
 .ProductDetailswishList__button--remove:hover {
   background-color: #c0392b;
   transform: translateY(-2px);
+}
+
+.ProductDetailswishList__button--add {
+  background-color: #2dac29;
+  color: white;
+}
+
+.ProductDetailswishList__button--add:hover {
+  background-color: #159211;
+  transform: translateY(-2px);
+}
+
+.back:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.product-details__btn,
+.ProductDetailswishList__button--remove,
+.ProductDetailswishList__button--add,
+.product-details__backBtn {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.AddToCart {
+  background-color: #ffb74d;
+  color: #1d1d1d;
+  border: none;
+  padding: 8px 16px; 
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+}
+
+.AddToCart:hover {
+  background-color: #f9a825;
+  transform: translateY(-2px);
+}
+
+.back {
+  background-color: #6c757d;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .product-details__row {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .product-details__image {
+    margin-right: 0; 
+    margin-bottom: 20px; 
+    width: 100%; 
+    max-width: 400px; 
+  }
+
+  .product-details__info {
+    width: 100%; 
+  }
+
+  .product-details__actions {
+    flex-direction: column; 
+  }
+
+  .product-details__btn {
+    width: 100%; 
+    margin: 5px 0; 
+  }
+
+  .AddToCart {
+    width: 100%; 
+  }
+}
+
+@media (max-width: 480px) {
+  .product-details__title {
+    font-size: 1.5rem; 
+  }
+
+  .product-details__btn {
+    font-size: 0.8rem; 
+  }
+
+  .AddToCart {
+    font-size: 0.9rem; 
+  }
 }

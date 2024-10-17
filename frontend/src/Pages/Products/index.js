@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../App";
 import axios from "axios";
+import ProductCard from "../../components/ProductCard";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -188,27 +189,21 @@ const Products = () => {
         </div>
       </div>
 
-      <button className="back-button mt-3" onClick={() => navigate(-1)}>
+      <div className="d-flex justify-content-center mb-4">
+      <button className="categories-list__back-button" onClick={() => navigate(-1)}>
         Back
       </button>
+    </div>
 
       <div>
         <p>Showing {products.length} products.</p>
       </div>
 
-      <div className="products-container">
+      <div className="row">
         {products.length > 0 ? (
           products.map((product) => (
-            <div
-              key={product._id}
-              className="product-card"
-              onClick={() => handleCardClick(product._id)}
-            >
-              <div className="product-img-wrapper">
-                <img src={product.imageUrl} alt={product.name} />
-              </div>
-              <h5>{product.name}</h5>
-              <p>{product.price}</p>
+            <div key={product._id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
+              <ProductCard product={product} />
             </div>
           ))
         ) : (
@@ -216,6 +211,7 @@ const Products = () => {
         )}
       </div>
     </div>
+
   );
 };
 

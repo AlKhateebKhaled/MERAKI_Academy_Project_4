@@ -114,29 +114,29 @@ h2 {
   color: #28a745;
   margin-bottom: 10px;
 }
-
 .product-info {
   font-size: 1.3rem;
-  color: #555;
-  margin: 5px 0;
-  display: flex;
-  align-items: center;
-}
-
-.product-info-icon {
-  margin-right: 10px;
-  color: #28a745;
-  font-size: 1.5rem;
+  color: #555; 
+  margin: 5px 0; 
+  padding: 5px; 
+  border-left: 4px solid #28a745; 
+  background-color: #f9f9f9; 
+  border-radius: 4px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  transition: background-color 0.3s; 
 }
 
 .product-info:hover {
-  background-color: #e9ffe9;
+  background-color: #e9ffe9; 
 }
 
 .product-info-icon {
-  margin-right: 8px;
-  color: #28a745;
+  margin-right: 8px; 
+  color: #28a745; 
 }
+
 
 a {
   text-decoration: none;
@@ -154,18 +154,13 @@ a:hover {
   }
 
   .back-button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
+    width: 100%;
   }
 
   .products-container {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
-  .product-img {
-    object-position: top;
-  }
   .card-title {
     font-size: 1.25rem;
   }

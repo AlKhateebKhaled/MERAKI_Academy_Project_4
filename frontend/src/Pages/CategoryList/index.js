@@ -92,8 +92,6 @@ const CategoriesList = () => {
 
   return (
     <div className="categories-list__container mt-4">
-      {msg && <p style={{ color: "red" }}>{msg}</p>}
-
       <h2 className="categories-list__title mt-4">All Products</h2>
       <Card className="categories-list__category-card h-100 text-center mb-4" onClick={handleAllKitsClick}>
         <Card.Body>
