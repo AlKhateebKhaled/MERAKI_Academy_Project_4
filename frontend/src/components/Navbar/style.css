@@ -67,20 +67,41 @@ body {
   background-color: rgba(255, 183, 77, 0.3);
   color: #1d1d1d;
 }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Pacifico&display=swap');
 
 .logo {
   position: absolute;
-  left: 43%;
-  font-size: 40px;
-  font-weight: bold;
-  color: #ffb74d;
+  left: 50%; 
+  transform: translateX(-50%); 
+  font-size: 40px; 
+  font-family: 'Poppins', sans-serif; 
+  color: #1d1d1d; 
   z-index: 1000;
+  text-align: center; 
 }
 
 .logo h1 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffb74d;
+  font-family: 'Pacifico', cursive; 
+  font-size: 50px; 
+  margin: 0; 
+  color: #f9a825; 
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); 
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.logo h1:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 36px; 
+  }
+
+  .logo h1 {
+    font-size: 48px; 
+  }
 }
 
 .right-side {

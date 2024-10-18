@@ -174,7 +174,7 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="logo">
-        <h1>ForzaKits</h1>
+        <h1>Forza</h1>
       </div>
 
       <div className="right-side">
