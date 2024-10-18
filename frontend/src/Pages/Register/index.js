@@ -21,6 +21,7 @@ function Register() {
 
   useEffect(() => {
     setIsLoading(false);
+    setMsg("");
   }, []);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

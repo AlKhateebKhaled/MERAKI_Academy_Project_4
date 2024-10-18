@@ -6,11 +6,16 @@ const wishModel = require("../models/wishListSchema");
 const addProductToWishList = async (req, res) => {
   try {
     const { products } = req.body;
-    const userId = req.token.userId;
+
+    if (!Array.isArray(products)) {
+      return res.status(400).json({ message: "Products must be an array." });
+    }
+
+    const userId = req.token.userId; 
 
     const user = await userModel.findById(userId);
     if (!user) {
-      return res.status(404).json({ message: `User not found` });
+      return res.status(404).json({ message: "User not found." });
     }
 
     let wishList = await wishModel.findOne({ user: userId });
@@ -26,18 +31,14 @@ const addProductToWishList = async (req, res) => {
     for (let item of products) {
       const product = await productModel.findById(item.productId);
       if (!product) {
-        return res
-          .status(404)
-          .json({ message: `Product with ID ${item.productId} not found` });
+        return res.status(404).json({ message: `Product with ID ${item.productId} not found.` });
       }
 
       const productExists = wishList.products.some(
         (p) => p.productId.toString() === product._id.toString()
       );
       if (productExists) {
-        return res
-          .status(404)
-          .json({ message: `Product already exists in the wishlist` });
+        return res.status(409).json({ message: "Product already exists in the wishlist." });
       } else {
         wishList.products.push({
           productId: product._id,
@@ -49,7 +50,7 @@ const addProductToWishList = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: "Product(s) added to Wish List successfully",
+      message: "Product(s) added to Wish List successfully.",
       WishList: {
         user: user.userName,
         products: wishList.products,

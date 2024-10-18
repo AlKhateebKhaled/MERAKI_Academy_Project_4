@@ -26,7 +26,8 @@ function Login() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(false);
+    setIsLoading(false)
+    setMsg("");
     }, []);
 
   const handleChange = (e) => {
@@ -115,11 +116,7 @@ function Login() {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Form.Check label="Remember me" />
-          </Col>
-        </Form.Group>
+
 
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 10, offset: 2 }}>

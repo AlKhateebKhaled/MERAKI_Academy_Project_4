@@ -10,7 +10,7 @@ const orderRouter = require("./routes/order");
 const cartRouter = require("./routes/cart");
 const wishRouter = require("./routes/wishList");
 const reviewRouter = require("./routes/review");
-const uploadRouter = require("./routes/upload");
+const contactRouter = require("./routes/contact");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -24,7 +24,7 @@ app.use("/orders", orderRouter);
 app.use("/cart", cartRouter);
 app.use("/wishlist", wishRouter);
 app.use("/products/:id/reviews", reviewRouter);
-app.use("/upload", uploadRouter);
+app.use("/contact", contactRouter);
 app.use("*", (req, res) => {
   res.status(404).json({ success: false, message: "No content at this path" });
 });
@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
     .status(err.status || 500)
     .json({ success: false, message: err.message || "Internal Server Error" });
 });
-app.use('/images', express.static('public/images'));
+app.use("/images", express.static("public/images"));
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
 });

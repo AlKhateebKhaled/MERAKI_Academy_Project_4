@@ -211,7 +211,6 @@ const Products = () => {
         )}
       </div>
     </div>
-
   );
 };
 

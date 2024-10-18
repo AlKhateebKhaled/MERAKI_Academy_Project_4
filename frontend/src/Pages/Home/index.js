@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
 import React from "react";
 import "./style.css";
-import image1 from "../../assets/seasonKit.jpeg";
+import image1 from "../../assets/seasonKit.jpg";
 import image2 from "../../assets/awaykit.jpg";
 import image3 from "../../assets/thirdKit.jpg";
 import Footer from "../../components/Footer";
@@ -11,21 +11,28 @@ import Footer from "../../components/Footer";
 const featuredProducts = [
   {
     id: 1,
-    name: "Home Jersey 2024/25",
+    name: "Real Madrid Home Jersey 2024/25",
     price: "$89.99",
-    imageUrl: "path/to/home_jersey_image.jpg",
+    description:
+      "Show your support for Los Blancos with the iconic Home Jersey. Designed for comfort and style, it's perfect for game days and casual wear alike.",
+    imageUrl:
+      "https://res.cloudinary.com/drhborpt0/image/upload/v1729222777/GENERICO_mwokbi.webp",
   },
   {
     id: 2,
-    name: "Away Jersey 2024/25",
-    price: "$89.99",
-    imageUrl: "path/to/away_jersey_image.jpg",
+    name: "Premier League Official Jerseys 2024/25",
+    description:
+      "Grab the latest Premier League jerseys and cheer for your favorite team in style. Made from high-quality materials for ultimate comfort.",
+    imageUrl:
+      "https://res.cloudinary.com/drhborpt0/image/upload/v1729223402/Screenshot_1_nyyt8a.png",
   },
   {
     id: 3,
-    name: "Third Jersey 2024/25",
-    price: "$89.99",
-    imageUrl: "path/to/third_jersey_image.jpg",
+    name: "Adidas Official Kits 2024/25",
+    description:
+      "Experience the perfect blend of performance and style with the latest Adidas kits. Whether on the field or off, these kits are designed to make a statement.",
+    imageUrl:
+      "https://res.cloudinary.com/drhborpt0/image/upload/v1729222777/adidas_24-25_teamwear_kits_3_ya0pby.jpg",
   },
 ];
 
@@ -107,10 +114,11 @@ const Home = () => {
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="img-fluid"
+                  className=".product-image"
                 />
-                <h5>{product.name}</h5>
-                <p>{product.price}</p>
+                <h5 className="product-title">{product.name}</h5>
+                <p className="product-price">{product.price}</p>
+                <p className="product-description">{product.description}</p>
                 <Button
                   className="btn-orange"
                   onClick={() => navigate(`/product/${product.id}`)}
