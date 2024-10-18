@@ -15,6 +15,8 @@ import WishList from "../Pages/WishList/index.js";
 import Cart from "../Pages/Cart/index.js";
 import Search from "../Pages/Search/index.js";
 import ProfilePage from "../Pages/ProfilePage/index.js";
+import TermsOfService from "../Pages/Tesrms/index.js";
+import PrivacyPolicy from "../Pages/Privacy/index.js";
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +37,9 @@ export const router = createBrowserRouter([
       { path: "cart", element: <Cart /> },
       { path: "search", element: <Search /> },
       { path: "profile", element: <ProfilePage /> },
+      { path: "terms", element: <TermsOfService /> },
+
+      { path: "privacy", element: <PrivacyPolicy /> },
     ],
   },
-  { path: "*", element: <NotFound /> },
 ]);

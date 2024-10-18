@@ -90,19 +90,10 @@ body {
 }
 
 .logo h1:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  transform: scale(1.1); 
 
 }
 
-@media (max-width: 768px) {
-  .logo {
-    font-size: 36px; 
-  }
-
-  .logo h1 {
-    font-size: 48px; 
-  }
-}
 
 .right-side {
   display: flex;
@@ -246,10 +237,7 @@ body {
     text-align: left;
   }
 
-  .logo {
-    position: absolute;
-    left: 45%;
-  }
+  
 
   .menu-icon {
     font-size: 14px;
@@ -335,5 +323,17 @@ body {
   .cart-count {
     padding: 1px 2px;
     font-size: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 30px; 
+    position: absolute;
+    left: 53%;
+  }
+
+  .logo h1 {
+    font-size: 33px; 
   }
 }

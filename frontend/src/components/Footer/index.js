@@ -15,12 +15,12 @@ const Footer = () => {
           <h4>Contact Information</h4>
           <p>
             Email:{" "}
-            <a href="khaled.hkhateeb@gmale.com">khaled.hkhateeb@gmale.com</a>
+            <a href="mailto:khaled.hkhateeb@gmale.com">khaled.hkhateeb@gmale.com</a>
           </p>
           <p>
             Phone: <a href="tel:+962772874494">+ (962) 77-2874-494</a>
           </p>
-          <p>Address: 123 Shoumer Street, Zarqa, Jordab</p>
+          <p>Address: Shoumer Street, Zarqa, Jordan</p>
         </div>
         <div className="footer-section">
           <h4>Quick Links</h4>
