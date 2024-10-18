@@ -48,9 +48,13 @@
 
 .wishlist__product-img {
   width: 100%;
-  height: auto;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  height: 250px;
+  overflow: hidden;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wishlist__card-body {
@@ -80,7 +84,6 @@
   width: 100%;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   .wishlist__product {
     flex: 1 0 45%;

@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
@@ -20,13 +20,14 @@ function Login() {
     msg,
     setMsg,
     setToken,
-    userName,
     setUserName,
-    isLoading,
-    setIsLoading,
-    shownUserName,
-    setShownUserName,
   } = useContext(AppContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+    }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,31 +44,36 @@ function Login() {
     axios
       .post("http://localhost:5000/users/login", formData)
       .then((res) => {
-        console.log("Response:", res.data);
-        localStorage.setItem("token", res.data.token);
-        setToken(res.data.token);
-        localStorage.setItem("userName", res.data.user.userName);
-        setUserName(res.data.user.userName);
-        console.log(userName);
+       
+          localStorage.setItem("token", res.data.token);
+          setToken(res.data.token);
+          localStorage.setItem("userName", res.data.user.userName);
+          setUserName(res.data.user.userName);
 
-        const redirectPath = currentLocation.state?.from?.pathname || "/";
-        navigate(redirectPath);
+          const redirectPath = currentLocation.state?.from?.pathname || "/";
+          navigate(redirectPath);
+        
       })
       .catch((err) => {
-        console.error("Error:", err);
-        setMsg(err.response?.data?.message || "An error occurred");
+          setMsg(err.response?.data?.message || "An error occurred");
+        
       })
       .finally(() => {
-        setIsLoading(false);
+          setIsLoading(false);
+        
       });
+  };
 
-    console.log("Form Data Submitted:", formData);
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   return (
     <div className="login-page">
       <Form onSubmit={handleLogin} className="form-container">
         {msg && <Alert variant="danger">{msg}</Alert>}
+
+        <h2 className="text-center">Login to Your Account</h2>
 
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
@@ -76,7 +82,7 @@ function Login() {
           <Col sm={10}>
             <Form.Control
               type="email"
-              placeholder="Email"
+              placeholder="Enter your email"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -100,7 +106,7 @@ function Login() {
           <Col sm={10}>
             <Form.Control
               type="password"
-              placeholder="Password"
+              placeholder="Enter your password"
               name="password"
               value={formData.password}
               onChange={handleChange}
@@ -117,19 +123,39 @@ function Login() {
 
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit">Sign in</Button>
-            {isLoading && (
-              <>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Loading...</span>
-              </>
-            )}
+            <Button
+              type="submit"
+              className="w-100"
+              variant="primary"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">Loading...</span>
+                </>
+              ) : (
+                "Sign in"
+              )}
+            </Button>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <Col sm={{ span: 10, offset: 2 }}>
+            <Button
+              variant="outline-primary"
+              onClick={handleRegister}
+              className="w-100 register-button"
+            >
+              Don't have an account? Register here
+            </Button>
           </Col>
         </Form.Group>
       </Form>

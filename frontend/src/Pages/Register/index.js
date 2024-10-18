@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -14,11 +14,14 @@ import { AppContext } from "../../App";
 
 function Register() {
   const navigate = useNavigate();
-  const { formData, setFormData, msg, setMsg, isLoading, setIsLoading } =
-    useContext(AppContext);
+  const { formData, setFormData, msg, setMsg } = useContext(AppContext);
   const [errors, setErrors] = useState({});
   const [showAlert, setShowAlert] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

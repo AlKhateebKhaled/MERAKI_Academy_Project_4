@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaSearch,
@@ -6,36 +6,67 @@ import {
   FaHeart,
   FaSun,
   FaMoon,
+  FaBars,
+  FaHome,
   FaSignOutAlt,
   FaShoppingCart,
-  FaHome,
+  FaSignInAlt,
+  FaList,
+  FaDollarSign,
 } from "react-icons/fa";
 import "./style.css";
 import { AppContext } from "../../App";
 
+const Dropdown = ({ title, options, isOpen, toggle }) => (
+  <div className="dropdown">
+    <div
+      className="dropdown-toggle"
+      onClick={toggle}
+      aria-haspopup="true"
+      aria-expanded={isOpen}
+    >
+      {title}
+    </div>
+    {isOpen && (
+      <div className="dropdown-list open">
+        {options.map((option) => (
+          <NavLink
+            key={option.label}
+            to={option.path}
+            className="dropdown-item"
+            activeClassName="active"
+            onClick={() => {
+              toggle();
+            }}
+          >
+            {option.label}
+          </NavLink>
+        ))}
+      </div>
+    )}
+  </div>
+);
+
 const Navbar = () => {
   const navigate = useNavigate();
   const { token, userName, setToken, cartItems } = useContext(AppContext);
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    document.body.className = isDarkMode ? "dark-mode" : "";
-  }, [isDarkMode]);
-
-  const logout = () => {
-    localStorage.clear();
-    setToken(null);
-    navigate("/login");
+  const toggleDropdown = (dropdown) => {
+    setIsDropdownOpen((prev) => ({
+      ...prev,
+      [dropdown]: !prev[dropdown],
+    }));
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => {
-      localStorage.setItem("darkMode", !prevMode);
-      return !prevMode;
-    });
+  const logout = () => {
+    localStorage.clear("token");
+    localStorage.clear("userName");
+    setToken(null);
+    navigate("/login");
   };
 
   const handleSearch = (e) => {
@@ -49,14 +80,14 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${isDarkMode ? "dark-mode" : ""}`}>
       <div className="right-side">
-        <NavLink to="/" className="icon-button">
-          <FaHome />
-        </NavLink>
+        <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <FaBars />
+        </div>
         <div>
           {token ? (
             <div className="user-info">
               <span
-                className="icon-button"
+                className="icon-button-user"
                 onClick={() => {
                   navigate("/profile");
                 }}
@@ -84,8 +115,64 @@ const Navbar = () => {
             </NavLink>
           )}
         </div>
-      </div>
+        <div className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+          <NavLink
+            exact
+            to="/"
+            activeClassName="active"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <FaHome /> Home
+          </NavLink>
+          <NavLink
+            to="/Categories"
+            activeClassName="active"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <FaList /> Categories
+          </NavLink>
+          <NavLink
+            to="/wishlist"
+            activeClassName="active"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <FaHeart /> WishList
+          </NavLink>
+          <NavLink to="/cart">
+            <FaShoppingCart /> Cart
+          </NavLink>
+          <Dropdown
+            title={
+              <span>
+                <FaSignInAlt /> Login / Register
+              </span>
+            }
+            options={[
+              { label: "Login", path: "/login" },
+              { label: "Register", path: "/register" },
+            ]}
+            isOpen={isDropdownOpen.loginRegister}
+            toggle={() => toggleDropdown("loginRegister")}
+          />
 
+          <Dropdown
+            title={
+              <span>
+                <FaDollarSign /> Currency
+              </span>
+            }
+            options={[
+              { label: "Jordanian Dinar", path: "/currency/jd" },
+              { label: "Dollar", path: "/currency/usd" },
+            ]}
+            isOpen={isDropdownOpen.currency}
+            toggle={() => toggleDropdown("currency")}
+          />
+        </div>
+        <NavLink to="/" className="icon-button">
+          <FaHome />
+        </NavLink>
+      </div>
       <div className="logo">
         <h1>ForzaKits</h1>
       </div>
@@ -103,7 +190,7 @@ const Navbar = () => {
             <FaSearch />
           </button>
         </form>
-        <button className="icon-button" onClick={toggleDarkMode}>
+        <button className="icon-button">
           {isDarkMode ? <FaSun /> : <FaMoon />}
         </button>
       </div>
