@@ -6,7 +6,6 @@ import "./style.css";
 
 const Cart = () => {
   const navigate = useNavigate();
-
   const {
     setAlert,
     setIsLoading,
@@ -20,6 +19,15 @@ const Cart = () => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
+    const storedCart = localStorage.getItem("cartItems");
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
+      setShownProducts(JSON.parse(storedCart).length);
+      calculateTotalAmount(JSON.parse(storedCart));
+    }
+  }, [setCartItems, setShownProducts]);
+
+  useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
@@ -29,6 +37,7 @@ const Cart = () => {
         setCartItems(res.data.cart.products);
         setShownProducts(res.data.cart.products.length);
         calculateTotalAmount(res.data.cart.products);
+        localStorage.setItem("cartItems", JSON.stringify(res.data.cart.products)); // Store in localStorage
       } catch (err) {
         setMsg(err.response?.data?.message || "Failed to fetch cart");
         console.error("err: ", err);
@@ -40,10 +49,14 @@ const Cart = () => {
     fetchProducts();
   }, [token, setMsg, setShownProducts, setCartItems]);
 
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems)); // Update localStorage whenever cartItems changes
+  }, [cartItems]);
+
   const calculateTotalAmount = (items) => {
     const total = items.reduce((acc, item) => {
-      const price = item.price || 0; // Default to 0 if undefined
-      const quantity = item.quantity || 1; // Default to 1 if undefined
+      const price = item.price || 0; 
+      const quantity = item.quantity || 1;
       return acc + price * quantity;
     }, 0);
     setTotalAmount(total);
@@ -67,7 +80,6 @@ const Cart = () => {
           variant: "success",
         });
 
-        // Update the cartItems state
         const updatedCartItems = cartItems.map((item) =>
           item.productId === id ? { ...item, quantity: newQuantity } : item
         );

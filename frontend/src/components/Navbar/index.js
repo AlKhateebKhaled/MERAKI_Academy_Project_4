@@ -49,7 +49,9 @@ const Dropdown = ({ title, options, isOpen, toggle }) => (
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { token, userName, setToken, cartItems } = useContext(AppContext);
+  const { token, userName, setToken, cartItems, cartCount } =
+    useContext(AppContext);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState({});
@@ -104,7 +106,7 @@ const Navbar = () => {
                 <div className="cart-icon">
                   <FaShoppingCart />
                   {cartItems.length > 0 && (
-                    <span className="cart-count">{cartItems.length}</span>
+                    <span className="cart-count">{cartCount}</span>
                   )}
                 </div>
               </NavLink>

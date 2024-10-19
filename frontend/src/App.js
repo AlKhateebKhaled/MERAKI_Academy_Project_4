@@ -1,10 +1,11 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routers";
-import { createContext } from "react";
 import LoadingSpinner from "./components/Spinner";
+
 export const AppContext = createContext();
+
 function App() {
   const [formData, setFormData] = useState({
     username: "",
@@ -23,8 +24,9 @@ function App() {
   const [alert, setAlert] = useState({ message: "", variant: "" });
   const [shownProducts, setShownProducts] = useState(151);
   const [cartItems, setCartItems] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const updateCart = (item) => {
     const existingItemIndex = cartItems.findIndex(
@@ -37,8 +39,6 @@ function App() {
     } else {
       setCartItems([...cartItems, { ...item, quantity: item.quantity }]);
     }
-
-    setCartCount(cartItems.length + 1);
   };
 
   return (
@@ -70,9 +70,8 @@ function App() {
         setCartItems,
         updateCart,
         cartCount,
-        setCartCount,
-        searchTerm,
         setSearchTerm,
+        searchTerm,
       }}
     >
       {isLoading && <LoadingSpinner />}

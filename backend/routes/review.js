@@ -11,12 +11,12 @@ const {
   deleteReview,
 } = require("../controllers/review");
 
-reviewRouter.post("/", auth, accountLockCheck, createReview);
+reviewRouter.post("/:id", auth,  createReview);
 
-reviewRouter.get("/", auth, accountLockCheck, getProductReviews);
+reviewRouter.get("/:id", auth,  getProductReviews);
 
-reviewRouter.put("/:reviewId", auth, accountLockCheck, updateReview);
+reviewRouter.put("/:reviewId", auth,  updateReview);
 
-reviewRouter.delete("/:reviewId", auth, accountLockCheck, deleteReview);
+reviewRouter.delete("/:reviewId", auth, deleteReview);
 
 module.exports = reviewRouter;

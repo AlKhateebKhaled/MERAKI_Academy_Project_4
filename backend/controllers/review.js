@@ -8,14 +8,23 @@ const createReview = async (req, res) => {
     const userId = req.token.userId;
     const productId = req.params.id;
 
-    if (!rating || !comment || typeof rating !== "number" || rating < 1 || rating > 5) {
-      return res.status(400).json({ message: "Rating (1-5) and comment are required" });
+    if (
+      !rating ||
+      !comment ||
+      typeof rating !== "number" ||
+      rating < 1 ||
+      rating > 5
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Rating (1-5) and comment are required" });
     }
-
 
     const existingReview = await reviewModel.findOne({ productId, userId });
     if (existingReview) {
-      return res.status(409).json({ message: "You have already reviewed this product" });
+      return res
+        .status(409)
+        .json({ message: "You have already reviewed this product" });
     }
 
     const newReview = new reviewModel({
@@ -27,33 +36,41 @@ const createReview = async (req, res) => {
 
     await newReview.save();
 
+    // Optionally, you can fetch the saved review with productId to ensure it's saved correctly
+    const savedReview = await reviewModel.findById(newReview._id).populate('productId');
+
     return res.status(201).json({
       success: true,
       message: "Review created successfully",
-      review: newReview,
+      review: savedReview,  // or you can return { productId, userId, rating, comment, _id: newReview._id }
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Server Error", error: error.message });
+    console.error("Error creating review:", error);
+    return res
+      .status(500)
+      .json({ message: "Server Error", error: error.message });
   }
 };
+
 
 const getProductReviews = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    const reviews = await reviewModel.find({ productId });
-
-    if (reviews.length === 0) {
-      return res.status(404).json({ message: "No reviews found for this product" });
-    }
+    const reviews = await reviewModel.find({ productId: productId });
 
     res.status(200).json({
       success: true,
+      message:
+        reviews.length === 0
+          ? "No reviews yet."
+          : "Reviews retrieved successfully.",
       reviews,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving reviews", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error retrieving reviews", error: error.message });
   }
 };
 
@@ -67,8 +84,11 @@ const updateReview = async (req, res) => {
     }
     if (comment) updateFields.comment = comment;
 
-
-    const review = await reviewModel.findByIdAndUpdate(req.params.reviewId, updateFields, { new: true });
+    const review = await reviewModel.findByIdAndUpdate(
+      req.params.reviewId,
+      updateFields,
+      { new: true }
+    );
 
     if (!review) {
       return res.status(404).json({

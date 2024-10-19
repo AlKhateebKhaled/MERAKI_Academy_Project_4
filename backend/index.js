@@ -23,7 +23,7 @@ app.use("/categories", categoryRouter);
 app.use("/orders", orderRouter);
 app.use("/cart", cartRouter);
 app.use("/wishlist", wishRouter);
-app.use("/products/:id/reviews", reviewRouter);
+app.use("/reviews", reviewRouter);
 app.use("/contact", contactRouter);
 app.use("*", (req, res) => {
   res.status(404).json({ success: false, message: "No content at this path" });
