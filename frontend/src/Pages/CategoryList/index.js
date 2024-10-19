@@ -3,11 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../App";
 import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
 import "./style.css";
 
 const CategoriesList = () => {
   const navigate = useNavigate();
-  const { msg, setMsg, token, setSelectedFilter, isLoading, setIsLoading } = useContext(AppContext);
+  const { setMsg, token, setSelectedFilter, isLoading, setIsLoading } =
+    useContext(AppContext);
 
   const [categories, setCategories] = useState([]);
   const [brandCategories, setBrandCategories] = useState([]);
@@ -72,12 +74,12 @@ const CategoriesList = () => {
   }, [token]);
 
   const handleCardClick = (categoryName) => {
-    setSelectedFilter(categoryName);  
+    setSelectedFilter(categoryName);
     navigate("/products");
   };
 
   const handleAllKitsClick = () => {
-    setSelectedFilter(""); 
+    setSelectedFilter("");
     navigate("/products");
   };
 
@@ -87,15 +89,26 @@ const CategoriesList = () => {
   };
 
   if (isLoading) {
-    return <p>Loading categories...</p>;
+    return (
+      <div className="spinner-container">
+        <Spinner animation="border" role="status" variant="primary">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
   }
 
   return (
     <div className="categories-list__container mt-4">
       <h2 className="categories-list__title mt-4">All Products</h2>
-      <Card className="categories-list__category-card h-100 text-center mb-4" onClick={handleAllKitsClick}>
+      <Card
+        className="categories-list__category-card h-100 text-center mb-4"
+        onClick={handleAllKitsClick}
+      >
         <Card.Body>
-          <Card.Title className="categories-list__category-title mb-2">View All Kits</Card.Title>
+          <Card.Title className="categories-list__category-title mb-2">
+            View All Kits
+          </Card.Title>
         </Card.Body>
       </Card>
 
@@ -105,8 +118,14 @@ const CategoriesList = () => {
           categories.map((mainCategory) => (
             <div key={mainCategory.id} className="col-md-6 mb-4">
               <Card className="categories-list__category-card h-100 text-center">
-                <Card.Body onClick={() => handleLeagueCardClick(mainCategory.name, mainCategory._id)}>
-                  <Card.Title className="categories-list__category-title mb-2">{mainCategory.name}</Card.Title>
+                <Card.Body
+                  onClick={() =>
+                    handleLeagueCardClick(mainCategory.name, mainCategory._id)
+                  }
+                >
+                  <Card.Title className="categories-list__category-title mb-2">
+                    {mainCategory.name}
+                  </Card.Title>
                   <Card.Img
                     variant="top"
                     src={mainCategory.imageURL}
@@ -129,7 +148,9 @@ const CategoriesList = () => {
             <div key={brandCategory.id} className="col-md-6 mb-4">
               <Card className="categories-list__category-card h-100 text-center">
                 <Card.Body onClick={() => handleCardClick(brandCategory.name)}>
-                  <Card.Title className="categories-list__category-title mb-2">{brandCategory.name}</Card.Title>
+                  <Card.Title className="categories-list__category-title mb-2">
+                    {brandCategory.name}
+                  </Card.Title>
                   <Card.Img
                     variant="top"
                     src={brandCategory.imageURL}
@@ -152,7 +173,9 @@ const CategoriesList = () => {
             <div key={typeCategory.id} className="col-md-6 mb-4">
               <Card className="categories-list__category-card h-100 text-center">
                 <Card.Body onClick={() => handleCardClick(typeCategory.name)}>
-                  <Card.Title className="categories-list__category-title mb-2">{typeCategory.name}</Card.Title>
+                  <Card.Title className="categories-list__category-title mb-2">
+                    {typeCategory.name}
+                  </Card.Title>
                 </Card.Body>
               </Card>
             </div>
@@ -169,7 +192,9 @@ const CategoriesList = () => {
             <div key={seasonCategory.id} className="col-md-6 mb-4">
               <Card className="categories-list__category-card h-100 text-center">
                 <Card.Body onClick={() => handleCardClick(seasonCategory.name)}>
-                  <Card.Title className="categories-list__category-title mb-2">{seasonCategory.name}</Card.Title>
+                  <Card.Title className="categories-list__category-title mb-2">
+                    {seasonCategory.name}
+                  </Card.Title>
                 </Card.Body>
               </Card>
             </div>

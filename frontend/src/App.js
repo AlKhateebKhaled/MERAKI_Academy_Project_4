@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routers";
 import { createContext } from "react";
+import LoadingSpinner from "./components/Spinner";
 export const AppContext = createContext();
 function App() {
   const [formData, setFormData] = useState({
@@ -14,7 +15,7 @@ function App() {
   const [msg, setMsg] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [selectedFilter, setSelectedFilter] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [inWishlist, setInWishlist] = useState(false);
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const [product, setProduct] = useState(null);
@@ -74,6 +75,8 @@ function App() {
         setSearchTerm,
       }}
     >
+      {isLoading && <LoadingSpinner />}
+
       <RouterProvider router={router} />
     </AppContext.Provider>
   );

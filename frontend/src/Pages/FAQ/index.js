@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./style.css";
-
+import { AppContext } from "../../App";
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const { setIsLoading } = useContext(AppContext);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const fetchData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [setIsLoading]);
 
   const questionsAnswers = [
     {

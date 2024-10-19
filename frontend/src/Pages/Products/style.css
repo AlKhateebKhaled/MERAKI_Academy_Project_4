@@ -83,7 +83,7 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: top;
   transition: transform 0.3s ease;
 }
 
@@ -116,27 +116,26 @@ h2 {
 }
 .product-info {
   font-size: 1.3rem;
-  color: #555; 
-  margin: 5px 0; 
-  padding: 5px; 
-  border-left: 4px solid #28a745; 
-  background-color: #f9f9f9; 
-  border-radius: 4px; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  transition: background-color 0.3s; 
+  color: #555;
+  margin: 5px 0;
+  padding: 5px;
+  border-left: 4px solid #28a745;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
 }
 
 .product-info:hover {
-  background-color: #e9ffe9; 
+  background-color: #e9ffe9;
 }
 
 .product-info-icon {
-  margin-right: 8px; 
-  color: #28a745; 
+  margin-right: 8px;
+  color: #28a745;
 }
-
 
 a {
   text-decoration: none;
@@ -146,6 +145,43 @@ a {
 
 a:hover {
   color: #0056b3;
+}
+
+.product-count {
+  background-color: #f0f8ff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+.product-count__number {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.filter-message {
+  background-color: #e7f1ff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.filter-message:hover {
+  background-color: #d0e9ff;
+  transform: translateY(-2px);
+}
+
+.filter-message__text {
+  font-weight: bold;
+  color: #ff6f61;
 }
 
 @media (max-width: 768px) {
@@ -172,6 +208,10 @@ a:hover {
   .product-info {
     font-size: 1.1rem;
   }
+  .product-img {
+    object-fit: cover;
+    object-position: top;
+  }
 }
 
 @media (max-width: 480px) {
@@ -188,7 +228,9 @@ a:hover {
   }
 
   .product-img-wrapper {
-    height: 200px;
+    height: 300px;
+    object-fit: cover;
+    object-position: top;
   }
 
   .card-title {
@@ -201,5 +243,9 @@ a:hover {
 
   .product-info {
     font-size: 1rem;
+  }
+  .product-img {
+    object-fit: cover;
+    object-position: top;
   }
 }

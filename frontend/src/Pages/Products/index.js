@@ -19,10 +19,12 @@ const Products = () => {
     maxPrice: "",
   });
 
-  const { setShownProducts, selectedFilter } = useContext(AppContext);
+  const { setShownProducts, selectedFilter, setIsLoading } =
+    useContext(AppContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       try {
         const res = await axios.get("http://localhost:5000/products");
         let productsToSet = res.data.product;
@@ -72,6 +74,8 @@ const Products = () => {
         setShownProducts(filteredProducts.length);
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -92,10 +96,6 @@ const Products = () => {
       ...prevFilters,
       team: e.target.value,
     }));
-  };
-
-  const handleCardClick = (productId) => {
-    navigate(`/products/${productId}`);
   };
 
   return (
@@ -190,14 +190,30 @@ const Products = () => {
       </div>
 
       <div className="d-flex justify-content-center mb-4">
-      <button className="categories-list__back-button" onClick={() => navigate(-1)}>
-        Back
-      </button>
-    </div>
+        <button
+          className="categories-list__back-button"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </button>
+      </div>
 
       <div>
-        <p>Showing {products.length} products.</p>
-      </div>
+    <div className="product-count">
+        Showing{" "}
+        <strong className="product-count__number">{products.length}</strong>{" "}
+        products.
+    </div>
+    {selectedFilter && (
+        <div className="filter-message">
+            These products are filtered by:{" "}
+            <strong className="filter-message__text">{selectedFilter}</strong>
+        </div>
+    )}
+</div>
+
+
+
 
       <div className="row">
         {products.length > 0 ? (

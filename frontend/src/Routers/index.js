@@ -38,8 +38,8 @@ export const router = createBrowserRouter([
       { path: "search", element: <Search /> },
       { path: "profile", element: <ProfilePage /> },
       { path: "terms", element: <TermsOfService /> },
-
       { path: "privacy", element: <PrivacyPolicy /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);

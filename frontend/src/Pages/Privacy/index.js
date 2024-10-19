@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./style.css";
-
+import { AppContext } from "../../App";
 const PrivacyPolicy = () => {
+  const { setIsLoading } = useContext(AppContext);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const fetchData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [setIsLoading]);
   return (
     <div className="privacy-container">
       <h1>Privacy Policy</h1>

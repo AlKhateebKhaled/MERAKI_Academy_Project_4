@@ -33,9 +33,7 @@ const SubcategoryPage = () => {
     fetchSubcategories();
   }, [id]);
 
-  if (isLoading) {
-    return <p>Loading subcategories...</p>;
-  }
+
 
   const handleSubcategoryClick = (subcategoryName) => {
     setSelectedFilter(subcategoryName);

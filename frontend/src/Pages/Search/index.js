@@ -15,6 +15,7 @@ const Search = () => {
     shownProducts,
     setShownProducts,
     setSearchTerm,
+    setIsLoading,
   } = useContext(AppContext);
 
   const [filters, setFilters] = useState({
@@ -38,6 +39,7 @@ const Search = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setIsLoading(true);
         const res = await axios.get("http://localhost:5000/products");
         let productsToSet = res.data.product;
 
@@ -73,6 +75,8 @@ const Search = () => {
         setShownProducts(filteredProducts.length);
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -84,14 +88,6 @@ const Search = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
-    }));
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      team: e.target.value,
     }));
   };
 
@@ -171,10 +167,13 @@ const Search = () => {
       </div>
 
       <div className="d-flex justify-content-center mb-4">
-      <button className="categories-list__back-button" onClick={() => navigate(-1)}>
-        Back
-      </button>
-    </div>
+        <button
+          className="categories-list__back-button"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </button>
+      </div>
 
       <div>
         <h6>Shown {shownProducts} products</h6>
