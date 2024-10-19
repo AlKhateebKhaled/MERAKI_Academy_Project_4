@@ -21,14 +21,16 @@ function Login() {
     setMsg,
     setToken,
     setUserName,
+    logedinUserId,
+    setLogedinUserId,
   } = useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(false)
+    setIsLoading(false);
     setMsg("");
-    }, []);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,23 +47,21 @@ function Login() {
     axios
       .post("http://localhost:5000/users/login", formData)
       .then((res) => {
-       
-          localStorage.setItem("token", res.data.token);
-          setToken(res.data.token);
-          localStorage.setItem("userName", res.data.user.userName);
-          setUserName(res.data.user.userName);
-
-          const redirectPath = currentLocation.state?.from?.pathname || "/";
-          navigate(redirectPath);
-        
+        localStorage.setItem("token", res.data.token);
+        setToken(res.data.token);
+        localStorage.setItem("userName", res.data.user.userName);
+        setUserName(res.data.user.userName);
+        localStorage.setItem("userId", res.data.user._id);
+        setLogedinUserId(res.data.user.userId);
+        console.log("userId", res.data.user.userId);
+        const redirectPath = currentLocation.state?.from?.pathname || "/";
+        navigate(redirectPath);
       })
       .catch((err) => {
-          setMsg(err.response?.data?.message || "An error occurred");
-        
+        setMsg(err.response?.data?.message || "An error occurred");
       })
       .finally(() => {
-          setIsLoading(false);
-        
+        setIsLoading(false);
       });
   };
 
@@ -115,8 +115,6 @@ function Login() {
             />
           </Col>
         </Form.Group>
-
-
 
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 10, offset: 2 }}>

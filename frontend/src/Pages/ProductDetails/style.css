@@ -75,12 +75,12 @@
 }
 
 .ProductDetailswishList__button--add {
-  background-color: #2dac29;
+  background-color: #4eb84a;
   color: #ffffff;
 }
 
 .ProductDetailswishList__button--add:hover {
-  background-color: #159211;
+  background-color: #2dac29;
   transform: translateY(-2px);
 }
 

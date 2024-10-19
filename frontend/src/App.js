@@ -25,7 +25,9 @@ function App() {
   const [shownProducts, setShownProducts] = useState(151);
   const [cartItems, setCartItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [logedinUserId, setLogedinUserId] = useState(
+    localStorage.getItem("userId")
+  );
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const updateCart = (item) => {
@@ -72,6 +74,8 @@ function App() {
         cartCount,
         setSearchTerm,
         searchTerm,
+        logedinUserId,
+        setLogedinUserId,
       }}
     >
       {isLoading && <LoadingSpinner />}

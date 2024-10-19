@@ -7,6 +7,7 @@ const createReview = async (req, res) => {
     const { rating, comment } = req.body;
     const userId = req.token.userId;
     const productId = req.params.id;
+    const userName = req.token.userName;
 
     if (
       !rating ||
@@ -30,6 +31,7 @@ const createReview = async (req, res) => {
     const newReview = new reviewModel({
       productId,
       userId,
+      userName,
       rating,
       comment,
     });
@@ -37,12 +39,14 @@ const createReview = async (req, res) => {
     await newReview.save();
 
     // Optionally, you can fetch the saved review with productId to ensure it's saved correctly
-    const savedReview = await reviewModel.findById(newReview._id).populate('productId');
+    const savedReview = await reviewModel
+      .findById(newReview._id)
+      .populate("productId");
 
     return res.status(201).json({
       success: true,
       message: "Review created successfully",
-      review: savedReview,  // or you can return { productId, userId, rating, comment, _id: newReview._id }
+      review: savedReview, // or you can return { productId, userId, rating, comment, _id: newReview._id }
     });
   } catch (error) {
     console.error("Error creating review:", error);
@@ -51,7 +55,6 @@ const createReview = async (req, res) => {
       .json({ message: "Server Error", error: error.message });
   }
 };
-
 
 const getProductReviews = async (req, res) => {
   try {

@@ -103,7 +103,6 @@ const ProductDetails = () => {
     setShowAddReview(false);
   };
 
-  // Fetch wishlist status
   useEffect(() => {
     const fetchWishlistStatus = async () => {
       if (id) {
@@ -262,9 +261,17 @@ const ProductDetails = () => {
               </p>
 
               <p>
-                <strong>Average Rating: </strong> {averageRating.toFixed(1)}{" "}
-                <FaStar style={{ color: "#f9a825", fontSize: "1.3em" }} />
+                <strong>Average Rating: </strong>
+                {averageRating ? (
+                  <>
+                    {averageRating.toFixed(1)}{" "}
+                    <FaStar style={{ color: "#f9a825", fontSize: "1.3em" }} />
+                  </>
+                ) : (
+                  "No Rating Yet"
+                )}
               </p>
+
               <div className="product-details__actions d-flex justify-content-between align-items-center mt-4">
                 <button
                   className="product-details__btn AddToCart"
@@ -307,7 +314,7 @@ const ProductDetails = () => {
                 </h3>
                 {showReviews && (
                   <>
-                    <ReviewList reviews={reviews} />
+                    <ReviewList reviews={reviews} setReviews={setReviews}/>
                     <button
                       className="btn btn-link"
                       onClick={() => setShowAddReview((prev) => !prev)}
