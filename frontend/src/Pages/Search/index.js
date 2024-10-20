@@ -175,9 +175,17 @@ const Search = () => {
         </button>
       </div>
 
-      <div>
-        <h6>Shown {shownProducts} products</h6>
+      <div className="product-count">
+        Showing{" "}
+        <strong className="product-count__number">{products.length}</strong>{" "}
+        Kits.
       </div>
+      {filters && (
+        <div className="filter-message">
+          These Kits are filtered by:{" "}
+          <strong className="filter-message__text">{filters.team}</strong>
+        </div>
+      )}
 
       <div className="row">
         {products.length > 0 ? (

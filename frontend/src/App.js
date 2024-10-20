@@ -3,6 +3,12 @@ import React, { useState, useEffect, createContext } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routers";
 import LoadingSpinner from "./components/Spinner";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentForm from "./components/PaymentForm";
+const stripePromise = loadStripe(
+  "pk_test_51QBo1LEIqIU1iv7H4G4ACPS0CDsW1N0omgyBePmRWkr3Iy4u4mQmExS7EZW4kf5nzgCJtoD59Cx2fnwTBP0mJMM40073HR24al"
+);
 
 export const AppContext = createContext();
 
@@ -13,6 +19,8 @@ function App() {
     password: "",
     address: "",
   });
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   const [msg, setMsg] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [selectedFilter, setSelectedFilter] = useState(null);
@@ -23,29 +31,45 @@ function App() {
   const [error, setError] = useState("");
   const [alert, setAlert] = useState({ message: "", variant: "" });
   const [shownProducts, setShownProducts] = useState(151);
-  const [cartItems, setCartItems] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [logedinUserId, setLogedinUserId] = useState(
     localStorage.getItem("userId")
   );
-  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  const updateCart = (item) => {
-    const existingItemIndex = cartItems.findIndex(
-      (i) => i.productId === item.productId
-    );
-    if (existingItemIndex !== -1) {
-      const newCartItems = [...cartItems];
-      newCartItems[existingItemIndex].quantity += item.quantity;
-      setCartItems(newCartItems);
-    } else {
-      setCartItems([...cartItems, { ...item, quantity: item.quantity }]);
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      setCartItems(JSON.parse(savedCartItems));
     }
+  }, []);
+  const cartCount = cartItems.length;
+  const updateCart = (item) => {
+    setCartItems((prevCartItems) => {
+      const existingItemIndex = prevCartItems.findIndex(
+        (i) => i.productId === item.productId
+      );
+      const newCartItems =
+        existingItemIndex !== -1
+          ? prevCartItems.map((i, index) =>
+              index === existingItemIndex
+                ? { ...i, quantity: i.quantity + item.quantity }
+                : i
+            )
+          : [...prevCartItems, { ...item, quantity: item.quantity }];
+
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+      return newCartItems;
+    });
   };
 
   return (
     <AppContext.Provider
       value={{
+        isDarkMode,
+        setIsDarkMode,
         formData,
         setFormData,
         msg,
@@ -76,11 +100,16 @@ function App() {
         searchTerm,
         logedinUserId,
         setLogedinUserId,
+        totalAmount,
+        setTotalAmount,
       }}
     >
       {isLoading && <LoadingSpinner />}
 
       <RouterProvider router={router} />
+      <Elements stripe={stripePromise}>
+        <PaymentForm />
+      </Elements>
     </AppContext.Provider>
   );
 }

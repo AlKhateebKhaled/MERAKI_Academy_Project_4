@@ -11,13 +11,13 @@ const authorization = require("../middleware/authorization");
 const accountLockCheck = require("../middleware/accountLockCheck");
 const orderRouter = express.Router();
 
-orderRouter.post("/", auth, accountLockCheck, createOrder);
+orderRouter.post("/", auth,createOrder);
 
-orderRouter.get("/user", auth, accountLockCheck, getUserOrders);
+orderRouter.get("/user", auth, getUserOrders);
 
-orderRouter.get("/:id", auth, accountLockCheck, getOrderById);
+orderRouter.get("/:id", auth, getOrderById);
 
-orderRouter.get("/all", auth, accountLockCheck, getOrderById);
+orderRouter.get("/all", auth, getOrderById);
 
 orderRouter.put(
   "/:id/status",

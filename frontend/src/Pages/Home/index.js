@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
-import React from "react";
+import React, { useContext } from "react";
 import "./style.css";
 import image1 from "../../assets/seasonKit.jpg";
 import image2 from "../../assets/awaykit.jpg";
 import image3 from "../../assets/thirdKit.jpg";
 import Footer from "../../components/Footer";
+import { AppContext } from "../../App";
 
 const featuredProducts = [
   {
@@ -17,6 +18,7 @@ const featuredProducts = [
       "Show your support for Los Blancos with the iconic Home Jersey. Designed for comfort and style, it's perfect for game days and casual wear alike.",
     imageUrl:
       "https://res.cloudinary.com/drhborpt0/image/upload/v1729222777/GENERICO_mwokbi.webp",
+    filter: "Real Madrid",
   },
   {
     id: 2,
@@ -25,6 +27,8 @@ const featuredProducts = [
       "Grab the latest Premier League jerseys and cheer for your favorite team in style. Made from high-quality materials for ultimate comfort.",
     imageUrl:
       "https://res.cloudinary.com/drhborpt0/image/upload/v1729223402/Screenshot_1_nyyt8a.png",
+
+    filter: "Premier League",
   },
   {
     id: 3,
@@ -33,11 +37,14 @@ const featuredProducts = [
       "Experience the perfect blend of performance and style with the latest Adidas kits. Whether on the field or off, these kits are designed to make a statement.",
     imageUrl:
       "https://res.cloudinary.com/drhborpt0/image/upload/v1729222777/adidas_24-25_teamwear_kits_3_ya0pby.jpg",
+    filter: "Adidas",
   },
 ];
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const { setSelectedFilter, isDarkMode } = useContext(AppContext);
 
   const handleShopNowButton = () => {
     navigate("/categories");
@@ -61,9 +68,10 @@ const Home = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={image1}
+            src="https://res.cloudinary.com/drhborpt0/image/upload/v1729400272/Real_Madrid_2024_25__1_vjvlfs.jpg"
             alt="2024/25 Season Kit"
           />
+
           <Carousel.Caption>
             <h3>
               Explore the latest arrivals and show your support for your
@@ -80,7 +88,7 @@ const Home = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={image2}
+            src="https://res.cloudinary.com/drhborpt0/image/upload/v1729400271/Y_unuayz.jpg"
             alt="Away Jersey 2024/25"
           />
           <Carousel.Caption>
@@ -104,7 +112,6 @@ const Home = () => {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-
       <div className="featured-products mt-5">
         <h2 className="text-center mb-4">Featured Products</h2>
         <div className="row justify-content-center">
@@ -121,7 +128,10 @@ const Home = () => {
                 <p className="product-description">{product.description}</p>
                 <Button
                   className="btn-orange"
-                  onClick={() => navigate(`/product/${product.id}`)}
+                  onClick={() => {
+                    setSelectedFilter(product.filter);
+                    navigate("/products");
+                  }}
                 >
                   View Details
                 </Button>

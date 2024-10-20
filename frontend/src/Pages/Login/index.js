@@ -51,7 +51,7 @@ function Login() {
         setToken(res.data.token);
         localStorage.setItem("userName", res.data.user.userName);
         setUserName(res.data.user.userName);
-        localStorage.setItem("userId", res.data.user._id);
+        localStorage.setItem("userId", res.data.user.userId);
         setLogedinUserId(res.data.user.userId);
         console.log("userId", res.data.user.userId);
         const redirectPath = currentLocation.state?.from?.pathname || "/";

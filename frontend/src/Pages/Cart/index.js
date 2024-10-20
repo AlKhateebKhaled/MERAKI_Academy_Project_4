@@ -3,6 +3,7 @@ import axios from "axios";
 import { AppContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
+import PaymentForm from "../../components/PaymentForm";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -14,9 +15,19 @@ const Cart = () => {
     setShownProducts,
     cartItems,
     setCartItems,
+    isLoading,
+    totalAmount,
+    setTotalAmount,
+    userName,
+    logedinUserId,
   } = useContext(AppContext);
-
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [checkout, setCheckout] = useState(false);
+  const [shippingInfo, setShippingInfo] = useState({
+    name: "",
+    address: "",
+    phone: "",
+    email: "",
+  });
 
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
@@ -37,7 +48,10 @@ const Cart = () => {
         setCartItems(res.data.cart.products);
         setShownProducts(res.data.cart.products.length);
         calculateTotalAmount(res.data.cart.products);
-        localStorage.setItem("cartItems", JSON.stringify(res.data.cart.products)); // Store in localStorage
+        localStorage.setItem(
+          "cartItems",
+          JSON.stringify(res.data.cart.products)
+        );
       } catch (err) {
         setMsg(err.response?.data?.message || "Failed to fetch cart");
         console.error("err: ", err);
@@ -50,12 +64,12 @@ const Cart = () => {
   }, [token, setMsg, setShownProducts, setCartItems]);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems)); // Update localStorage whenever cartItems changes
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
   const calculateTotalAmount = (items) => {
     const total = items.reduce((acc, item) => {
-      const price = item.price || 0; 
+      const price = item.price || 0;
       const quantity = item.quantity || 1;
       return acc + price * quantity;
     }, 0);
@@ -63,7 +77,7 @@ const Cart = () => {
   };
 
   const handleQuantityChange = (id, newQuantity) => {
-    if (newQuantity < 1) return; // Prevent quantity from being less than 1
+    if (newQuantity < 1) return;
 
     setIsLoading(true);
     axios
@@ -134,8 +148,55 @@ const Cart = () => {
       });
   };
 
-  const handleCheckout = () => {
-    navigate("/checkout");
+  const handleChangeShippingInfo = (e) => {
+    setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckout = async () => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    setCheckout(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const orderData = {
+      user: userName,
+      userName: logedinUserId,
+      products: cartItems.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price,
+        productName: item.productName,
+      })),
+      totalAmount: totalAmount,
+      shippingInfo: shippingInfo,
+    };
+    console.log(orderData);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/orders",
+        orderData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setAlert({ type: "success", message: response.data.message });
+      console.log(response);
+
+      navigate("/order");
+    } catch (error) {
+      setAlert({ type: "error", message: error.response.data.message });
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -154,7 +215,7 @@ const Cart = () => {
         <tbody>
           {cartItems.length > 0 ? (
             cartItems.map((item) => (
-              <tr key={item._id}>
+              <tr key={item.productId}>
                 <td>
                   {item.productName} - {item.productType} - (
                   {item.productSeason})
@@ -180,7 +241,6 @@ const Cart = () => {
                     </button>
                   </div>
                 </td>
-
                 <td>{item.price ? item.price.toFixed(2) : "0.00"} $</td>
                 <td>{(item.price * item.quantity).toFixed(2)} $</td>
                 <td>
@@ -206,10 +266,51 @@ const Cart = () => {
           <button
             className="cart__button cart__button--checkout"
             onClick={handleCheckout}
+            disabled={isLoading}
           >
-            Proceed to Checkout
+            {isLoading ? "Processing..." : "Proceed to Checkout"}
           </button>
         </div>
+      )}
+
+      {checkout && (
+        <>
+          <div className="checkout-container">
+            <h2>Checkout</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                onChange={handleChangeShippingInfo}
+                required
+              />
+              <input
+                type="text"
+                name="address"
+                placeholder="Address"
+                onChange={handleChangeShippingInfo}
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                onChange={handleChangeShippingInfo}
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={handleChangeShippingInfo}
+                required
+              />
+              <button type="submit">Place Order</button>
+            </form>
+          </div>
+          <PaymentForm />
+        </>
       )}
     </div>
   );

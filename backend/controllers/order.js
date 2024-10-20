@@ -3,7 +3,7 @@ const productModel = require("../models/productSchema");
 const userModel = require("../models/userSchema");
 const createOrder = async (req, res) => {
   try {
-    const { products } = req.body;
+    const { products, shippingInfo } = req.body;
     const userId = req.token.userId;
 
     const user = await userModel.findById(userId);
@@ -37,9 +37,11 @@ const createOrder = async (req, res) => {
 
     const newOrder = new orderModel({
       user: userId,
+      userName: user.userName,
       products: orderProducts,
       totalAmount,
       status: "pending",
+      shippingInfo, 
     });
 
     await newOrder.save();

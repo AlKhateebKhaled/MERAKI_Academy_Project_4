@@ -202,11 +202,11 @@ const Products = () => {
     <div className="product-count">
         Showing{" "}
         <strong className="product-count__number">{products.length}</strong>{" "}
-        products.
+        Kits.
     </div>
     {selectedFilter && (
         <div className="filter-message">
-            These products are filtered by:{" "}
+            These Kits are filtered by:{" "}
             <strong className="filter-message__text">{selectedFilter}</strong>
         </div>
     )}

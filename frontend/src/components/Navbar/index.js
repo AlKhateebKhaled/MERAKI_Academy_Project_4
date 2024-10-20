@@ -49,13 +49,23 @@ const Dropdown = ({ title, options, isOpen, toggle }) => (
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { token, userName, setToken, cartItems, cartCount } =
-    useContext(AppContext);
+  const {
+    token,
+    userName,
+    setToken,
+    cartItems,
+    cartCount,
+    isDarkMode,
+    setIsDarkMode,
+  } = useContext(AppContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleisDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const toggleDropdown = (dropdown) => {
     setIsDropdownOpen((prev) => ({
@@ -192,7 +202,7 @@ const Navbar = () => {
             <FaSearch />
           </button>
         </form>
-        <button className="icon-button">
+        <button className="icon-button" onClick={handleisDarkMode}>
           {isDarkMode ? <FaSun /> : <FaMoon />}
         </button>
       </div>

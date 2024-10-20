@@ -38,7 +38,7 @@ const createReview = async (req, res) => {
 
     await newReview.save();
 
-    // Optionally, you can fetch the saved review with productId to ensure it's saved correctly
+
     const savedReview = await reviewModel
       .findById(newReview._id)
       .populate("productId");
@@ -46,7 +46,7 @@ const createReview = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Review created successfully",
-      review: savedReview, // or you can return { productId, userId, rating, comment, _id: newReview._id }
+      review: savedReview, 
     });
   } catch (error) {
     console.error("Error creating review:", error);

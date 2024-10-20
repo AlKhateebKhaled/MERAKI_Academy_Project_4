@@ -5,10 +5,14 @@ import { Form, Button, Alert, FloatingLabel } from "react-bootstrap";
 import StarRating from "../StarRating";
 import "./style.css";
 
-const ReviewForm = ({ productId, onReviewAdded }) => {
+const ReviewForm = ({ productId, existingReview, onReviewAdded, onCancel }) => {
   const { token } = useContext(AppContext);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(
+    existingReview ? existingReview.rating : 0
+  );
+  const [comment, setComment] = useState(
+    existingReview ? existingReview.comment : ""
+  );
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showError, setShowError] = useState(false);
@@ -28,15 +32,27 @@ const ReviewForm = ({ productId, onReviewAdded }) => {
     }
 
     try {
-      const response = await axios.post(
-        `http://localhost:5000/reviews/${productId}/`,
-        { rating, comment },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = existingReview
+        ? await axios.put(
+            `http://localhost:5000/reviews/${existingReview._id}`,
+            { rating, comment },
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+        : await axios.post(
+            `http://localhost:5000/reviews/${productId}/`,
+            { rating, comment },
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
 
-      setSuccessMessage("Review submitted successfully!");
+      setSuccessMessage(
+        existingReview
+          ? "Review updated successfully!"
+          : "Review submitted successfully!"
+      );
       setShowSuccess(true);
       setRating(0);
       setComment("");
@@ -69,7 +85,7 @@ const ReviewForm = ({ productId, onReviewAdded }) => {
       className="p-4 border rounded shadow-lg review-form mt-4"
     >
       <h4 className="mb-4" style={{ color: "#f9a825" }}>
-        Share Your Experience
+        {existingReview ? "Edit Your Review" : "Share Your Experience"}
       </h4>
 
       {showError && (
@@ -110,8 +126,17 @@ const ReviewForm = ({ productId, onReviewAdded }) => {
       </FloatingLabel>
 
       <Button variant="primary" type="submit" className="w-100 py-2 review-btn">
-        Submit Review
+        {existingReview ? "Update Review" : "Submit Review"}
       </Button>
+      {existingReview && (
+        <Button
+          variant="secondary"
+          className="w-100 py-2 mt-2"
+          onClick={onCancel}
+        >
+          Cancel
+        </Button>
+      )}
     </Form>
   );
 };

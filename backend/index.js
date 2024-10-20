@@ -11,6 +11,8 @@ const cartRouter = require("./routes/cart");
 const wishRouter = require("./routes/wishList");
 const reviewRouter = require("./routes/review");
 const contactRouter = require("./routes/contact");
+const paymentRoutes = require("./routes/paymentRoutes");
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -25,6 +27,7 @@ app.use("/cart", cartRouter);
 app.use("/wishlist", wishRouter);
 app.use("/reviews", reviewRouter);
 app.use("/contact", contactRouter);
+app.use("/api", paymentRoutes);
 app.use("*", (req, res) => {
   res.status(404).json({ success: false, message: "No content at this path" });
 });
