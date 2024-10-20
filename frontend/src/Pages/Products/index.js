@@ -19,7 +19,7 @@ const Products = () => {
     maxPrice: "",
   });
 
-  const { setShownProducts, selectedFilter, setIsLoading } =
+  const { setShownProducts, selectedFilter, setIsLoading, isDarkMode } =
     useContext(AppContext);
 
   useEffect(() => {
@@ -99,33 +99,54 @@ const Products = () => {
   };
 
   return (
-    <div className="container">
+    <div className={`container ${isDarkMode ? "dark-mode" : ""}`}>
       <h2>Products</h2>
-
-      <div className="search-section mb-4">
-        <h5>Search</h5>
+      <div
+        className="search-section mb-4"
+        style={{
+          backgroundColor: isDarkMode ? "#333" : "#fff",
+          color: isDarkMode ? "#fff" : "#000",
+        }}
+      >
+        <h5 style={{ color: isDarkMode ? "#fff" : "#000" }}>Search</h5>
         <div className="row">
           <div className="col-md-3">
             <input
               type="text"
               name="team"
-              className="form-control"
+              className={`form-control`}
               placeholder="Search by Team"
               value={searchTerm}
               onChange={handleSearchChange}
+              style={{
+                backgroundColor: isDarkMode ? "#555" : "#fff",
+                color: isDarkMode ? "#fff" : "#000",
+                border: `1px solid ${isDarkMode ? "#666" : "#ccc"}`,
+              }}
             />
           </div>
         </div>
       </div>
 
-      <div className="filter-section mb-4">
-        <h5>Filters</h5>
+      <div
+        className="filter-section mb-4"
+        style={{
+          backgroundColor: isDarkMode ? "#333" : "#fff",
+          color: isDarkMode ? "#fff" : "#000",
+        }}
+      >
+        <h5 style={{ color: isDarkMode ? "#fff" : "#000" }}>Filters</h5>
         <div className="row">
           <div className="col-md-2">
             <select
               name="league"
               className="form-select"
               onChange={handleFilterChange}
+              style={{
+                backgroundColor: isDarkMode ? "#555" : "#fff",
+                color: isDarkMode ? "#fff" : "#000",
+                border: `1px solid ${isDarkMode ? "#666" : "#ccc"}`,
+              }}
             >
               <option value="">Select League</option>
               <option value="Premier League">Premier League</option>
@@ -140,6 +161,11 @@ const Products = () => {
               name="brand"
               className="form-select"
               onChange={handleFilterChange}
+              style={{
+                backgroundColor: isDarkMode ? "#555" : "#fff",
+                color: isDarkMode ? "#fff" : "#000",
+                border: `1px solid ${isDarkMode ? "#666" : "#ccc"}`,
+              }}
             >
               <option value="">Select Brand</option>
               <option value="Nike">Nike</option>
@@ -155,6 +181,11 @@ const Products = () => {
               name="season"
               className="form-select"
               onChange={handleFilterChange}
+              style={{
+                backgroundColor: isDarkMode ? "#555" : "#fff",
+                color: isDarkMode ? "#fff" : "#000",
+                border: `1px solid ${isDarkMode ? "#666" : "#ccc"}`,
+              }}
             >
               <option value="">Select Season</option>
               <option value="22-23">22-23</option>
@@ -168,6 +199,11 @@ const Products = () => {
               name="type"
               className="form-select"
               onChange={handleFilterChange}
+              style={{
+                backgroundColor: isDarkMode ? "#555" : "#fff",
+                color: isDarkMode ? "#fff" : "#000",
+                border: `1px solid ${isDarkMode ? "#666" : "#ccc"}`,
+              }}
             >
               <option value="">Select Type</option>
               <option value="Home">Home</option>
@@ -181,9 +217,14 @@ const Products = () => {
             <input
               type="number"
               name="maxPrice"
-              className="form-control"
+              className={`form-control`}
               placeholder="Max Price"
               onChange={handleFilterChange}
+              style={{
+                backgroundColor: isDarkMode ? "#555" : "#fff",
+                color: isDarkMode ? "#fff" : "#000",
+                border: `1px solid ${isDarkMode ? "#666" : "#ccc"}`,
+              }}
             />
           </div>
         </div>
@@ -199,21 +240,18 @@ const Products = () => {
       </div>
 
       <div>
-    <div className="product-count">
-        Showing{" "}
-        <strong className="product-count__number">{products.length}</strong>{" "}
-        Kits.
-    </div>
-    {selectedFilter && (
-        <div className="filter-message">
+        <div className="product-count">
+          Showing{" "}
+          <strong className="product-count__number">{products.length}</strong>{" "}
+          Kits.
+        </div>
+        {selectedFilter && (
+          <div className="filter-message">
             These Kits are filtered by:{" "}
             <strong className="filter-message__text">{selectedFilter}</strong>
-        </div>
-    )}
-</div>
-
-
-
+          </div>
+        )}
+      </div>
 
       <div className="row">
         {products.length > 0 ? (

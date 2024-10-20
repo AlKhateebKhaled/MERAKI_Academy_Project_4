@@ -84,6 +84,8 @@
   width: 100%;
 }
 
+
+
 @media (max-width: 768px) {
   .wishlist__product {
     flex: 1 0 45%;

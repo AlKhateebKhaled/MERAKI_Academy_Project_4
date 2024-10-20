@@ -63,7 +63,11 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container">
+    <div
+      className={
+        isDarkMode ? "home-container dark-mode" : "home-container light-mode"
+      }
+    >
       <Carousel>
         <Carousel.Item>
           <img
@@ -112,34 +116,37 @@ const Home = () => {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-      <div className="featured-products mt-5">
-        <h2 className="text-center mb-4">Featured Products</h2>
-        <div className="row justify-content-center">
-          {featuredProducts.map((product) => (
-            <div className="col-md-4 text-center mb-4" key={product.id}>
-              <div className="product-card p-3">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className=".product-image"
-                />
-                <h5 className="product-title">{product.name}</h5>
-                <p className="product-price">{product.price}</p>
-                <p className="product-description">{product.description}</p>
-                <Button
-                  className="btn-orange"
-                  onClick={() => {
-                    setSelectedFilter(product.filter);
-                    navigate("/products");
-                  }}
-                >
-                  View Details
-                </Button>
-              </div>
-            </div>
-          ))}
+      <div className="home-container">
+
+      <div className={isDarkMode ? "featured-products mt-5 dark-mode" : "featured-products mt-5 light-mode"}>
+  <h2 className="text-center mb-4">Featured Products</h2>
+  <div className="row justify-content-center">
+    {featuredProducts.map((product) => (
+      <div className="col-md-4 text-center mb-4" key={product.id}>
+        <div className={isDarkMode ? "product-card p-3 dark-mode" : "product-card p-3 light-mode"}>
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className="product-image"
+          />
+          <h5 className="product-title">{product.name}</h5>
+          <p className="product-price">{product.price}</p>
+          <p className="product-description">{product.description}</p>
+          <Button
+            className={isDarkMode ? "btn-orange dark-mode" : "btn-orange"}
+            onClick={() => {
+              setSelectedFilter(product.filter);
+              navigate("/products");
+            }}
+          >
+            View Details
+          </Button>
         </div>
       </div>
+    ))}
+  </div>
+</div>
+</div>
 
       <div className="home-container">
         <Footer />

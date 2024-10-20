@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./style.css";
 import {
   FaFacebookF,
@@ -6,16 +6,21 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { AppContext } from "../../App";
 
 const Footer = () => {
+  const { isDarkMode } = useContext(AppContext);
+
   return (
-    <footer className="footer-container">
+    <footer className={`footer-container ${isDarkMode ? "dark" : ""}`}>
       <div className="footer-content">
         <div className="footer-section contact-info">
           <h4>Contact Information</h4>
           <p>
             Email:{" "}
-            <a href="mailto:khaled.hkhateeb@gmale.com">khaled.hkhateeb@gmale.com</a>
+            <a href="mailto:khaled.hkhateeb@gmale.com">
+              khaled.hkhateeb@gmale.com
+            </a>
           </p>
           <p>
             Phone: <a href="tel:+962772874494">+ (962) 77-2874-494</a>

@@ -309,7 +309,6 @@ const Cart = () => {
               <button type="submit">Place Order</button>
             </form>
           </div>
-          <PaymentForm />
         </>
       )}
     </div>

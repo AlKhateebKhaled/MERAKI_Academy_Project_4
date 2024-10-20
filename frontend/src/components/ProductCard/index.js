@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 
 const ProductCard = ({ product }) => {
-  const { token, setIsLoading } = useContext(AppContext);
+  const { token, setIsLoading, isDarkMode } = useContext(AppContext);
   const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
@@ -81,7 +81,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="product-card" onClick={() => handleCardClick(product._id)}>
+    <div className={`product-card ${isDarkMode ? 'dark-mode' : ''}`} onClick={() => handleCardClick(product._id)}>
       <div className="product-img-wrapper">
         <img
           src={product.imageURL}

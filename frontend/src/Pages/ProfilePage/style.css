@@ -91,3 +91,36 @@ strong {
     border-color: #ffb74d;
     outline: none;
 }
+.dark-mode .profile__container {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .profile__title,
+.dark-mode p,
+.dark-mode  {
+    color: #fff;
+}
+
+.dark-mode .profile__details,
+.dark-mode .profile__edit-form {
+    background-color: #444;
+    border: 1px solid #555;
+}
+
+
+
+
+
+.dark-mode .profile__form-control {
+    background-color: #555;
+    color: #fff;
+    border: 1px solid #666;
+}
+
+.dark-mode .profile__form-control:focus {
+    border-color: #ffb74d;
+    outline: none;
+}
+
+

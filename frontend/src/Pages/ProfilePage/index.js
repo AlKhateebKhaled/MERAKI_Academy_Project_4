@@ -16,6 +16,7 @@ const ProfilePage = () => {
     setError,
     userName,
     setUserName,
+    isDarkMode,
   } = useContext(AppContext);
 
   const [userData, setUserData] = useState({
@@ -99,7 +100,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="profile profile__container profile__container--margin-top">
+    <div className={`profile profile__container profile__container--margin-top ${isDarkMode ? 'dark-mode' : ''}`}>
       <h2 className="profile__title">User Profile</h2>
       {!isEditing ? (
         <div className="profile__details">

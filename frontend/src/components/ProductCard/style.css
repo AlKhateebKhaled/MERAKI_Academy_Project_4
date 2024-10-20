@@ -158,6 +158,53 @@ a:hover {
   margin-left: 10px;
 }
 
+
+.product-card {
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-card.dark-mode {
+  background-color: #333; 
+  border: 1px solid #444; 
+}
+
+.card-title {
+  color: #333;
+}
+
+.product-info {
+  background-color: #f9f9f9;
+}
+
+.product-card.dark-mode .card-title {
+  color: #fff; 
+}
+
+.product-card.dark-mode .product-info {
+  background-color: #444; 
+  color: #fff; 
+}
+
+.rating-stars .star {
+  color: #ffc107;
+}
+
+.product-card.dark-mode .rating-stars .star {
+  color: #ffd700; 
+}
+
+.rating-text {
+  color: #777;
+}
+
+.product-card.dark-mode .rating-text {
+  color: #ddd; }
+
 @media (max-width: 768px) {
   h2 {
     font-size: 1.5rem;

@@ -107,9 +107,7 @@ function App() {
       {isLoading && <LoadingSpinner />}
 
       <RouterProvider router={router} />
-      <Elements stripe={stripePromise}>
-        <PaymentForm />
-      </Elements>
+     
     </AppContext.Provider>
   );
 }

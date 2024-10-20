@@ -3,7 +3,7 @@ import "./style.css";
 import { AppContext } from "../../App";
 
 const TermsOfService = () => {
-  const { setIsLoading } = useContext(AppContext);
+  const { setIsLoading, isDarkMode } = useContext(AppContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -17,7 +17,7 @@ const TermsOfService = () => {
   }, [setIsLoading]);
 
   return (
-    <div className="terms-container">
+    <div className={`terms-container ${isDarkMode ? "dark" : ""}`}>
       <h1>Terms of Service</h1>
       <p>
         <strong>Effective Date: [18 Oct. 2024]</strong>

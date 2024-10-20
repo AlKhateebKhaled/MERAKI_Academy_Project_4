@@ -28,6 +28,7 @@ const ProductDetails = () => {
     alert,
     setAlert,
     updateCart,
+    isDarkMode,
   } = useContext(AppContext);
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -216,7 +217,15 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="product-details container mt-5">
+    <div
+      className={`product-details container mt-5 ${
+        isDarkMode ? "dark-mode" : ""
+      }`}
+      style={{
+        backgroundColor: isDarkMode ? "#121212" : "#ffffff",
+        color: isDarkMode ? "#ffffff" : "#000000",
+      }}
+    >
       <div className="row">
         {product ? (
           <>
@@ -314,7 +323,7 @@ const ProductDetails = () => {
                 </h3>
                 {showReviews && (
                   <>
-                    <ReviewList reviews={reviews} setReviews={setReviews}/>
+                    <ReviewList reviews={reviews} setReviews={setReviews} />
                     <button
                       className="btn btn-link"
                       onClick={() => setShowAddReview((prev) => !prev)}

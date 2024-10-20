@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AppContext } from "../../App";
 
 const AboutPage = () => {
-  const { setIsLoading } = useContext(AppContext);
+  const { setIsLoading, isDarkMode } = useContext(AppContext);
   useEffect(() => {
     setIsLoading(true);
 
@@ -19,8 +19,9 @@ const AboutPage = () => {
       setIsLoading(false);
     };
   }, [setIsLoading]);
+
   return (
-    <div className="about container mt-5">
+    <div className={`about container mt-5 ${isDarkMode ? 'dark' : ''}`}>
       <div className="row">
         <div className="col text-center mb-4">
           <h2 className="display-4">About Us</h2>

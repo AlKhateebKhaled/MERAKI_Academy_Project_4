@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import "./style.css";
 import { AppContext } from "../../App";
+
 const PrivacyPolicy = () => {
-  const { setIsLoading } = useContext(AppContext);
+  const { setIsLoading, isDarkMode, toggleDarkMode } = useContext(AppContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -14,8 +15,10 @@ const PrivacyPolicy = () => {
 
     fetchData();
   }, [setIsLoading]);
+
   return (
-    <div className="privacy-container">
+    <div className={`privacy-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+  
       <h1>Privacy Policy</h1>
       <p>
         <strong>Effective Date: [18 Oct. 2024]</strong>

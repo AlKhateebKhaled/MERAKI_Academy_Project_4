@@ -8,8 +8,14 @@ import "./style.css";
 
 const CategoriesList = () => {
   const navigate = useNavigate();
-  const { setMsg, token, setSelectedFilter, isLoading, setIsLoading } =
-    useContext(AppContext);
+  const {
+    setMsg,
+    token,
+    setSelectedFilter,
+    isLoading,
+    setIsLoading,
+    isDarkMode,
+  } = useContext(AppContext);
 
   const [categories, setCategories] = useState([]);
   const [brandCategories, setBrandCategories] = useState([]);
@@ -99,31 +105,61 @@ const CategoriesList = () => {
   }
 
   return (
-    <div className="categories-list__container mt-4">
-      <h2 className="categories-list__title mt-4">All Products</h2>
+    <div
+      className={`categories-list__container mt-4 ${
+        isDarkMode ? "dark-mode" : ""
+      }`}
+    >
+      <h2
+        className={`categories-list__title mt-4 ${
+          isDarkMode ? "dark-mode" : ""
+        }`}
+      >
+        All Products
+      </h2>
       <Card
-        className="categories-list__category-card h-100 text-center mb-4"
+        className={`categories-list__category-card h-100 text-center mb-4 ${
+          isDarkMode ? "dark-mode" : ""
+        }`}
         onClick={handleAllKitsClick}
       >
         <Card.Body>
-          <Card.Title className="categories-list__category-title mb-2">
+          <Card.Title
+            className={`categories-list__category-title mb-2 ${
+              isDarkMode ? "dark-mode" : ""
+            }`}
+          >
             View All Kits
           </Card.Title>
         </Card.Body>
       </Card>
 
-      <h2 className="categories-list__title mt-4">Leagues</h2>
+      <h2
+        className={`categories-list__title mt-4 ${
+          isDarkMode ? "dark-mode" : ""
+        }`}
+      >
+        Leagues
+      </h2>
       <div className="row">
         {categories.length > 0 ? (
           categories.map((mainCategory) => (
             <div key={mainCategory.id} className="col-md-6 mb-4">
-              <Card className="categories-list__category-card h-100 text-center">
+              <Card
+                className={`categories-list__category-card h-100 text-center ${
+                  isDarkMode ? "dark-mode" : ""
+                }`}
+              >
                 <Card.Body
                   onClick={() =>
                     handleLeagueCardClick(mainCategory.name, mainCategory._id)
                   }
                 >
-                  <Card.Title className="categories-list__category-title mb-2">
+                  <Card.Title
+                    className={`categories-list__category-title mb-2 ${
+                      isDarkMode ? "dark-mode" : ""
+                    }`}
+                  >
                     {mainCategory.name}
                   </Card.Title>
                   <Card.Img
@@ -141,14 +177,24 @@ const CategoriesList = () => {
         )}
       </div>
 
-      <h2 className="categories-list__title">Brands</h2>
+      <h2 className={`categories-list__title ${isDarkMode ? "dark-mode" : ""}`}>
+        Brands
+      </h2>
       <div className="row">
         {brandCategories.length > 0 ? (
           brandCategories.map((brandCategory) => (
             <div key={brandCategory.id} className="col-md-6 mb-4">
-              <Card className="categories-list__category-card h-100 text-center">
+              <Card
+                className={`categories-list__category-card h-100 text-center ${
+                  isDarkMode ? "dark-mode" : ""
+                }`}
+              >
                 <Card.Body onClick={() => handleCardClick(brandCategory.name)}>
-                  <Card.Title className="categories-list__category-title mb-2">
+                  <Card.Title
+                    className={`categories-list__category-title mb-2 ${
+                      isDarkMode ? "dark-mode" : ""
+                    }`}
+                  >
                     {brandCategory.name}
                   </Card.Title>
                   <Card.Img
@@ -166,14 +212,24 @@ const CategoriesList = () => {
         )}
       </div>
 
-      <h2 className="categories-list__title">Types</h2>
+      <h2 className={`categories-list__title ${isDarkMode ? "dark-mode" : ""}`}>
+        Types
+      </h2>
       <div className="row">
         {typeCategories.length > 0 ? (
           typeCategories.map((typeCategory) => (
             <div key={typeCategory.id} className="col-md-6 mb-4">
-              <Card className="categories-list__category-card h-100 text-center">
+              <Card
+                className={`categories-list__category-card h-100 text-center ${
+                  isDarkMode ? "dark-mode" : ""
+                }`}
+              >
                 <Card.Body onClick={() => handleCardClick(typeCategory.name)}>
-                  <Card.Title className="categories-list__category-title mb-2">
+                  <Card.Title
+                    className={`categories-list__category-title mb-2 ${
+                      isDarkMode ? "dark-mode" : ""
+                    }`}
+                  >
                     {typeCategory.name}
                   </Card.Title>
                 </Card.Body>
@@ -185,14 +241,24 @@ const CategoriesList = () => {
         )}
       </div>
 
-      <h2 className="categories-list__title">Seasons</h2>
+      <h2 className={`categories-list__title ${isDarkMode ? "dark-mode" : ""}`}>
+        Seasons
+      </h2>
       <div className="row">
         {seasonCategories.length > 0 ? (
           seasonCategories.map((seasonCategory) => (
             <div key={seasonCategory.id} className="col-md-6 mb-4">
-              <Card className="categories-list__category-card h-100 text-center">
+              <Card
+                className={`categories-list__category-card h-100 text-center ${
+                  isDarkMode ? "dark-mode" : ""
+                }`}
+              >
                 <Card.Body onClick={() => handleCardClick(seasonCategory.name)}>
-                  <Card.Title className="categories-list__category-title mb-2">
+                  <Card.Title
+                    className={`categories-list__category-title mb-2 ${
+                      isDarkMode ? "dark-mode" : ""
+                    }`}
+                  >
                     {seasonCategory.name}
                   </Card.Title>
                 </Card.Body>
