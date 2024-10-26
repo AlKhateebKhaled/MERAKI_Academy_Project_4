@@ -96,8 +96,8 @@ This project follows the tasks and user stories outlined in my Trello board:
 - **Trello Board**: [Trello Link](https://trello.com/invite/b/66fee9228c13257b4d7e6783/ATTI40d913cfae959929d6e222f56a35cad089AB4D24/merakiacademyproject4)
 
 ## Data Flow <a name = "#data_flow"></a>
+![image description](https://res.cloudinary.com/drhborpt0/image/upload/v1729984113/Screenshot_2_u7zmjf.png)
 
-<img width=200px height=200px src="https://cacoo.com/assets/site/img/templates/screenshots/er-database-diagram.png" alt="Diagram"></a>
 
 ## ⚠️ Guided By <a name = "guided_by"></a>
 
