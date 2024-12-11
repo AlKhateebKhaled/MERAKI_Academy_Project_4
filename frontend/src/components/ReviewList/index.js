@@ -29,7 +29,7 @@ const ReviewList = ({ reviews, setReviews }) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/reviews/${reviewId}`,
+        `https://meraki-academy-project-4-lgda.onrender.com/reviews/${reviewId}`,
         updatedReview,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -51,7 +51,7 @@ const ReviewList = ({ reviews, setReviews }) => {
   const handleDelete = async (reviewId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/reviews/${reviewId}`,
+        `https://meraki-academy-project-4-lgda.onrender.com/reviews/${reviewId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

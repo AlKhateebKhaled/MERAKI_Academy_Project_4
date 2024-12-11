@@ -42,7 +42,7 @@ const Cart = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/cart", {
+        const res = await axios.get("https://meraki-academy-project-4-lgda.onrender.com/cart", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCartItems(res.data.cart.products);
@@ -82,7 +82,7 @@ const Cart = () => {
     setIsLoading(true);
     axios
       .put(
-        `http://localhost:5000/cart/${id}`,
+        `https://meraki-academy-project-4-lgda.onrender.com/cart/${id}`,
         { quantity: newQuantity },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -118,7 +118,7 @@ const Cart = () => {
   const handleRemoveFromCart = (id) => {
     setIsLoading(true);
     axios
-      .delete(`http://localhost:5000/cart/${id}`, {
+      .delete(`https://meraki-academy-project-4-lgda.onrender.com/cart/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -179,7 +179,7 @@ const Cart = () => {
     console.log(orderData);
     try {
       const response = await axios.post(
-        "http://localhost:5000/orders",
+        "https://meraki-academy-project-4-lgda.onrender.com/orders",
         orderData,
         {
           headers: {

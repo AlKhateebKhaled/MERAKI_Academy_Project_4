@@ -40,7 +40,7 @@ const Search = () => {
     const fetchProducts = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get("http://localhost:5000/products");
+        const res = await axios.get("https://meraki-academy-project-4-lgda.onrender.com/products");
         let productsToSet = res.data.product;
 
         const filteredProducts = productsToSet.filter((product) => {

@@ -26,7 +26,7 @@ const CategoriesList = () => {
     const fetchCategories = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/categories", {
+        const res = await axios.get("https://meraki-academy-project-4-lgda.onrender.com/categories", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
