@@ -62,6 +62,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const handleisDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -87,10 +88,36 @@ const Navbar = () => {
       navigate(`/search?team=${searchQuery}`);
       setSearchQuery("");
     }
+    setShowMobileSearch(false);
   };
 
   return (
     <nav className={`navbar ${isDarkMode ? "dark-mode" : ""}`}>
+      <>
+        {showMobileSearch && (
+          <div className="mobile-search-modal">
+            <form onSubmit={handleSearch} className="mobile-search-form">
+              <input
+                type="text"
+                placeholder="Search for a team..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="mobile-search-input"
+              />
+              <button type="submit" className="mobile-search-button">
+                Search
+              </button>
+              <button
+                type="button"
+                className="close-button"
+                onClick={() => setShowMobileSearch(false)}
+              >
+                Close
+              </button>
+            </form>
+          </div>
+        )}
+      </>
       <div className="right-side">
         <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <FaBars />
@@ -188,7 +215,6 @@ const Navbar = () => {
       <div className="logo">
         <h1>Forza</h1>
       </div>
-
       <div className="right-side">
         <form onSubmit={handleSearch} className="search-form">
           <input
@@ -201,7 +227,15 @@ const Navbar = () => {
           <button type="submit" className="search-button">
             <FaSearch />
           </button>
+          <button
+            type="button"
+            className="mobile-search-icon"
+            onClick={() => setShowMobileSearch(true)}
+          >
+            <FaSearch />
+          </button>
         </form>
+
         <button className="icon-button" onClick={handleisDarkMode}>
           {isDarkMode ? <FaSun /> : <FaMoon />}
         </button>

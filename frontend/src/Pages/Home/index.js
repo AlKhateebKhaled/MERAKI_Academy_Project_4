@@ -82,7 +82,7 @@ const Home = () => {
               favorite teams!
             </h3>
             <Button
-              className="btn-orange btn-lg mx-2"
+              className="Carousel_btn"
               onClick={handleShopNowButton}
             >
               Shop Now
@@ -97,7 +97,7 @@ const Home = () => {
           />
           <Carousel.Caption>
             <h3>Get the latest away kit to cheer on your team.</h3>
-            <Button className="btn-orange" onClick={handleShopNowButton}>
+            <Button className="Carousel_btn" onClick={handleShopNowButton}>
               Shop Now
             </Button>
           </Carousel.Caption>
@@ -110,7 +110,7 @@ const Home = () => {
           />
           <Carousel.Caption>
             <h3>Unique third kit for the true fans.</h3>
-            <Button className="btn-orange" onClick={handleShopNowButton}>
+            <Button className="Carousel_btn" onClick={handleShopNowButton}>
               Shop Now
             </Button>
           </Carousel.Caption>
